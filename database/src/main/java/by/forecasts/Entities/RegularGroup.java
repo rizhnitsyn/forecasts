@@ -20,7 +20,7 @@ import javax.persistence.Table;
 public class RegularGroup extends TournamentGroups {
 
     @Column(name = "teams_in_group", nullable = false)
-    private int teamsInGroup;
+    private int teamCountInGroup;
 
     @Column(name = "group_out_count", nullable = false)
     private int groupOutCount;

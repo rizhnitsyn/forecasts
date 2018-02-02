@@ -15,7 +15,15 @@ import java.util.Set;
 @NoArgsConstructor
 @Table(name = "tournaments")
 @Entity
+@ToString(exclude = {"matches", "groups", "users"})
 public class Tournament {
+
+    public Tournament(String name, Team organizer, LocalDate startDate, Long stateId) {
+        this.name = name;
+        this.organizer = organizer;
+        this.startDate = startDate;
+        this.stateId = stateId;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

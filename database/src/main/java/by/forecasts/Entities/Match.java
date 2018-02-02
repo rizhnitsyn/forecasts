@@ -3,6 +3,7 @@ package by.forecasts.Entities;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,7 +15,16 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "matches")
+@ToString(exclude = "forecasts")
 public class Match {
+    public Match(MatchScore matchFinalResult, LocalDateTime matchDateTime, Long matchState, Team firstTeam, Team secondTeam, Tournament tournament) {
+        this.matchFinalResult = matchFinalResult;
+        this.matchDateTime = matchDateTime;
+        this.matchState = matchState;
+        this.firstTeam = firstTeam;
+        this.secondTeam = secondTeam;
+        this.tournament = tournament;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +42,7 @@ public class Match {
     private LocalDateTime matchDateTime;
 
     @Column(name = "match_state_id", nullable = false)
-    private int matchState;
+    private Long matchState;
 
     @ManyToOne
     @JoinColumn(name = "first_team_id")

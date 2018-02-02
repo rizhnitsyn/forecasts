@@ -4,6 +4,7 @@ package by.forecasts.Entities;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -14,7 +15,12 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "teams")
+@ToString(exclude = {"homeMatches", "visitorMatches"})
 public class Team {
+
+    public Team(String teamName) {
+        this.teamName = teamName;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
