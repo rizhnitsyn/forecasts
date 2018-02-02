@@ -13,6 +13,14 @@
     <property name="show_sql">true</property>
     <property name="format_sql">true</property>
 
-    <mapping class="by.forecasts.Team"/>
+    <mapping class="by.forecasts.Entities.TournamentGroups"/>
+    <mapping class="by.forecasts.Entities.Match"/>
+    <mapping class="by.forecasts.Entities.PlayoffGroup"/>
+    <mapping class="by.forecasts.Entities.RegularGroup"/>
+    <mapping class="by.forecasts.Entities.Team"/>
+    <mapping class="by.forecasts.Entities.Tournament"/>
+    <mapping class="by.forecasts.Entities.Forecast"/>
+    <mapping class="by.forecasts.Entities.User"/>
+    <!--<mapping class="by.forecasts.Team"/>-->
   </session-factory>
 </hibernate-configuration>

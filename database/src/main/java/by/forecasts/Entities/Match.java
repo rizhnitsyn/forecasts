@@ -3,7 +3,6 @@ package by.forecasts.Entities;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,10 +13,8 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @Entity
-@ToString
 @Table(name = "matches")
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Match {
+public class Match {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,18 +34,18 @@ public abstract class Match {
     @Column(name = "match_state_id", nullable = false)
     private int matchState;
 
-    @OneToMany
-    @JoinColumn(name = "team_id")
+    @ManyToOne
+    @JoinColumn(name = "first_team_id")
     private Team firstTeam;
 
-    @OneToMany
-    @JoinColumn(name = "team_id")
+    @ManyToOne
+    @JoinColumn(name = "second_team_id")
     private Team secondTeam;
 
-    @OneToMany(mappedBy = "matches")
+    @ManyToOne
+    @JoinColumn(name = "tournament_id")
     private Tournament tournament;
 
-    @ManyToOne()
-    @JoinColumn(name = "forecast_id")
+    @OneToMany(mappedBy = "match")
     private Set<Forecast> forecasts  = new HashSet<>();
 }

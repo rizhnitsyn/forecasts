@@ -15,7 +15,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Table(name = "tournaments")
 @Entity
-@ToString
 public class Tournament {
 
     @Id
@@ -26,8 +25,8 @@ public class Tournament {
     @Column(name = "tournament_name", nullable = false, unique = true)
     private String name;
 
-    @OneToMany
-    @JoinColumn(name = "team_id")
+    @ManyToOne
+    @JoinColumn(name = "team_organizer_id")
     private Team organizer;
 
     @Column(name = "tournament_start_date", nullable = false)
@@ -36,11 +35,15 @@ public class Tournament {
     @Column(name = "tournament_state_id", nullable = false)
     private Long stateId;
 
-    @ManyToOne
-    @JoinColumn(name = "match_id")
+    @OneToMany(mappedBy = "tournament")
     private Set<Match> matches = new HashSet<>();
 
+    @OneToMany(mappedBy = "tournament")
+    private Set<TournamentGroups> groups = new HashSet<>();
+
     @ManyToMany
-    @JoinColumn(name = "user_id")
+    @JoinTable(name = "registration_desc",
+            joinColumns = @JoinColumn(name = "tournament_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> users = new HashSet<>();
 }

@@ -12,7 +12,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "forecasts")
-@ToString
 public class Forecast {
 
     @Id
@@ -23,13 +22,15 @@ public class Forecast {
     @Embedded
     @AttributeOverrides(value = {
             @AttributeOverride(name = "firstResult", column = @Column(name = "first_team_forecast")),
-            @AttributeOverride(name = "second_result", column = @Column(name = "second_team_forecast"))
+            @AttributeOverride(name = "secondResult", column = @Column(name = "second_team_forecast"))
     })
     private MatchScore matchForecast;
 
-    @OneToMany(mappedBy = "forecasts")
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "forecasts")
+    @ManyToOne()
+    @JoinColumn(name = "match_id")
     private Match match;
 }

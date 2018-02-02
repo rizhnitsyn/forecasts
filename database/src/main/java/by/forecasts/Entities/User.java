@@ -14,7 +14,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
-@ToString
 public class User {
 
     @Id
@@ -43,7 +42,6 @@ public class User {
     @ManyToMany(mappedBy = "users")
     private Set<Tournament> tournaments = new HashSet<>();
 
-    @ManyToOne
-    @JoinColumn(name = "forecast_id")
+    @OneToMany(mappedBy = "user")
     private Set<Forecast> forecasts = new HashSet<>();
 }
