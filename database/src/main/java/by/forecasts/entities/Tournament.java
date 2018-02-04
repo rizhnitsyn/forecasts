@@ -43,7 +43,7 @@ public class Tournament {
     @Column(name = "tournament_state_id", nullable = false)
     private Long stateId;
 
-    @OneToMany(mappedBy = "tournament")
+    @OneToMany(mappedBy = "tournament", fetch = FetchType.EAGER)
     private Set<Match> matches = new HashSet<>();
 
     @OneToMany(mappedBy = "tournament")

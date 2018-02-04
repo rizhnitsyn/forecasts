@@ -1,9 +1,12 @@
 package by.forecasts.dao;
 
+import by.forecasts.entities.Match;
 import by.forecasts.entities.Tournament;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+
+import java.util.Set;
 
 public class TournamentDao {
 
