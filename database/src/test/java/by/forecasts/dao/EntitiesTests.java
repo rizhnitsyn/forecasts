@@ -48,7 +48,6 @@ public class EntitiesTests {
         session2.close();
     }
 
-
     @Test
     public void tournamentTest() {
         Session session = sessionFactory.openSession();
