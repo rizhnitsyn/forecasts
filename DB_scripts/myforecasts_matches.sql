@@ -1,22 +1,3 @@
-CREATE TABLE myforecasts.matches
-(
-    match_id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    first_team_result int(11),
-    second_team_result int(11),
-    match_datetime datetime NOT NULL,
-    match_state_id int(11) NOT NULL,
-    first_team_id int(11) NOT NULL,
-    second_team_id int(11) NOT NULL,
-    tournament_id int(11) NOT NULL,
-    CONSTRAINT PLANNED_MATCHES_fk0 FOREIGN KEY (match_state_id) REFERENCES match_states (match_state_id),
-    CONSTRAINT PLANNED_MATCHES_fk2 FOREIGN KEY (first_team_id) REFERENCES teams (team_id),
-    CONSTRAINT PLANNED_MATCHES_fk3 FOREIGN KEY (second_team_id) REFERENCES teams (team_id),
-    CONSTRAINT PLANNED_MATCHES_fk4 FOREIGN KEY (tournament_id) REFERENCES tournaments (tournament_id)
-);
-CREATE INDEX PLANNED_MATCHES_fk0 ON myforecasts.matches (match_state_id);
-CREATE INDEX PLANNED_MATCHES_fk2 ON myforecasts.matches (first_team_id);
-CREATE INDEX PLANNED_MATCHES_fk3 ON myforecasts.matches (second_team_id);
-CREATE INDEX PLANNED_MATCHES_fk4 ON myforecasts.matches (tournament_id);
 INSERT INTO myforecasts.matches (first_team_result, second_team_result, match_datetime, match_state_id, first_team_id, second_team_id, tournament_id) VALUES (2, 1, '2016-06-10 17:00:00', 2, 1, 2, 1);
 INSERT INTO myforecasts.matches (first_team_result, second_team_result, match_datetime, match_state_id, first_team_id, second_team_id, tournament_id) VALUES (0, 1, '2016-06-10 17:00:00', 2, 3, 4, 1);
 INSERT INTO myforecasts.matches (first_team_result, second_team_result, match_datetime, match_state_id, first_team_id, second_team_id, tournament_id) VALUES (2, 1, '2016-06-11 17:00:00', 2, 5, 6, 1);

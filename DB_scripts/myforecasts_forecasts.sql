@@ -1,15 +1,3 @@
-CREATE TABLE myforecasts.forecasts
-(
-    forecast_id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    match_id int(11) NOT NULL,
-    first_team_forecast int(11) NOT NULL,
-    second_team_forecast int(11) NOT NULL,
-    user_id int(11) NOT NULL,
-    CONSTRAINT FORECASTS_fk0 FOREIGN KEY (match_id) REFERENCES matches (match_id),
-    CONSTRAINT FORECASTS_fk1 FOREIGN KEY (user_id) REFERENCES users (user_id)
-);
-CREATE INDEX FORECASTS_fk1 ON myforecasts.forecasts (user_id);
-CREATE UNIQUE INDEX unique_index ON myforecasts.forecasts (match_id, user_id);
 INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (1, 3, 0, 1);
 INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (2, 1, 2, 1);
 INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (3, 1, 1, 1);

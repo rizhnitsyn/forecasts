@@ -1,16 +1,3 @@
-CREATE TABLE myforecasts.tournaments
-(
-    tournament_id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    tournament_name varchar(30) NOT NULL,
-    team_organizer_id int(11) NOT NULL,
-    tournament_start_date date NOT NULL,
-    tournament_state_id int(11) NOT NULL,
-    CONSTRAINT TOURNAMENTS_fk0 FOREIGN KEY (team_organizer_id) REFERENCES teams (team_id),
-    CONSTRAINT TOURNAMENTS_fk1 FOREIGN KEY (tournament_state_id) REFERENCES tournament_states (tournament_state_id)
-);
-CREATE INDEX TOURNAMENTS_fk0 ON myforecasts.tournaments (team_organizer_id);
-CREATE INDEX TOURNAMENTS_fk1 ON myforecasts.tournaments (tournament_state_id);
-CREATE UNIQUE INDEX tournament_name ON myforecasts.tournaments (tournament_name);
 INSERT INTO myforecasts.tournaments (tournament_name, team_organizer_id, tournament_start_date, tournament_state_id) VALUES ('Чемпионат Европы 2016', 1, '2016-06-10', 2);
 INSERT INTO myforecasts.tournaments (tournament_name, team_organizer_id, tournament_start_date, tournament_state_id) VALUES ('updated964000', 2, '2018-06-10', 2);
 INSERT INTO myforecasts.tournaments (tournament_name, team_organizer_id, tournament_start_date, tournament_state_id) VALUES ('808373', 2, '2018-06-10', 2);

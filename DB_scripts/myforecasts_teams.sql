@@ -1,9 +1,3 @@
-CREATE TABLE myforecasts.teams
-(
-    team_id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    team_name varchar(30) NOT NULL
-);
-CREATE UNIQUE INDEX team_name ON myforecasts.teams (team_name);
 INSERT INTO myforecasts.teams (team_name) VALUES ('Австрия');
 INSERT INTO myforecasts.teams (team_name) VALUES ('Албания');
 INSERT INTO myforecasts.teams (team_name) VALUES ('Англия');
