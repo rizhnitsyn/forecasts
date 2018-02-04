@@ -1,6 +1,6 @@
 package by.forecasts.dao;
 
-import by.forecasts.Entities.*;
+import by.forecasts.entities.*;
 import org.hamcrest.Matchers;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -47,7 +47,6 @@ public class EntitiesTests {
         session2.getTransaction().commit();
         session2.close();
     }
-
 
     @Test
     public void tournamentTest() {

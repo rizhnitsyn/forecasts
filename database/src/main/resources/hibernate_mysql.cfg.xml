@@ -13,14 +13,14 @@
     <property name="show_sql">true</property>
     <property name="format_sql">true</property>
 
-    <mapping class="by.forecasts.Entities.TournamentGroup"/>
-    <mapping class="by.forecasts.Entities.Match"/>
-    <mapping class="by.forecasts.Entities.PlayoffGroup"/>
-    <mapping class="by.forecasts.Entities.RegularGroup"/>
-    <mapping class="by.forecasts.Entities.Team"/>
-    <mapping class="by.forecasts.Entities.Tournament"/>
-    <mapping class="by.forecasts.Entities.Forecast"/>
-    <mapping class="by.forecasts.Entities.User"/>
+    <mapping class="by.forecasts.entities.TournamentGroup"/>
+    <mapping class="by.forecasts.entities.Match"/>
+    <mapping class="by.forecasts.entities.PlayoffGroup"/>
+    <mapping class="by.forecasts.entities.RegularGroup"/>
+    <mapping class="by.forecasts.entities.Team"/>
+    <mapping class="by.forecasts.entities.Tournament"/>
+    <mapping class="by.forecasts.entities.Forecast"/>
+    <mapping class="by.forecasts.entities.User"/>
     <!--<mapping class="by.forecasts.UserDao"/>-->
   </session-factory>
 </hibernate-configuration>

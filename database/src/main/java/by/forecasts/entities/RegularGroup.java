@@ -1,4 +1,4 @@
-package by.forecasts.Entities;
+package by.forecasts.entities;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
