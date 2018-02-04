@@ -3,21 +3,21 @@ package by.forecasts;
 import by.forecasts.dao.TournamentDao;
 import by.forecasts.entities.Tournament;
 
-public class TournamentService {
+public final class TournamentService {
 
-    private static TournamentService INSTANCE;
+    private static TournamentService instance;
 
     private TournamentService() {}
 
     public static TournamentService getInstance() {
-        if (INSTANCE == null) {
+        if (instance == null) {
             synchronized (TournamentService.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new TournamentService();
+                if (instance == null) {
+                    instance = new TournamentService();
                 }
             }
         }
-        return INSTANCE;
+        return instance;
     }
 
     public Tournament getTournamentById(Long id) {

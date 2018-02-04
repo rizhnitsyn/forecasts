@@ -1,29 +1,26 @@
 package by.forecasts.dao;
 
-import by.forecasts.entities.Match;
 import by.forecasts.entities.Tournament;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import java.util.Set;
+public final class TournamentDao {
 
-public class TournamentDao {
-
-    private static TournamentDao INSTANCE;
+    private static TournamentDao instance;
     private SessionFactory sessionFactory = new Configuration().configure("hibernate_mysql.cfg.xml").buildSessionFactory();
 
     private TournamentDao() {}
 
     public static TournamentDao getInstance() {
-        if (INSTANCE == null) {
+        if (instance == null) {
             synchronized (TournamentDao.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new TournamentDao();
+                if (instance == null) {
+                    instance = new TournamentDao();
                 }
             }
         }
-        return INSTANCE;
+        return instance;
     }
 
     public Tournament getTournamentById(Long id) {

@@ -1,4 +1,4 @@
-package by.forecasts.dao;
+package by.forecasts.entities;
 
 import by.forecasts.entities.*;
 import org.hamcrest.Matchers;
