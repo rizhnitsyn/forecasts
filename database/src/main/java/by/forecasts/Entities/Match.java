@@ -45,15 +45,15 @@ public class Match {
     private Long matchState;
 
     @ManyToOne
-    @JoinColumn(name = "first_team_id")
+    @JoinColumn(name = "first_team_id", nullable = false)
     private Team firstTeam;
 
     @ManyToOne
-    @JoinColumn(name = "second_team_id")
+    @JoinColumn(name = "second_team_id", nullable = false)
     private Team secondTeam;
 
     @ManyToOne
-    @JoinColumn(name = "tournament_id")
+    @JoinColumn(name = "tournament_id", nullable = false)
     private Tournament tournament;
 
     @OneToMany(mappedBy = "match")

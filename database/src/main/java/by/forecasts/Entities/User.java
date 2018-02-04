@@ -14,6 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
+@ToString(exclude = "forecasts")
 public class User {
 
     @Id
@@ -21,7 +22,17 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
+    public User(String firstName, String secondName, String email, Long userState, String login, String password) {
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.email = email;
+        this.userState = userState;
+        this.login = login;
+        this.password = password;
+    }
+
     @Column(name = "first_name", nullable = false)
+
     private String firstName;
 
     @Column(name = "second_name", nullable = false)

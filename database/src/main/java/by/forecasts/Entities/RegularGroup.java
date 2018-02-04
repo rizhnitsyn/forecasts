@@ -17,10 +17,16 @@ import javax.persistence.Table;
 @ToString(callSuper = true)
 @Table(name = "regular_groups")
 @PrimaryKeyJoinColumn(name = "group_id")
-public class RegularGroup extends TournamentGroups {
+public class RegularGroup extends TournamentGroup {
 
-    @Column(name = "teams_in_group", nullable = false)
-    private int teamCountInGroup;
+    public RegularGroup(int teamsCountInGroup, int groupOutCount, int matchesCountBetweenTeams, Long groupNameId, Tournament tournament) {
+        super(matchesCountBetweenTeams, groupNameId, tournament);
+        this.teamsCountInGroup = teamsCountInGroup;
+        this.groupOutCount = groupOutCount;
+    }
+
+    @Column(name = "teams_count", nullable = false)
+    private int teamsCountInGroup;
 
     @Column(name = "group_out_count", nullable = false)
     private int groupOutCount;

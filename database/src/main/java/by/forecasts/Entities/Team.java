@@ -15,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "teams")
-@ToString(exclude = {"homeMatches", "visitorMatches"})
+@ToString(exclude = {"visitorMatches", "homeMatches"})
 public class Team {
 
     public Team(String teamName) {

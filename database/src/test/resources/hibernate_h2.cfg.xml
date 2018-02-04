@@ -13,7 +13,7 @@
     <property name="show_sql">true</property>
     <property name="format_sql">true</property>
     <property name="hbm2ddl.auto">create-drop</property>
-    <mapping class="by.forecasts.Entities.TournamentGroups"/>
+    <mapping class="by.forecasts.Entities.TournamentGroup"/>
     <mapping class="by.forecasts.Entities.Match"/>
     <mapping class="by.forecasts.Entities.PlayoffGroup"/>
     <mapping class="by.forecasts.Entities.RegularGroup"/>

@@ -34,7 +34,7 @@ public class Tournament {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "team_organizer_id")
+    @JoinColumn(name = "team_organizer_id", nullable = false)
     private Team organizer;
 
     @Column(name = "tournament_start_date", nullable = false)
@@ -47,7 +47,7 @@ public class Tournament {
     private Set<Match> matches = new HashSet<>();
 
     @OneToMany(mappedBy = "tournament")
-    private Set<TournamentGroups> groups = new HashSet<>();
+    private Set<TournamentGroup> groups = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "registration_desc",
