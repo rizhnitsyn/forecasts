@@ -13,13 +13,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "forecasts")
-@ToString
-public class Forecast {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "forecast_id")
-    private Long id;
+@ToString(callSuper = true)
+public class Forecast extends BaseEntity {
 
     public Forecast(MatchScore matchForecast, User user, Match match) {
         this.matchForecast = matchForecast;

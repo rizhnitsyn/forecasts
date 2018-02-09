@@ -15,8 +15,9 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "matches")
-@ToString(exclude = "forecasts")
-public class Match {
+@ToString(exclude = "forecasts", callSuper = true)
+public class Match extends BaseEntity {
+
     public Match(MatchScore matchFinalResult, LocalDateTime matchDateTime, Long matchState, Team firstTeam, Team secondTeam, Tournament tournament) {
         this.matchFinalResult = matchFinalResult;
         this.matchDateTime = matchDateTime;
@@ -25,11 +26,6 @@ public class Match {
         this.secondTeam = secondTeam;
         this.tournament = tournament;
     }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "match_id")
-    private Long matchId;
 
     @Embedded
     @AttributeOverrides(value = {

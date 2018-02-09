@@ -15,8 +15,8 @@ import java.util.Set;
 @NoArgsConstructor
 @Table(name = "tournaments")
 @Entity
-@ToString(exclude = {"matches", "groups", "users"})
-public class Tournament {
+@ToString(callSuper = true, exclude = {"matches", "groups", "users"})
+public class Tournament extends BaseEntity {
 
     public Tournament(String name, Team organizer, LocalDate startDate, Long stateId) {
         this.name = name;
@@ -24,11 +24,6 @@ public class Tournament {
         this.startDate = startDate;
         this.stateId = stateId;
     }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "tournament_id")
-    private Long id;
 
     @Column(name = "tournament_name", nullable = false, unique = true)
     private String name;

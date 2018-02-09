@@ -15,17 +15,12 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "teams")
-@ToString(exclude = {"visitorMatches", "homeMatches"})
-public class Team {
+@ToString(callSuper = true, exclude = {"visitorMatches", "homeMatches"})
+public class Team extends BaseEntity {
 
     public Team(String teamName) {
         this.teamName = teamName;
     }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "team_id")
-    private Long id;
 
     @Column(name = "team_name", nullable = false, unique = true)
     private String teamName;
