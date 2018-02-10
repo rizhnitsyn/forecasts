@@ -5,30 +5,39 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public final class TournamentDao {
+import java.util.List;
 
-    private static TournamentDao instance;
-    private SessionFactory sessionFactory = new Configuration().configure("hibernate_mysql.cfg.xml").buildSessionFactory();
+public final class TournamentDao extends BaseDao<Tournament> {
 
-    private TournamentDao() {}
+    private static TournamentDao INSTANCE;
+    private SessionFactory SESSION_FACTORY = new Configuration().configure("hibernate_h2.cfg.xml").buildSessionFactory();
+
+    private TournamentDao() {
+        super(Tournament.class);
+    }
 
     public static TournamentDao getInstance() {
-        if (instance == null) {
+        if (INSTANCE == null) {
             synchronized (TournamentDao.class) {
-                if (instance == null) {
-                    instance = new TournamentDao();
+                if (INSTANCE == null) {
+                    INSTANCE = new TournamentDao();
                 }
             }
         }
-        return instance;
+        return INSTANCE;
     }
 
-    public Tournament getTournamentById(Long id) {
-        Session session = sessionFactory.openSession();
+    public List<Tournament> getTournamentsFilterByUser(Long userId) {
+        Session session = SESSION_FACTORY.openSession();
         session.beginTransaction();
-        Tournament tournament = session.get(Tournament.class, id);
+
+        List<Tournament> tournamentList = session.createQuery("select u.tournaments from User u where u.id = :userId", Tournament.class)
+                .setParameter("userId", userId)
+                .getResultList();
+
         session.getTransaction().commit();
         session.close();
-        return tournament;
+
+        return tournamentList;
     }
 }
