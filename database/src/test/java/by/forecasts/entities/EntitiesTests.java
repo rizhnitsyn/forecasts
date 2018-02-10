@@ -1,6 +1,6 @@
 package by.forecasts.entities;
 
-import by.forecasts.entities.*;
+
 import org.hamcrest.Matchers;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
