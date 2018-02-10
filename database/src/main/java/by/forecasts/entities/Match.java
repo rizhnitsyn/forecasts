@@ -18,10 +18,19 @@ import java.util.Set;
 @ToString(exclude = "forecasts", callSuper = true)
 public class Match extends BaseEntity {
 
+    public Match(LocalDateTime matchDateTime, Long matchState, Team firstTeam, Team secondTeam, Tournament tournament) {
+        this.matchDateTime = matchDateTime;
+        this.matchState = matchState;
+        this.firstTeam = firstTeam;
+        this.secondTeam = secondTeam;
+        this.tournament = tournament;
+    }
+
     public Match(MatchScore matchFinalResult, LocalDateTime matchDateTime, Long matchState, Team firstTeam, Team secondTeam, Tournament tournament) {
         this.matchFinalResult = matchFinalResult;
         this.matchDateTime = matchDateTime;
         this.matchState = matchState;
+
         this.firstTeam = firstTeam;
         this.secondTeam = secondTeam;
         this.tournament = tournament;

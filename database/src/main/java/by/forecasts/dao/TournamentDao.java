@@ -1,11 +1,15 @@
 package by.forecasts.dao;
 
 import by.forecasts.entities.Tournament;
+import by.forecasts.entities.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public final class TournamentDao extends BaseDao<Tournament> {
 
@@ -31,13 +35,14 @@ public final class TournamentDao extends BaseDao<Tournament> {
         Session session = SESSION_FACTORY.openSession();
         session.beginTransaction();
 
-        List<Tournament> tournamentList = session.createQuery("select u.tournaments from User u where u.id = :userId", Tournament.class)
+        User user = session.createQuery("select u from User u where u.id = :userId", User.class)
                 .setParameter("userId", userId)
-                .getResultList();
+                .getSingleResult();
+        List<Tournament> tournaments = new ArrayList<>(user.getTournaments());
 
         session.getTransaction().commit();
         session.close();
 
-        return tournamentList;
+        return tournaments;
     }
 }
