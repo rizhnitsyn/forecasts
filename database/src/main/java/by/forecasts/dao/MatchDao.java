@@ -33,8 +33,8 @@ public class MatchDao extends BaseDao<Match> {
         Session session = SESSION_FACTORY.openSession();
         session.beginTransaction();
 
-        List<Match> matches = session.createQuery("select m from Match m where m.tournament.id = :trId " +
-                "and m.id not in (select f from Forecast f where f.user.id = :userId)", Match.class)
+        List<Match> matches = session.createQuery("select m from Match m where m.tournament.id = :trId "
+                + "and m.id not in (select f from Forecast f where f.user.id = :userId)", Match.class)
                 .setParameter("trId", tournamentId)
                 .setParameter("userId", userId)
                 .getResultList();

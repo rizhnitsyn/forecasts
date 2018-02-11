@@ -5,7 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public class TeamDao extends BaseDao<Team>{
+public class TeamDao extends BaseDao<Team> {
 
     private static final SessionFactory SESSION_FACTORY = new Configuration().configure("hibernate_h2.cfg.xml").buildSessionFactory();
 //    private static final SessionFactory SESSION_FACTORY = new Configuration().configure("hibernate_mysql.cfg.xml").buildSessionFactory();
@@ -38,5 +38,4 @@ public class TeamDao extends BaseDao<Team>{
         session.close();
         return team;
     }
-
 }
