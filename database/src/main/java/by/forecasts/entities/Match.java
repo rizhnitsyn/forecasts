@@ -15,10 +15,10 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "matches")
-@ToString(exclude = "forecasts")
-public class Match {
-    public Match(MatchScore matchFinalResult, LocalDateTime matchDateTime, Long matchState, Team firstTeam, Team secondTeam, Tournament tournament) {
-        this.matchFinalResult = matchFinalResult;
+@ToString(exclude = "forecasts", callSuper = true)
+public class Match extends BaseEntity {
+
+    public Match(LocalDateTime matchDateTime, Long matchState, Team firstTeam, Team secondTeam, Tournament tournament) {
         this.matchDateTime = matchDateTime;
         this.matchState = matchState;
         this.firstTeam = firstTeam;
@@ -26,10 +26,15 @@ public class Match {
         this.tournament = tournament;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "match_id")
-    private Long matchId;
+    public Match(MatchScore matchFinalResult, LocalDateTime matchDateTime, Long matchState, Team firstTeam, Team secondTeam, Tournament tournament) {
+        this.matchFinalResult = matchFinalResult;
+        this.matchDateTime = matchDateTime;
+        this.matchState = matchState;
+
+        this.firstTeam = firstTeam;
+        this.secondTeam = secondTeam;
+        this.tournament = tournament;
+    }
 
     @Embedded
     @AttributeOverrides(value = {

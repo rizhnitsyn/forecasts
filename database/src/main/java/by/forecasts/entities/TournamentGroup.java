@@ -16,18 +16,13 @@ import java.util.Set;
 @ToString
 @Table(name = "groups_in_tournament")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class TournamentGroup {
+public abstract class TournamentGroup extends BaseEntity {
 
     public TournamentGroup(int matchesCountBetweenTeams, Long groupNameId, Tournament tournament) {
         this.matchesCountBetweenTeams = matchesCountBetweenTeams;
         this.groupNameId = groupNameId;
         this.tournament = tournament;
     }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "group_id")
-    private Long groupId;
 
     @Column(name = "match_count_between_teams", nullable = false)
     private int matchesCountBetweenTeams;

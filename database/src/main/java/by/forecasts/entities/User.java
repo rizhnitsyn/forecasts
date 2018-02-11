@@ -14,13 +14,8 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
-@ToString(exclude = "forecasts")
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private Long id;
+@ToString(callSuper = true, exclude = "forecasts")
+public class User extends BaseEntity {
 
     public User(String firstName, String secondName, String email, Long userState, String login, String password) {
         this.firstName = firstName;
