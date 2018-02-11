@@ -3,24 +3,31 @@ package by.forecasts;
 import by.forecasts.dao.TournamentDao;
 import by.forecasts.entities.Tournament;
 
+import java.util.List;
+
 public final class TournamentService {
 
-    private static TournamentService instance;
+    private static TournamentService INSTANCE;
+    private static final TournamentDao TOURNAMENT_DAO = TournamentDao.getInstance();
 
     private TournamentService() {}
 
     public static TournamentService getInstance() {
-        if (instance == null) {
+        if (INSTANCE == null) {
             synchronized (TournamentService.class) {
-                if (instance == null) {
-                    instance = new TournamentService();
+                if (INSTANCE == null) {
+                    INSTANCE = new TournamentService();
                 }
             }
         }
-        return instance;
+        return INSTANCE;
     }
 
     public Tournament getTournamentById(Long id) {
-        return TournamentDao.getInstance().getTournamentById(id);
+        return TOURNAMENT_DAO.findById(id);
+    }
+
+    public List<Tournament> getListOfTournaments() {
+        return TOURNAMENT_DAO.findAll();
     }
 }
