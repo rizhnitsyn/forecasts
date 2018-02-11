@@ -9,6 +9,7 @@ import java.util.List;
 
 public abstract class BaseDao<T extends BaseEntity> {
     private static final SessionFactory SESSION_FACTORY = new Configuration().configure("hibernate_h2.cfg.xml").buildSessionFactory();
+//    private static final SessionFactory SESSION_FACTORY = new Configuration().configure("hibernate_mysql.cfg.xml").buildSessionFactory();
 
     private Class<T> entityClass;
 

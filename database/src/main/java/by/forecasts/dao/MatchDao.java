@@ -11,6 +11,7 @@ public class MatchDao extends BaseDao<Match> {
 
     private static MatchDao INSTANCE;
     private SessionFactory SESSION_FACTORY = new Configuration().configure("hibernate_h2.cfg.xml").buildSessionFactory();
+//    private SessionFactory SESSION_FACTORY = new Configuration().configure("hibernate_mysql.cfg.xml").buildSessionFactory();
 
 
     private MatchDao() {

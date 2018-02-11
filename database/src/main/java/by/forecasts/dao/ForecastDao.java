@@ -12,6 +12,7 @@ public class ForecastDao extends BaseDao<Forecast> {
 
     private static ForecastDao INSTANCE;
     private SessionFactory SESSION_FACTORY = new Configuration().configure("hibernate_h2.cfg.xml").buildSessionFactory();
+//    private SessionFactory SESSION_FACTORY = new Configuration().configure("hibernate_mysql.cfg.xml").buildSessionFactory();
 
     private ForecastDao() {
         super(Forecast.class);
@@ -41,20 +42,41 @@ public class ForecastDao extends BaseDao<Forecast> {
         return forecasts;
     }
 
-    public List<Forecast> getUserForecastsOfTournament(Long userId, Long tournamentId, Long matchState) {
+    public List<Object[]> getUserForecastsOfTournament(Long userId, Long tournamentId, Long matchState, int recordsCnt, int pageNo) {
         Session session = SESSION_FACTORY.openSession();
         session.beginTransaction();
 
-        List<Forecast> forecasts = session.createQuery("select f from Forecast f where f.user.id = :userId " +
-                "and f.match.tournament.id = :tournamentId and f.match.matchState = :matchState", Forecast.class)
+        List<Object[]> resultList = session.createQuery("select f.match.firstTeam.teamName, f.match.secondTeam.teamName, " +
+                " f.matchForecast.firstResult, f.matchForecast.secondResult from Forecast f where f.user.id = :userId " +
+                "and f.match.tournament.id = :tournamentId and f.match.matchState = :matchState " +
+                "order by f.match.id", Object[].class)
                 .setParameter("userId", userId)
                 .setParameter("tournamentId", tournamentId)
                 .setParameter("matchState", matchState)
+                .setFirstResult((recordsCnt * pageNo) - recordsCnt)
+                .setMaxResults(recordsCnt)
                 .getResultList();
 
         session.getTransaction().commit();
         session.close();
-        return forecasts;
+        return resultList;
+    }
+
+    public Long getCountOfUserForecasts(Long userId, Long tournamentId, Long matchState) {
+        Session session = SESSION_FACTORY.openSession();
+        session.beginTransaction();
+
+        Long forecastsCount = session.createQuery("select count(*) from Forecast f where f.user.id = :userId " +
+                "and f.match.tournament.id = :tournamentId and f.match.matchState = :matchState " +
+                "order by f.match.id", Long.class)
+                .setParameter("userId", userId)
+                .setParameter("tournamentId", tournamentId)
+                .setParameter("matchState", matchState)
+                .getSingleResult();
+
+        session.getTransaction().commit();
+        session.close();
+        return forecastsCount;
     }
 
 

@@ -8,13 +8,12 @@ import org.hibernate.cfg.Configuration;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public final class TournamentDao extends BaseDao<Tournament> {
 
     private static TournamentDao INSTANCE;
     private SessionFactory SESSION_FACTORY = new Configuration().configure("hibernate_h2.cfg.xml").buildSessionFactory();
+//    private SessionFactory SESSION_FACTORY = new Configuration().configure("hibernate_mysql.cfg.xml").buildSessionFactory();
 
     private TournamentDao() {
         super(Tournament.class);
