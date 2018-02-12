@@ -1,17 +1,3 @@
-CREATE TABLE myforecasts.users
-(
-    user_id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    first_name varchar(30) NOT NULL,
-    second_name varchar(30) NOT NULL,
-    email varchar(30) NOT NULL,
-    user_state_id int(11) NOT NULL,
-    login varchar(30) NOT NULL,
-    password varchar(100) NOT NULL,
-    CONSTRAINT user_stets_fk1 FOREIGN KEY (user_state_id) REFERENCES user_states (user_state_id)
-);
-CREATE UNIQUE INDEX email ON myforecasts.users (email);
-CREATE UNIQUE INDEX users_login_uindex ON myforecasts.users (login);
-CREATE INDEX user_stets_fk1_idx ON myforecasts.users (user_state_id);
 INSERT INTO myforecasts.users (first_name, second_name, email, user_state_id, login, password) VALUES ('Андрей', 'Рижницын', 'ra@tut.by', 2, 'rizhnitsyn', '11111');
 INSERT INTO myforecasts.users (first_name, second_name, email, user_state_id, login, password) VALUES ('Сергей', 'Гусаков', 'sg@tut.by', 2, 'gusakov', '');
 INSERT INTO myforecasts.users (first_name, second_name, email, user_state_id, login, password) VALUES ('Роман', 'Жук', 'rzh@tut.by', 2, 'zhuk', '');
