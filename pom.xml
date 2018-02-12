@@ -35,6 +35,12 @@
     </dependency>
 
     <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-jpamodelgen</artifactId>
+      <version>5.2.10.Final</version>
+    </dependency>
+
+    <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>1.16.20</version>
@@ -53,6 +59,8 @@
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
+          <compilerArgument>-proc:none</compilerArgument>
+          <!--<generatedSourcesDirectory>/generated-sources/annotations</generatedSourcesDirectory>-->
         </configuration>
       </plugin>
 
