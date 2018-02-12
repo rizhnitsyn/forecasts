@@ -5,22 +5,22 @@ import by.forecasts.entities.User;
 
 import java.util.List;
 
-public class UserService {
+public final class UserService {
 
-    private static UserService INSTANCE;
+    private static UserService instance;
     private static final UserDao USER_DAO = UserDao.getInstance();
 
     private UserService() {}
 
     public static UserService getInstance() {
-        if (INSTANCE == null) {
+        if (instance == null) {
             synchronized (UserService.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new UserService();
+                if (instance == null) {
+                    instance = new UserService();
                 }
             }
         }
-        return INSTANCE;
+        return instance;
     }
 
     public List<User> getListOfUsers() {

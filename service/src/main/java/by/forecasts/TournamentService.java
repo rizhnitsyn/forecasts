@@ -7,20 +7,20 @@ import java.util.List;
 
 public final class TournamentService {
 
-    private static TournamentService INSTANCE;
+    private static TournamentService instance;
     private static final TournamentDao TOURNAMENT_DAO = TournamentDao.getInstance();
 
     private TournamentService() {}
 
     public static TournamentService getInstance() {
-        if (INSTANCE == null) {
+        if (instance == null) {
             synchronized (TournamentService.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new TournamentService();
+                if (instance == null) {
+                    instance = new TournamentService();
                 }
             }
         }
-        return INSTANCE;
+        return instance;
     }
 
     public Tournament getTournamentById(Long id) {

@@ -12,7 +12,7 @@ public final class SessionManager {
 
     private SessionManager() {}
 
-    private static void ConfigFactory(String configFile) {
+    private static void configFactory(String configFile) {
         if (sessionFactory != null && sessionFactory.isOpen()) {
             sessionFactory.close();
         }
@@ -28,10 +28,10 @@ public final class SessionManager {
     }
 
     public static void setMySqlConfig() {
-        ConfigFactory(MYSQL_CONFIG);
+        configFactory(MYSQL_CONFIG);
     }
 
     public static void setH2Config() {
-        ConfigFactory(H2_CONFIG);
+        configFactory(H2_CONFIG);
     }
 }

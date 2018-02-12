@@ -1,11 +1,11 @@
 CREATE TABLE myforecasts.tournaments
 (
-    tournament_id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     tournament_name varchar(30) NOT NULL,
     team_organizer_id int(11) NOT NULL,
     tournament_start_date date NOT NULL,
     tournament_state_id int(11) NOT NULL,
-    CONSTRAINT TOURNAMENTS_fk0 FOREIGN KEY (team_organizer_id) REFERENCES teams (team_id),
+    CONSTRAINT TOURNAMENTS_fk0 FOREIGN KEY (team_organizer_id) REFERENCES teams (id),
     CONSTRAINT TOURNAMENTS_fk1 FOREIGN KEY (tournament_state_id) REFERENCES tournament_states (tournament_state_id)
 );
 CREATE INDEX TOURNAMENTS_fk0 ON myforecasts.tournaments (team_organizer_id);

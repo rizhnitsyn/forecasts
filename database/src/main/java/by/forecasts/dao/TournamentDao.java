@@ -4,29 +4,27 @@ import by.forecasts.entities.Tournament;
 import by.forecasts.entities.User;
 import by.forecasts.utils.SessionManager;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public final class TournamentDao extends BaseDao<Tournament> {
 
-    private static TournamentDao INSTANCE;
+    private static TournamentDao instance;
 
     private TournamentDao() {
         super(Tournament.class);
     }
 
     public static TournamentDao getInstance() {
-        if (INSTANCE == null) {
+        if (instance == null) {
             synchronized (TournamentDao.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new TournamentDao();
+                if (instance == null) {
+                    instance = new TournamentDao();
                 }
             }
         }
-        return INSTANCE;
+        return instance;
     }
 
     public List<Tournament> getTournamentsFilterByUser(Long userId) {

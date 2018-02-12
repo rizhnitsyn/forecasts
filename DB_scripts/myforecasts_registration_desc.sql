@@ -2,8 +2,8 @@ CREATE TABLE myforecasts.registration_desc
 (
     tournament_id int(11) NOT NULL,
     user_id int(11) NOT NULL,
-    CONSTRAINT REGISTRATION_DESC_fk0 FOREIGN KEY (tournament_id) REFERENCES tournaments (tournament_id),
-    CONSTRAINT REGISTRATION_DESC_fk1 FOREIGN KEY (user_id) REFERENCES users (user_id)
+    CONSTRAINT REGISTRATION_DESC_fk0 FOREIGN KEY (tournament_id) REFERENCES tournaments (id),
+    CONSTRAINT REGISTRATION_DESC_fk1 FOREIGN KEY (user_id) REFERENCES users (id)
 );
 CREATE INDEX REGISTRATION_DESC_fk1 ON myforecasts.registration_desc (user_id);
 CREATE UNIQUE INDEX `UNIQUE CONSTRAINTE1` ON myforecasts.registration_desc (tournament_id, user_id);

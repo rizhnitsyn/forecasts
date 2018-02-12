@@ -1,6 +1,6 @@
 CREATE TABLE myforecasts.users
 (
-    user_id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     first_name varchar(30) NOT NULL,
     second_name varchar(30) NOT NULL,
     email varchar(30) NOT NULL,

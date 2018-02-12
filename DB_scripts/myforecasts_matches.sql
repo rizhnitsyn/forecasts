@@ -1,6 +1,6 @@
 CREATE TABLE myforecasts.matches
 (
-    match_id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     first_team_result int(11),
     second_team_result int(11),
     match_datetime datetime NOT NULL,
@@ -9,9 +9,9 @@ CREATE TABLE myforecasts.matches
     second_team_id int(11) NOT NULL,
     tournament_id int(11) NOT NULL,
     CONSTRAINT PLANNED_MATCHES_fk0 FOREIGN KEY (match_state_id) REFERENCES match_states (match_state_id),
-    CONSTRAINT PLANNED_MATCHES_fk2 FOREIGN KEY (first_team_id) REFERENCES teams (team_id),
-    CONSTRAINT PLANNED_MATCHES_fk3 FOREIGN KEY (second_team_id) REFERENCES teams (team_id),
-    CONSTRAINT PLANNED_MATCHES_fk4 FOREIGN KEY (tournament_id) REFERENCES tournaments (tournament_id)
+    CONSTRAINT PLANNED_MATCHES_fk2 FOREIGN KEY (first_team_id) REFERENCES teams (id),
+    CONSTRAINT PLANNED_MATCHES_fk3 FOREIGN KEY (second_team_id) REFERENCES teams (id),
+    CONSTRAINT PLANNED_MATCHES_fk4 FOREIGN KEY (tournament_id) REFERENCES tournaments (id)
 );
 CREATE INDEX PLANNED_MATCHES_fk0 ON myforecasts.matches (match_state_id);
 CREATE INDEX PLANNED_MATCHES_fk2 ON myforecasts.matches (first_team_id);

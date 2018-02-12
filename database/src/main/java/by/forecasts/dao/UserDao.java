@@ -5,23 +5,23 @@ import by.forecasts.entities.User;
 import by.forecasts.utils.SessionManager;
 import org.hibernate.Session;
 
-public class UserDao extends BaseDao<User> {
+public final class UserDao extends BaseDao<User> {
 
-    private static UserDao INSTANCE;
+    private static UserDao instance;
 
     private UserDao() {
         super(User.class);
     }
 
     public static UserDao getInstance() {
-        if (INSTANCE == null) {
+        if (instance == null) {
             synchronized (MatchDao.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new UserDao();
+                if (instance == null) {
+                    instance = new UserDao();
                 }
             }
         }
-        return INSTANCE;
+        return instance;
     }
 
     public void registerOnTournament(Tournament tournament, User user) {

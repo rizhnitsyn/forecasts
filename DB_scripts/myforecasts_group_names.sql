@@ -15,7 +15,7 @@ INSERT INTO myforecasts.group_names (group_name_id, group_name, group_type_id) V
 INSERT INTO myforecasts.group_names (group_name_id, group_name, group_type_id) VALUES (6, 'Группа F', 1);
 INSERT INTO myforecasts.group_names (group_name_id, group_name, group_type_id) VALUES (7, 'Группа G', 1);
 INSERT INTO myforecasts.group_names (group_name_id, group_name, group_type_id) VALUES (8, 'Группа I', 1);
-INSERT INTO myforecasts.group_names (group_name_id, group_name, group_type_id) VALUES (9, '1\\8 финала', 2);
-INSERT INTO myforecasts.group_names (group_name_id, group_name, group_type_id) VALUES (10, '1\\4 финала', 2);
-INSERT INTO myforecasts.group_names (group_name_id, group_name, group_type_id) VALUES (11, '1\\2 финала', 2);
+INSERT INTO myforecasts.group_names (group_name_id, group_name, group_type_id) VALUES (9, '18 финала', 2);
+INSERT INTO myforecasts.group_names (group_name_id, group_name, group_type_id) VALUES (10, '14 финала', 2);
+INSERT INTO myforecasts.group_names (group_name_id, group_name, group_type_id) VALUES (11, '12 финала', 2);
 INSERT INTO myforecasts.group_names (group_name_id, group_name, group_type_id) VALUES (12, 'Финал', 2);
