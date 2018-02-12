@@ -2,15 +2,12 @@ package by.forecasts.dao;
 
 import by.forecasts.entities.Tournament;
 import by.forecasts.entities.User;
+import by.forecasts.utils.SessionManager;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 public class UserDao extends BaseDao<User> {
 
     private static UserDao INSTANCE;
-    private SessionFactory SESSION_FACTORY = new Configuration().configure("hibernate_h2.cfg.xml").buildSessionFactory();
-//    private SessionFactory SESSION_FACTORY = new Configuration().configure("hibernate_mysql.cfg.xml").buildSessionFactory();
 
     private UserDao() {
         super(User.class);
@@ -28,7 +25,7 @@ public class UserDao extends BaseDao<User> {
     }
 
     public void registerOnTournament(Tournament tournament, User user) {
-        Session session = SESSION_FACTORY.openSession();
+        Session session = SessionManager.getSession();
         session.beginTransaction();
 
         session.refresh(tournament);

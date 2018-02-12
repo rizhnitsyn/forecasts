@@ -1,23 +1,24 @@
 package by.forecasts.entities;
 
 
+import by.forecasts.dao.BaseTest;
+import by.forecasts.utils.SessionManager;
 import org.hamcrest.Matchers;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class EntitiesTests {
-
-    private SessionFactory sessionFactory = new Configuration().configure("hibernate_h2.cfg.xml").buildSessionFactory();
+public class EntitiesTests extends BaseTest {
 
     @Test
     public void teamTest() {
-        Session session = sessionFactory.openSession();
+        Session session = SessionManager.getSession();
         session.beginTransaction();
         Team team = new Team("Ямайка");
         session.save(team);
@@ -35,7 +36,7 @@ public class EntitiesTests {
         session.getTransaction().commit();
         session.close();
 
-        Session session2 = sessionFactory.openSession();
+        Session session2 = SessionManager.getSession();
         session2.beginTransaction();
         Team team1 = session2.get(Team.class, 1L);
         Team team4 = session2.get(Team.class, 2L);
@@ -50,7 +51,7 @@ public class EntitiesTests {
 
     @Test
     public void tournamentTest() {
-        Session session = sessionFactory.openSession();
+        Session session = SessionManager.getSession();
         session.beginTransaction();
         Team team = new Team("Ямайка");
         session.save(team);
@@ -59,7 +60,7 @@ public class EntitiesTests {
         session.getTransaction().commit();
         session.close();
 
-        Session session2 = sessionFactory.openSession();
+        Session session2 = SessionManager.getSession();
         session2.beginTransaction();
         Tournament tournament1 = session2.get(Tournament.class, 1L);
         Assert.assertThat(tournament1.getName(), Matchers.equalTo("ЧМ 2018"));
@@ -71,7 +72,7 @@ public class EntitiesTests {
 
     @Test
     public void matchTest() {
-        Session session = sessionFactory.openSession();
+        Session session = SessionManager.getSession();
         session.beginTransaction();
         Team team1 = new Team("Ямайка");
         Team team2 = new Team("Иран");
@@ -87,7 +88,7 @@ public class EntitiesTests {
         session.getTransaction().commit();
         session.close();
 
-        Session session2 = sessionFactory.openSession();
+        Session session2 = SessionManager.getSession();
         session2.beginTransaction();
         Match match = session2.get(Match.class, 1L);
 
@@ -103,7 +104,7 @@ public class EntitiesTests {
 
     @Test
     public void userTest() {
-        Session session = sessionFactory.openSession();
+        Session session = SessionManager.getSession();
         session.beginTransaction();
         Team team3 = new Team("Россия");
         session.save(team3);
@@ -115,7 +116,7 @@ public class EntitiesTests {
         session.getTransaction().commit();
         session.close();
 
-        Session session2 = sessionFactory.openSession();
+        Session session2 = SessionManager.getSession();
         session2.beginTransaction();
         User user1 = session2.get(User.class, 1L);
         Assert.assertThat(user1.getEmail(), Matchers.equalTo("ra@bsb.by"));
@@ -127,7 +128,7 @@ public class EntitiesTests {
 
     @Test
     public void forecastTest() {
-        Session session = sessionFactory.openSession();
+        Session session = SessionManager.getSession();
         session.beginTransaction();
         Team team1 = new Team("Ямайка");
         Team team2 = new Team("Иран");
@@ -149,7 +150,7 @@ public class EntitiesTests {
         session.getTransaction().commit();
         session.close();
 
-        Session session2 = sessionFactory.openSession();
+        Session session2 = SessionManager.getSession();
         session2.beginTransaction();
         Forecast forecast1 = session2.get(Forecast.class, 1L);
         Assert.assertThat(forecast1.getMatchForecast().getFirstResult(), Matchers.equalTo(3));
@@ -161,7 +162,7 @@ public class EntitiesTests {
 
     @Test
     public void groupsTest() {
-        Session session = sessionFactory.openSession();
+        Session session = SessionManager.getSession();
         session.beginTransaction();
         Team team = new Team("Россия");
         session.save(team);
@@ -192,7 +193,7 @@ public class EntitiesTests {
         session.getTransaction().commit();
         session.close();
 
-        Session session2 = sessionFactory.openSession();
+        Session session2 = SessionManager.getSession();
         session2.beginTransaction();
         RegularGroup regularGroup1 = session2.get(RegularGroup.class, 2L);
         PlayoffGroup playoffGroup1 = session2.get(PlayoffGroup.class, 1L);
@@ -207,6 +208,4 @@ public class EntitiesTests {
         session2.getTransaction().commit();
         session2.close();
     }
-
-
 }

@@ -1,6 +1,7 @@
 package by.forecasts.dao;
 
 import by.forecasts.entities.Match;
+import by.forecasts.utils.SessionManager;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -10,9 +11,6 @@ import java.util.List;
 public class MatchDao extends BaseDao<Match> {
 
     private static MatchDao INSTANCE;
-    private SessionFactory SESSION_FACTORY = new Configuration().configure("hibernate_h2.cfg.xml").buildSessionFactory();
-//    private SessionFactory SESSION_FACTORY = new Configuration().configure("hibernate_mysql.cfg.xml").buildSessionFactory();
-
 
     private MatchDao() {
         super(Match.class);
@@ -30,7 +28,7 @@ public class MatchDao extends BaseDao<Match> {
     }
 
     public List<Match> getMatchesForForecast(Long tournamentId, Long userId) {
-        Session session = SESSION_FACTORY.openSession();
+        Session session = SessionManager.getSession();
         session.beginTransaction();
 
         List<Match> matches = session.createQuery("select m from Match m where m.tournament.id = :trId "
