@@ -2,36 +2,33 @@ package by.forecasts.dao;
 
 import by.forecasts.entities.Tournament;
 import by.forecasts.entities.User;
+import by.forecasts.utils.SessionManager;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public final class TournamentDao extends BaseDao<Tournament> {
 
-    private static TournamentDao INSTANCE;
-    private SessionFactory SESSION_FACTORY = new Configuration().configure("hibernate_h2.cfg.xml").buildSessionFactory();
-//    private SessionFactory SESSION_FACTORY = new Configuration().configure("hibernate_mysql.cfg.xml").buildSessionFactory();
+    private static TournamentDao instance;
 
     private TournamentDao() {
         super(Tournament.class);
     }
 
     public static TournamentDao getInstance() {
-        if (INSTANCE == null) {
+        if (instance == null) {
             synchronized (TournamentDao.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new TournamentDao();
+                if (instance == null) {
+                    instance = new TournamentDao();
                 }
             }
         }
-        return INSTANCE;
+        return instance;
     }
 
     public List<Tournament> getTournamentsFilterByUser(Long userId) {
-        Session session = SESSION_FACTORY.openSession();
+        Session session = SessionManager.getSession();
         session.beginTransaction();
 
         User user = session.createQuery("select u from User u where u.id = :userId", User.class)

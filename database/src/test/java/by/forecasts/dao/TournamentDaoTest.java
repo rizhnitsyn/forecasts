@@ -12,14 +12,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
 
-public class TournamentDaoTest {
-
-    private static final TeamDao TEAM_DAO = TeamDao.getInstance();
-    private static final TournamentDao TOURNAMENT_DAO = TournamentDao.getInstance();
-    private static final UserDao USER_DAO = UserDao.getInstance();
+public class TournamentDaoTest extends BaseTest {
 
     @Test
     public void getTournamentsByUser() {
@@ -42,6 +39,6 @@ public class TournamentDaoTest {
         List<String> names = tournaments.stream()
                 .map(Tournament::getName)
                 .collect(Collectors.toList());
-        assertThat(names, contains("Tournament 1", "Tournament 2"));
+        assertThat(names, containsInAnyOrder("Tournament 1", "Tournament 2"));
     }
 }

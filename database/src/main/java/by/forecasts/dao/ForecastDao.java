@@ -1,36 +1,33 @@
 package by.forecasts.dao;
 
 import by.forecasts.entities.Forecast;
+import by.forecasts.utils.SessionManager;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 import java.util.List;
 
 
-public class ForecastDao extends BaseDao<Forecast> {
+public final class ForecastDao extends BaseDao<Forecast> {
 
-    private static ForecastDao INSTANCE;
-    private SessionFactory SESSION_FACTORY = new Configuration().configure("hibernate_h2.cfg.xml").buildSessionFactory();
-//    private SessionFactory SESSION_FACTORY = new Configuration().configure("hibernate_mysql.cfg.xml").buildSessionFactory();
+    private static ForecastDao instance;
 
     private ForecastDao() {
         super(Forecast.class);
     }
 
     public static ForecastDao getInstance() {
-        if (INSTANCE == null) {
+        if (instance == null) {
             synchronized (ForecastDao.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new ForecastDao();
+                if (instance == null) {
+                    instance = new ForecastDao();
                 }
             }
         }
-        return INSTANCE;
+        return instance;
     }
 
     public List<Forecast> getAllForecastsOfUser(Long userId) {
-        Session session = SESSION_FACTORY.openSession();
+        Session session = SessionManager.getSession();
         session.beginTransaction();
 
         List<Forecast> forecasts = session.createQuery("select f from Forecast f where f.user.id = :userId", Forecast.class)
@@ -43,13 +40,13 @@ public class ForecastDao extends BaseDao<Forecast> {
     }
 
     public List<Object[]> getUserForecastsOfTournament(Long userId, Long tournamentId, Long matchState, int recordsCnt, int pageNo) {
-        Session session = SESSION_FACTORY.openSession();
+        Session session = SessionManager.getSession();
         session.beginTransaction();
 
-        List<Object[]> resultList = session.createQuery("select f.match.firstTeam.teamName, f.match.secondTeam.teamName, " +
-                " f.matchForecast.firstResult, f.matchForecast.secondResult from Forecast f where f.user.id = :userId " +
-                "and f.match.tournament.id = :tournamentId and f.match.matchState = :matchState " +
-                "order by f.match.id", Object[].class)
+        List<Object[]> resultList = session.createQuery("select f.match.firstTeam.teamName, f.match.secondTeam.teamName, "
+                + "f.matchForecast.firstResult, f.matchForecast.secondResult from Forecast f where f.user.id = :userId "
+                + "and f.match.tournament.id = :tournamentId and f.match.matchState = :matchState "
+                + "order by f.match.id", Object[].class)
                 .setParameter("userId", userId)
                 .setParameter("tournamentId", tournamentId)
                 .setParameter("matchState", matchState)
@@ -63,12 +60,12 @@ public class ForecastDao extends BaseDao<Forecast> {
     }
 
     public Long getCountOfUserForecasts(Long userId, Long tournamentId, Long matchState) {
-        Session session = SESSION_FACTORY.openSession();
+        Session session = SessionManager.getSession();
         session.beginTransaction();
 
-        Long forecastsCount = session.createQuery("select count(*) from Forecast f where f.user.id = :userId " +
-                "and f.match.tournament.id = :tournamentId and f.match.matchState = :matchState " +
-                "order by f.match.id", Long.class)
+        Long forecastsCount = session.createQuery("select count(*) from Forecast f where f.user.id = :userId "
+                + "and f.match.tournament.id = :tournamentId and f.match.matchState = :matchState "
+                + "order by f.match.id", Long.class)
                 .setParameter("userId", userId)
                 .setParameter("tournamentId", tournamentId)
                 .setParameter("matchState", matchState)
@@ -78,6 +75,4 @@ public class ForecastDao extends BaseDao<Forecast> {
         session.close();
         return forecastsCount;
     }
-
-
 }

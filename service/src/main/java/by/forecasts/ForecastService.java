@@ -1,26 +1,25 @@
 package by.forecasts;
 
 import by.forecasts.dao.ForecastDao;
-import by.forecasts.entities.Forecast;
 
 import java.util.List;
 
-public class ForecastService {
+public final class ForecastService {
 
-    private static ForecastService INSTANCE;
+    private static ForecastService instance;
     private static final ForecastDao FORECAST_DAO = ForecastDao.getInstance();
 
     private ForecastService() {}
 
     public static ForecastService getInstance() {
-        if (INSTANCE == null) {
+        if (instance == null) {
             synchronized (ForecastService.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new ForecastService();
+                if (instance == null) {
+                    instance = new ForecastService();
                 }
             }
         }
-        return INSTANCE;
+        return instance;
     }
 
     public List<Object[]> getUserForecasts(Long tournamentId, Long userId, Long matchStateId, int recordsCnt, int pageNo) {

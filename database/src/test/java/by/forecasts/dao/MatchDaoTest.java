@@ -1,8 +1,10 @@
 package by.forecasts.dao;
 
 import by.forecasts.entities.*;
+import by.forecasts.utils.SessionManager;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -13,12 +15,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-public class MatchDaoTest {
-    private static final TeamDao TEAM_DAO = TeamDao.getInstance();
-    private static final TournamentDao TOURNAMENT_DAO = TournamentDao.getInstance();
-    private static final UserDao USER_DAO = UserDao.getInstance();
-    private static final MatchDao MATCH_DAO = MatchDao.getInstance();
-    private static final ForecastDao FORECAST_DAO = ForecastDao.getInstance();
+public class MatchDaoTest extends BaseTest {
 
     @Test
     public void getMatchesForForecastsTest() {

@@ -2,15 +2,14 @@ package by.forecasts.dao;
 
 import by.forecasts.entities.Team;
 import by.forecasts.entities.Tournament;
+import by.forecasts.utils.SessionManager;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDate;
 
-public class TeamDaoTest {
-
-    private static final TeamDao TEAM_DAO = TeamDao.getInstance();
-    private static final TournamentDao TOURNAMENT_DAO = TournamentDao.getInstance();
+public class TeamDaoTest extends BaseTest {
 
     @Test
     public void getTeamOrganizerTest() {
