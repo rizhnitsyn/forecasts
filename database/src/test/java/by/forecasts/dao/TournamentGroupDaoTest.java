@@ -13,10 +13,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-public class TournamentGroupDaoTest {
-    private static final TeamDao TEAM_DAO = TeamDao.getInstance();
-    private static final TournamentDao TOURNAMENT_DAO = TournamentDao.getInstance();
-    private static final TournamentGroupDao TOURNAMENT_GROUP_DAO = TournamentGroupDao.getInstance();
+public class TournamentGroupDaoTest extends BaseTest {
 
     @Test
     public void getListOfGroupsOfTournamentTest() {

@@ -1,33 +1,30 @@
 package by.forecasts.dao;
 
 import by.forecasts.entities.Team;
+import by.forecasts.utils.SessionManager;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
-public class TeamDao extends BaseDao<Team> {
+public final class TeamDao extends BaseDao<Team> {
 
-    private static final SessionFactory SESSION_FACTORY = new Configuration().configure("hibernate_h2.cfg.xml").buildSessionFactory();
-//    private static final SessionFactory SESSION_FACTORY = new Configuration().configure("hibernate_mysql.cfg.xml").buildSessionFactory();
-    private static TeamDao INSTANCE;
+    private static TeamDao instance;
 
     private TeamDao() {
         super(Team.class);
     }
 
     public static TeamDao getInstance() {
-        if (INSTANCE == null) {
+        if (instance == null) {
             synchronized (TeamDao.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new TeamDao();
+                if (instance == null) {
+                    instance = new TeamDao();
                 }
             }
         }
-        return INSTANCE;
+        return instance;
     }
 
     public Team getTeamOrganizer(Long tournamentId) {
-        Session session = SESSION_FACTORY.openSession();
+        Session session = SessionManager.getSession();
         session.beginTransaction();
 
         Team team = session.createQuery("select t.organizer from Tournament t where t.id = :tournamentId", Team.class)

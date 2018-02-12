@@ -6,7 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,5 +33,4 @@ public class Team extends BaseEntity {
 
     @OneToMany(mappedBy = "secondTeam")
     private Set<Match> visitorMatches = new HashSet<>();
-
 }

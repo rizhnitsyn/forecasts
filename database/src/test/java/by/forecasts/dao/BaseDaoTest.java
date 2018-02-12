@@ -1,9 +1,9 @@
 package by.forecasts.dao;
 
-import by.forecasts.dao.TeamDao;
-import by.forecasts.dao.TournamentDao;
 import by.forecasts.entities.Team;
 import by.forecasts.entities.Tournament;
+import by.forecasts.utils.SessionManager;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -15,10 +15,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-public class BaseDaoTest {
-
-    private static final TeamDao TEAM_DAO = TeamDao.getInstance();
-    private static final TournamentDao TOURNAMENT_DAO = TournamentDao.getInstance();
+public class BaseDaoTest extends BaseTest {
 
     @Test
     public void saveDaoTest() {
@@ -32,10 +29,12 @@ public class BaseDaoTest {
 
     @Test
     public void getByIdDaoTest() {
+        System.out.println("start test");
         Team team = new Team("Spain");
         TEAM_DAO.save(team);
         Team foundTeam = TEAM_DAO.findById(1L);
         assertEquals(foundTeam.getTeamName(), "Spain");
+        System.out.println("end test");
     }
 
     @Test
