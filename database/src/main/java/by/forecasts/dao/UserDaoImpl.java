@@ -5,35 +5,14 @@ import by.forecasts.entities.Tournament;
 import by.forecasts.entities.User;
 import by.forecasts.utils.SessionManager;
 import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
 
-public final class UserDaoImpl extends BaseDaoImpl<User> {
+@Repository
+public final class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 
-    private static UserDaoImpl instance;
-
-    private UserDaoImpl() {
-        super(User.class);
-    }
-
-    public static UserDaoImpl getInstance() {
-        if (instance == null) {
-            synchronized (MatchDaoImpl.class) {
-                if (instance == null) {
-                    instance = new UserDaoImpl();
-                }
-            }
-        }
-        return instance;
-    }
-
+    @Override
     public void registerOnTournament(Tournament tournament, User user) {
-        Session session = SessionManager.getSession();
-        session.beginTransaction();
-
-        session.refresh(tournament);
+        getSessionFactory().getCurrentSession().refresh(tournament);
         tournament.getUsers().add(user);
-        user.getTournaments().add(tournament);
-
-        session.getTransaction().commit();
-        session.close();
     }
 }

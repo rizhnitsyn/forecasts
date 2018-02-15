@@ -2,38 +2,20 @@ package by.forecasts.dao;
 
 import by.forecasts.dao.common.BaseDaoImpl;
 import by.forecasts.entities.Team;
-import by.forecasts.utils.SessionManager;
-import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
 
-public final class TeamDaoImpl extends BaseDaoImpl<Team> {
+import java.util.List;
 
-    private static TeamDaoImpl instance;
+@Repository
+public final class TeamDaoImpl extends BaseDaoImpl<Team> implements TeamDao {
 
-    private TeamDaoImpl() {
-        super(Team.class);
-    }
-
-    public static TeamDaoImpl getInstance() {
-        if (instance == null) {
-            synchronized (TeamDaoImpl.class) {
-                if (instance == null) {
-                    instance = new TeamDaoImpl();
-                }
-            }
-        }
-        return instance;
-    }
-
+    @Override
     public Team getTeamOrganizer(Long tournamentId) {
-        Session session = SessionManager.getSession();
-        session.beginTransaction();
-
-        Team team = session.createQuery("select t.organizer from Tournament t where t.id = :tournamentId", Team.class)
+        List<Team> results = getSessionFactory().getCurrentSession()
+                .createQuery("select t.organizer from Tournament t where t.id = :tournamentId", Team.class)
                 .setParameter("tournamentId", tournamentId)
-                .getSingleResult();
+                .getResultList();
 
-        session.getTransaction().commit();
-        session.close();
-        return team;
+        return !results.isEmpty() ? results.get(0) : null;
     }
 }
