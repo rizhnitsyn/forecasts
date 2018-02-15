@@ -1,6 +1,6 @@
 package by.forecasts;
 
-import by.forecasts.dao.UserDao;
+import by.forecasts.dao.UserDaoImpl;
 import by.forecasts.entities.User;
 
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
 public final class UserService {
 
     private static UserService instance;
-    private static final UserDao USER_DAO = UserDao.getInstance();
+    private static final UserDaoImpl USER_DAO = UserDaoImpl.getInstance();
 
     private UserService() {}
 

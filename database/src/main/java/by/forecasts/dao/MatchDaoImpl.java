@@ -1,24 +1,25 @@
 package by.forecasts.dao;
 
+import by.forecasts.dao.common.BaseDaoImpl;
 import by.forecasts.entities.Match;
 import by.forecasts.utils.SessionManager;
 import org.hibernate.Session;
 
 import java.util.List;
 
-public final class MatchDao extends BaseDao<Match> {
+public final class MatchDaoImpl extends BaseDaoImpl<Match> {
 
-    private static MatchDao instance;
+    private static MatchDaoImpl instance;
 
-    private MatchDao() {
+    private MatchDaoImpl() {
         super(Match.class);
     }
 
-    public static MatchDao getInstance() {
+    public static MatchDaoImpl getInstance() {
         if (instance == null) {
-            synchronized (MatchDao.class) {
+            synchronized (MatchDaoImpl.class) {
                 if (instance == null) {
-                    instance = new MatchDao();
+                    instance = new MatchDaoImpl();
                 }
             }
         }

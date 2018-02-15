@@ -1,6 +1,6 @@
 package by.forecasts;
 
-import by.forecasts.dao.TournamentDao;
+import by.forecasts.dao.TournamentDaoImpl;
 import by.forecasts.entities.Tournament;
 
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
 public final class TournamentService {
 
     private static TournamentService instance;
-    private static final TournamentDao TOURNAMENT_DAO = TournamentDao.getInstance();
+    private static final TournamentDaoImpl TOURNAMENT_DAO = TournamentDaoImpl.getInstance();
 
     private TournamentService() {}
 

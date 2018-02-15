@@ -1,5 +1,6 @@
 package by.forecasts.dao;
 
+import by.forecasts.dao.common.BaseDaoImpl;
 import by.forecasts.entities.Tournament;
 import by.forecasts.entities.User;
 import by.forecasts.utils.SessionManager;
@@ -8,19 +9,19 @@ import org.hibernate.Session;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class TournamentDao extends BaseDao<Tournament> {
+public final class TournamentDaoImpl extends BaseDaoImpl<Tournament> {
 
-    private static TournamentDao instance;
+    private static TournamentDaoImpl instance;
 
-    private TournamentDao() {
+    private TournamentDaoImpl() {
         super(Tournament.class);
     }
 
-    public static TournamentDao getInstance() {
+    public static TournamentDaoImpl getInstance() {
         if (instance == null) {
-            synchronized (TournamentDao.class) {
+            synchronized (TournamentDaoImpl.class) {
                 if (instance == null) {
-                    instance = new TournamentDao();
+                    instance = new TournamentDaoImpl();
                 }
             }
         }

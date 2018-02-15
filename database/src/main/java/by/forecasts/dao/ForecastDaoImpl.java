@@ -1,5 +1,6 @@
 package by.forecasts.dao;
 
+import by.forecasts.dao.common.BaseDaoImpl;
 import by.forecasts.entities.Forecast;
 import by.forecasts.utils.SessionManager;
 import org.hibernate.Session;
@@ -7,19 +8,19 @@ import org.hibernate.Session;
 import java.util.List;
 
 
-public final class ForecastDao extends BaseDao<Forecast> {
+public final class ForecastDaoImpl extends BaseDaoImpl<Forecast> {
 
-    private static ForecastDao instance;
+    private static ForecastDaoImpl instance;
 
-    private ForecastDao() {
+    private ForecastDaoImpl() {
         super(Forecast.class);
     }
 
-    public static ForecastDao getInstance() {
+    public static ForecastDaoImpl getInstance() {
         if (instance == null) {
-            synchronized (ForecastDao.class) {
+            synchronized (ForecastDaoImpl.class) {
                 if (instance == null) {
-                    instance = new ForecastDao();
+                    instance = new ForecastDaoImpl();
                 }
             }
         }

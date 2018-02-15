@@ -1,22 +1,23 @@
 package by.forecasts.dao;
 
+import by.forecasts.dao.common.BaseDaoImpl;
 import by.forecasts.entities.Team;
 import by.forecasts.utils.SessionManager;
 import org.hibernate.Session;
 
-public final class TeamDao extends BaseDao<Team> {
+public final class TeamDaoImpl extends BaseDaoImpl<Team> {
 
-    private static TeamDao instance;
+    private static TeamDaoImpl instance;
 
-    private TeamDao() {
+    private TeamDaoImpl() {
         super(Team.class);
     }
 
-    public static TeamDao getInstance() {
+    public static TeamDaoImpl getInstance() {
         if (instance == null) {
-            synchronized (TeamDao.class) {
+            synchronized (TeamDaoImpl.class) {
                 if (instance == null) {
-                    instance = new TeamDao();
+                    instance = new TeamDaoImpl();
                 }
             }
         }

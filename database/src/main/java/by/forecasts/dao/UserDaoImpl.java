@@ -1,23 +1,24 @@
 package by.forecasts.dao;
 
+import by.forecasts.dao.common.BaseDaoImpl;
 import by.forecasts.entities.Tournament;
 import by.forecasts.entities.User;
 import by.forecasts.utils.SessionManager;
 import org.hibernate.Session;
 
-public final class UserDao extends BaseDao<User> {
+public final class UserDaoImpl extends BaseDaoImpl<User> {
 
-    private static UserDao instance;
+    private static UserDaoImpl instance;
 
-    private UserDao() {
+    private UserDaoImpl() {
         super(User.class);
     }
 
-    public static UserDao getInstance() {
+    public static UserDaoImpl getInstance() {
         if (instance == null) {
-            synchronized (MatchDao.class) {
+            synchronized (MatchDaoImpl.class) {
                 if (instance == null) {
-                    instance = new UserDao();
+                    instance = new UserDaoImpl();
                 }
             }
         }

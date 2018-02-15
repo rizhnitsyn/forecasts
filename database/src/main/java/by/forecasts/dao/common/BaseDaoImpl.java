@@ -1,4 +1,4 @@
-package by.forecasts.dao;
+package by.forecasts.dao.common;
 
 import by.forecasts.entities.BaseEntity;
 import by.forecasts.utils.SessionManager;
@@ -6,11 +6,11 @@ import org.hibernate.Session;
 
 import java.util.List;
 
-public abstract class BaseDao<T extends BaseEntity> {
+public abstract class BaseDaoImpl<T extends BaseEntity> {
 
     private Class<T> entityClass;
 
-    public BaseDao(Class<T> entityClass) {
+    public BaseDaoImpl(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
 
