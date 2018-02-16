@@ -1,5 +1,6 @@
-package by.forecasts.dao;
+package by.forecasts.dao.implementation;
 
+import by.forecasts.dao.MatchDao;
 import by.forecasts.dao.common.BaseDaoImpl;
 import by.forecasts.entities.Match;
 import org.springframework.stereotype.Repository;

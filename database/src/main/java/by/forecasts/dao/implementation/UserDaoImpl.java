@@ -1,5 +1,6 @@
-package by.forecasts.dao;
+package by.forecasts.dao.implementation;
 
+import by.forecasts.dao.UserDao;
 import by.forecasts.dao.common.BaseDaoImpl;
 import by.forecasts.entities.Tournament;
 import by.forecasts.entities.User;

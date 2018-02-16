@@ -1,7 +1,12 @@
 package by.forecasts.dao;
 
 import by.forecasts.config.TestDatabaseConfig;
-import org.hibernate.SessionFactory;
+import by.forecasts.dao.implementation.ForecastDaoImpl;
+import by.forecasts.dao.implementation.GroupDaoImpl;
+import by.forecasts.dao.implementation.MatchDaoImpl;
+import by.forecasts.dao.implementation.TeamDaoImpl;
+import by.forecasts.dao.implementation.TournamentDaoImpl;
+import by.forecasts.dao.implementation.UserDaoImpl;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -30,7 +35,7 @@ public abstract class BaseTest {
     protected TeamDaoImpl teamDao;
 
     @Autowired
-    protected TournamentGroupDaoImpl tournamentGroupDao;
+    protected GroupDaoImpl tournamentGroupDao;
 
     @Autowired
     protected UserDaoImpl userDao;

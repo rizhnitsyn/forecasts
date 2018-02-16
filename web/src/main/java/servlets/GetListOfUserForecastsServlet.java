@@ -1,8 +1,8 @@
 package servlets;
 
-import by.forecasts.services.ForecastService;
-import by.forecasts.services.TournamentService;
-import by.forecasts.services.UserService;
+import by.forecasts.service.ForecastServiceImpl;
+import by.forecasts.service.TournamentServiceImpl;
+import by.forecasts.service.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,8 +18,8 @@ public class GetListOfUserForecastsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("tournaments", TournamentService.getInstance().getListOfTournaments());
-        req.setAttribute("users", UserService.getInstance().getListOfUsers());
+        req.setAttribute("tournaments", TournamentServiceImpl.getInstance().getListOfTournaments());
+        req.setAttribute("users", UserServiceImpl.getInstance().getListOfUsers());
 
         if (req.getParameter("pageId") != null) {
             Long tournamentId = (Long) req.getSession().getAttribute("tournamentId");
@@ -28,7 +28,7 @@ public class GetListOfUserForecastsServlet extends HttpServlet {
             Long matchStateId =  (Long) req.getSession().getAttribute("matchState");
             Integer pageId = Integer.parseInt(req.getParameter("pageId"));
 
-            List<Object[]> userForecasts = ForecastService.getInstance().getUserForecasts(tournamentId, userId,
+            List<Object[]> userForecasts = ForecastServiceImpl.getInstance().getUserForecasts(tournamentId, userId,
                 matchStateId, recordsCnt, pageId);
             req.getSession().removeAttribute("forecasts");
             req.getSession().setAttribute("forecasts", userForecasts);
@@ -47,7 +47,7 @@ public class GetListOfUserForecastsServlet extends HttpServlet {
         if (req.getParameter("matchState") == null) {
             matchStateId = 2L;
         }
-        Long countOfUserForecasts = ForecastService.getInstance().getCountOfUserForecasts(tournamentId, userId, matchStateId);
+        Long countOfUserForecasts = ForecastServiceImpl.getInstance().getCountOfUserForecasts(tournamentId, userId, matchStateId);
 
         Long pagesCount =  countOfUserForecasts / recordsCnt;
         if (countOfUserForecasts % recordsCnt != 0) {
@@ -58,7 +58,7 @@ public class GetListOfUserForecastsServlet extends HttpServlet {
         for (int i = 0; i < pagesCount; i++) {
             pageList.add(i + 1);
         }
-        List<Object[]> userForecasts = ForecastService.getInstance().getUserForecasts(tournamentId, userId,
+        List<Object[]> userForecasts = ForecastServiceImpl.getInstance().getUserForecasts(tournamentId, userId,
                 matchStateId, recordsCnt, 1);
 
         req.getSession().setAttribute("pageList", pageList);

@@ -1,5 +1,6 @@
-package by.forecasts.dao;
+package by.forecasts.dao.implementation;
 
+import by.forecasts.dao.TeamDao;
 import by.forecasts.dao.common.BaseDaoImpl;
 import by.forecasts.entities.Team;
 import org.springframework.stereotype.Repository;

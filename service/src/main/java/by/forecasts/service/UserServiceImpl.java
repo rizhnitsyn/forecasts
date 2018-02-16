@@ -1,4 +1,4 @@
-package by.forecasts.services;
+package by.forecasts.service;
 
 import by.forecasts.dao.UserDao;
 import by.forecasts.entities.User;
@@ -10,15 +10,16 @@ import java.util.List;
 
 @Service
 @Transactional
-public class UserService {
+public class UserServiceImpl implements UserService {
 
-    @Autowired
     private final UserDao userDao;
 
-    public UserService(UserDao userDao) {
+    @Autowired
+    public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
     }
 
+    @Override
     public List<User> getListOfUsers() {
         return userDao.findAll();
     }

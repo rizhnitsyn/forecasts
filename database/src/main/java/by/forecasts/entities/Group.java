@@ -24,9 +24,9 @@ import java.util.Set;
 @ToString
 @Table(name = "groups_in_tournament")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class TournamentGroup extends BaseEntity {
+public abstract class Group extends BaseEntity {
 
-    public TournamentGroup(int matchesCountBetweenTeams, Long groupNameId, Tournament tournament) {
+    public Group(int matchesCountBetweenTeams, Long groupNameId, Tournament tournament) {
         this.matchesCountBetweenTeams = matchesCountBetweenTeams;
         this.groupNameId = groupNameId;
         this.tournament = tournament;
