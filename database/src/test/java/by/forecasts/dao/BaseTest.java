@@ -35,7 +35,13 @@ public abstract class BaseTest {
     protected TeamDaoImpl teamDao;
 
     @Autowired
-    protected GroupDaoImpl tournamentGroupDao;
+    protected GroupDaoImpl groupDao;
+
+    @Autowired
+    protected PlayoffGroupDao playoffGroupDao;
+
+    @Autowired
+    protected RegularGroupDao regularGroupDao;
 
     @Autowired
     protected UserDaoImpl userDao;

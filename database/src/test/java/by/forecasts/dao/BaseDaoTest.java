@@ -10,7 +10,6 @@ import by.forecasts.entities.Team;
 import by.forecasts.entities.Tournament;
 import by.forecasts.entities.User;
 import org.hamcrest.Matchers;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -122,8 +121,8 @@ public class BaseDaoTest extends BaseTest {
         RegularGroup regularGroup = new RegularGroup(4, 2, 2,
                 1L, tournament);
         PlayoffGroup playoffGroup = new PlayoffGroup(2, 2L, tournament, true);
-        tournamentGroupDao.save(playoffGroup);
-        tournamentGroupDao.save(regularGroup);
+        groupDao.save(playoffGroup);
+        groupDao.save(regularGroup);
 
         Team team1 = new Team("Германия");
         Team team2 = new Team("Испания");
@@ -140,8 +139,8 @@ public class BaseDaoTest extends BaseTest {
         playoffGroup.getTeamsInGroup().add(team1);
         playoffGroup.getTeamsInGroup().add(team2);
 
-        RegularGroup regularGroup1 = (RegularGroup)tournamentGroupDao.findById(2L);
-        PlayoffGroup playoffGroup1 = (PlayoffGroup)tournamentGroupDao.findById(1L);
+        RegularGroup regularGroup1 = (RegularGroup) groupDao.findById(2L);
+        PlayoffGroup playoffGroup1 = (PlayoffGroup) groupDao.findById(1L);
 
         assertThat(regularGroup1.getTeamsCountInGroup(), Matchers.equalTo(4));
         assertThat(regularGroup1.getTournament().getName(), Matchers.equalTo("ЧМ 2018"));

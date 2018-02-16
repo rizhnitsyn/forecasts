@@ -20,13 +20,16 @@ public class GroupDaoTest extends BaseTest {
         Tournament tournament1 = new Tournament("Tournament 1", team1, LocalDate.now(), 1L);
         tournamentDao.save(tournament1);
 
-        RegularGroup regularGroup1 = new RegularGroup(4, 2, 2, 1L, tournament1);
-        RegularGroup regularGroup2 = new RegularGroup(4, 2, 2, 2L, tournament1);
-        tournamentGroupDao.save(regularGroup1);
-        tournamentGroupDao.save(regularGroup2);
-        List<RegularGroup> groupsOfTournament = tournamentGroupDao.getGroupsOfTournament(1L);
+        RegularGroup regularGroup = new RegularGroup(4, 2, 2, 1L, tournament1);
+        PlayoffGroup playoffGroup = new PlayoffGroup(4, 2L, tournament1,  true);
+        regularGroupDao.save(regularGroup);
+        playoffGroupDao.save(playoffGroup);
+        List<Group> groupsOfTournament = groupDao.getGroupsOfTournament(1L);
+        List<RegularGroup> regularGroups = regularGroupDao.getGroupsOfTournament(1L);
+        List<PlayoffGroup> playoffGroups = playoffGroupDao.getGroupsOfTournament(1L);
 
         assertThat(groupsOfTournament, hasSize(2));
-        assertEquals(groupsOfTournament.iterator().next().getGroupOutCount(), 2);
+        assertThat(regularGroups, hasSize(1));
+        assertThat(playoffGroups, hasSize(1));
     }
 }

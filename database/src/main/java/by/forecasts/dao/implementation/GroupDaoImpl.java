@@ -2,7 +2,6 @@ package by.forecasts.dao.implementation;
 
 import by.forecasts.dao.GroupDao;
 import by.forecasts.dao.common.BaseDaoImpl;
-import by.forecasts.entities.RegularGroup;
 import by.forecasts.entities.Group;
 import org.springframework.stereotype.Repository;
 

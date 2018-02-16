@@ -1,18 +1,18 @@
 package by.forecasts.service;
 
-import by.forecasts.dao.MatchDao;
+import by.forecasts.dao.GroupDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
 @Service
-public class MatchServiceImpl implements MatchService {
+@Transactional
+public class GroupServiceImpl implements GroupService {
 
-    private final MatchDao matchDao;
+    private final GroupDao groupDao;
 
     @Autowired
-    public MatchServiceImpl(MatchDao matchDao) {
-        this.matchDao = matchDao;
+    public GroupServiceImpl(GroupDao groupDao) {
+        this.groupDao = groupDao;
     }
 }
