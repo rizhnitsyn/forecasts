@@ -2,8 +2,6 @@ package by.forecasts.dao;
 
 import by.forecasts.entities.Team;
 import by.forecasts.entities.Tournament;
-import by.forecasts.utils.SessionManager;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -21,8 +19,8 @@ public class BaseDaoTest extends BaseTest {
     public void saveDaoTest() {
         Team team = new Team("Poland");
         Tournament tournament = new Tournament("Tournament", team, LocalDate.now(), 1L);
-        TEAM_DAO.save(team);
-        TOURNAMENT_DAO.save(tournament);
+        teamDao.save(team);
+        tournamentDao.save(tournament);
         assertEquals(team.getTeamName(), "Poland");
         assertEquals(tournament.getOrganizer().getTeamName(), "Poland");
     }
@@ -31,8 +29,8 @@ public class BaseDaoTest extends BaseTest {
     public void getByIdDaoTest() {
         System.out.println("start test");
         Team team = new Team("Spain");
-        TEAM_DAO.save(team);
-        Team foundTeam = TEAM_DAO.findById(1L);
+        teamDao.save(team);
+        Team foundTeam = teamDao.findById(1L);
         assertEquals(foundTeam.getTeamName(), "Spain");
         System.out.println("end test");
     }
@@ -41,9 +39,9 @@ public class BaseDaoTest extends BaseTest {
     public void getAllDaoTest() {
         Team team = new Team("Spain");
         Team team1 = new Team("France");
-        TEAM_DAO.save(team);
-        TEAM_DAO.save(team1);
-        List<Team> teamList = TEAM_DAO.findAll();
+        teamDao.save(team);
+        teamDao.save(team1);
+        List<Team> teamList = teamDao.findAll();
         assertThat(teamList, hasSize(2));
         List<String> teamNames = teamList.stream()
                 .map(Team::getTeamName)
@@ -54,21 +52,21 @@ public class BaseDaoTest extends BaseTest {
     @Test
     public void deleteDaoTest() {
         Team team = new Team("Spain");
-        TEAM_DAO.save(team);
+        teamDao.save(team);
         assertEquals(team.getTeamName(), "Spain");
-        TEAM_DAO.delete(team);
-        List<Team> teamList = TEAM_DAO.findAll();
+        teamDao.delete(team);
+        List<Team> teamList = teamDao.findAll();
         assertThat(teamList, hasSize(0));
     }
 
     @Test
     public void updateDaoTest() {
         Team team = new Team("Spain");
-        TEAM_DAO.save(team);
+        teamDao.save(team);
         assertEquals(team.getTeamName(), "Spain");
         team.setTeamName("Updated Name");
-        TEAM_DAO.update(team);
-        Team updatedTeam = TEAM_DAO.findById(1L);
+        teamDao.update(team);
+        Team updatedTeam = teamDao.findById(1L);
         assertEquals(updatedTeam.getTeamName(), "Updated Name");
     }
 }

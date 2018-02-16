@@ -9,17 +9,17 @@ import java.util.List;
 
 public abstract class BaseDaoImpl<T extends BaseEntity> implements BaseDao<T> {
 
-    private Class<T> entityClass;
-
     @Autowired
     private SessionFactory sessionFactory;
+
+    private Class<T> entityClass;
 
     protected SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 
     @SuppressWarnings("unchecked")
-    private BaseDaoImpl() {
+    public BaseDaoImpl() {
         this.entityClass = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), BaseDaoImpl.class);
     }
 

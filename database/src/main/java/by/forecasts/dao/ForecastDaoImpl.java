@@ -2,14 +2,12 @@ package by.forecasts.dao;
 
 import by.forecasts.dao.common.BaseDaoImpl;
 import by.forecasts.entities.Forecast;
-import by.forecasts.utils.SessionManager;
-import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public final class ForecastDaoImpl extends BaseDaoImpl<Forecast> implements ForecastDao {
+public class ForecastDaoImpl extends BaseDaoImpl<Forecast> implements ForecastDao {
 
     @Override
     public List<Forecast> getAllForecastsOfUser(Long userId) {

@@ -2,14 +2,12 @@ package by.forecasts.dao;
 
 import by.forecasts.dao.common.BaseDaoImpl;
 import by.forecasts.entities.Match;
-import by.forecasts.utils.SessionManager;
-import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public final class MatchDaoImpl extends BaseDaoImpl<Match>  implements MatchDao {
+public class MatchDaoImpl extends BaseDaoImpl<Match>  implements MatchDao {
 
     @Override
     public List<Match> getMatchesForForecast(Long tournamentId, Long userId) {

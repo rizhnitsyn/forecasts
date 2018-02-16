@@ -14,39 +14,30 @@ import org.junit.Test;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+
 public class EntitiesTests extends BaseTest {
 
     @Test
     public void teamTest() {
-        Session session = SessionManager.getSession();
-        session.beginTransaction();
         Team team = new Team("Ямайка");
-        session.save(team);
+        teamDao.save(team);
 
         Team team2 = new Team("Иран");
         Team team3 = new Team("Россия");
-        session.save(team2);
-        session.save(team3);
+        teamDao.save(team2);
+        teamDao.save(team3);
         Tournament tournament = new Tournament("ЧМ 2018", team, LocalDate.now(), 1L);
-        session.save(tournament);
+        tournamentDao.save(tournament);
         MatchScore matchScore = new MatchScore(1, 2);
         Match match = new Match(matchScore, LocalDateTime.now(), 1L, team2, team3, tournament);
-        session.save(match);
+        matchDao.save(match);
 
-        session.getTransaction().commit();
-        session.close();
-
-        Session session2 = SessionManager.getSession();
-        session2.beginTransaction();
-        Team team1 = session2.get(Team.class, 1L);
-        Team team4 = session2.get(Team.class, 2L);
+        Team team1 = teamDao.findById(1L);
+        Team team4 = teamDao.findById(2L);
         Assert.assertThat(team1.getTeamName(), Matchers.equalTo("Ямайка"));
         Assert.assertThat(team4.getHomeMatches(), Matchers.hasSize(1));
         Assert.assertThat(team4.getHomeMatches().iterator().next().getTournament().getName(),
                 Matchers.equalTo("ЧМ 2018"));
-
-        session2.getTransaction().commit();
-        session2.close();
     }
 
     @Test

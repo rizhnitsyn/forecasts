@@ -3,8 +3,6 @@ package by.forecasts.dao;
 import by.forecasts.dao.common.BaseDaoImpl;
 import by.forecasts.entities.Tournament;
 import by.forecasts.entities.User;
-import by.forecasts.utils.SessionManager;
-import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 @Repository
