@@ -17,7 +17,7 @@ import static org.junit.Assert.assertThat;
 public class TournamentDaoTest extends BaseTest {
 
     @Test
-    public void getTournamentsByUser() {
+    public void getTournamentsByUserTest() {
         Team team1 = new Team("France");
         Team team2 = new Team("Spain");
         teamDao.save(team1);

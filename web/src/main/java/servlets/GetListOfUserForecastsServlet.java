@@ -1,8 +1,8 @@
 package servlets;
 
-import by.forecasts.service.ForecastServiceImpl;
-import by.forecasts.service.TournamentServiceImpl;
-import by.forecasts.service.UserServiceImpl;
+import by.forecasts.service.implementation.ForecastServiceImpl;
+import by.forecasts.service.implementation.TournamentServiceImpl;
+import by.forecasts.service.implementation.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

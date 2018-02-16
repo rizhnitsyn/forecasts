@@ -9,4 +9,6 @@ public interface TournamentService {
     Tournament getTournamentById(Long id);
 
     List<Tournament> getListOfTournaments();
+
+    List<Tournament> getTournamentsFilterByUser(Long userId);
 }

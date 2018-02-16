@@ -1,7 +1,8 @@
-package by.forecasts.service;
+package by.forecasts.service.implementation;
 
 import by.forecasts.dao.UserDao;
 import by.forecasts.entities.User;
+import by.forecasts.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

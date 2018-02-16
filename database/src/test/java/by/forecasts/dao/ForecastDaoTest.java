@@ -1,9 +1,12 @@
 package by.forecasts.dao;
 
-import by.forecasts.config.TestDatabaseConfig;
-import by.forecasts.entities.*;
+import by.forecasts.entities.Forecast;
+import by.forecasts.entities.Match;
+import by.forecasts.entities.MatchScore;
+import by.forecasts.entities.Team;
+import by.forecasts.entities.Tournament;
+import by.forecasts.entities.User;
 import org.junit.Test;
-import org.springframework.test.context.ContextConfiguration;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
