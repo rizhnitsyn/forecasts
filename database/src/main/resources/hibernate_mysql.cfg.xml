@@ -21,6 +21,6 @@
     <mapping class="by.forecasts.entities.Tournament"/>
     <mapping class="by.forecasts.entities.Forecast"/>
     <mapping class="by.forecasts.entities.User"/>
-    <!--<mapping class="by.forecasts.UserDao"/>-->
+    <!--<mapping class="by.forecasts.UserDaoImpl"/>-->
   </session-factory>
 </hibernate-configuration>

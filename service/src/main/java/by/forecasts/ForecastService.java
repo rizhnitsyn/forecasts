@@ -1,13 +1,13 @@
 package by.forecasts;
 
-import by.forecasts.dao.ForecastDao;
+import by.forecasts.dao.ForecastDaoImpl;
 
 import java.util.List;
 
 public final class ForecastService {
 
     private static ForecastService instance;
-    private static final ForecastDao FORECAST_DAO = ForecastDao.getInstance();
+    private static final ForecastDaoImpl FORECAST_DAO = ForecastDaoImpl.getInstance();
 
     private ForecastService() {}
 

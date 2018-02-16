@@ -7,12 +7,12 @@ import org.junit.Before;
 
 public abstract class BaseTest {
 
-    protected static final TeamDao TEAM_DAO = TeamDao.getInstance();
-    protected static final TournamentDao TOURNAMENT_DAO = TournamentDao.getInstance();
-    protected static final UserDao USER_DAO = UserDao.getInstance();
-    protected static final MatchDao MATCH_DAO = MatchDao.getInstance();
-    protected static final ForecastDao FORECAST_DAO = ForecastDao.getInstance();
-    protected static final TournamentGroupDao TOURNAMENT_GROUP_DAO = TournamentGroupDao.getInstance();
+    protected static final TeamDaoImpl TEAM_DAO = TeamDaoImpl.getInstance();
+    protected static final TournamentDaoImpl TOURNAMENT_DAO = TournamentDaoImpl.getInstance();
+    protected static final UserDaoImpl USER_DAO = UserDaoImpl.getInstance();
+    protected static final MatchDaoImpl MATCH_DAO = MatchDaoImpl.getInstance();
+    protected static final ForecastDaoImpl FORECAST_DAO = ForecastDaoImpl.getInstance();
+    protected static final TournamentGroupDaoImpl TOURNAMENT_GROUP_DAO = TournamentGroupDaoImpl.getInstance();
 
 
     @Before
