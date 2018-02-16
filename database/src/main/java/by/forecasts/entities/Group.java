@@ -21,7 +21,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @Entity
-@ToString
+@ToString(callSuper = true)
 @Table(name = "groups_in_tournament")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Group extends BaseEntity {

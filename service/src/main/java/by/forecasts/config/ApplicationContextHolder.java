@@ -9,6 +9,8 @@ public class ApplicationContextHolder {
 
     static {
         APPLICATION_CONTEXT = new AnnotationConfigApplicationContext(ServiceConfig.class);
+        System.out.println(APPLICATION_CONTEXT);
+        System.out.println("init");
     }
 
     public static <T> T getBean(Class<T> beanClass) {

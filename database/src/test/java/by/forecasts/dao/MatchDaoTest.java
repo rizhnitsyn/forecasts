@@ -15,12 +15,12 @@ public class MatchDaoTest extends BaseTest {
 
     @Test
     public void getMatchesForForecastsTest() {
-        Team team1 = new Team("France");
-        Team team2 = new Team("Spain");
+        Team team1 = new Team("France12");
+        Team team2 = new Team("Spain12");
         teamDao.save(team1);
         teamDao.save(team2);
 
-        Tournament tournament1 = new Tournament("Tournament 1", team1, LocalDate.now(), 1L);
+        Tournament tournament1 = new Tournament("Tournament 12", team1, LocalDate.now(), 1L);
         tournamentDao.save(tournament1);
 
         User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", 1L, "log", "pass");
@@ -31,11 +31,21 @@ public class MatchDaoTest extends BaseTest {
         matchDao.save(match1);
         matchDao.save(match2);
 
-        Forecast forecast = new Forecast(new MatchScore(3, 2), user, match2);
+        Forecast forecast = new Forecast(new MatchScore(3, 2), user, match1);
         forecastDao.save(forecast);
-        List<Match> matchesForForecast = matchDao.getMatchesForForecast(1L, 1L);
+        System.out.println(user.getId());
+        System.out.println(tournament1.getId());
+        System.out.println(match1.getId());
+        System.out.println(match2.getId());
+        List<Match> matchesForForecast = matchDao.getMatchesForForecast(tournament1.getId(), user.getId());
+
+        matchesForForecast.forEach(System.out::println);
+        matchesForForecast.stream()
+                .map(Match::getForecasts)
+                .forEach(forecasts -> System.out.println(forecast));
+
 
         assertThat(matchesForForecast, hasSize(1));
-        assertEquals(matchesForForecast.iterator().next().getFirstTeam().getTeamName(), "Spain");
+        assertEquals(matchesForForecast.iterator().next().getFirstTeam().getTeamName(), "Spain12");
     }
 }
