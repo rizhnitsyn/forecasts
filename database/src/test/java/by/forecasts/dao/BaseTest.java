@@ -1,7 +1,7 @@
 package by.forecasts.dao;
 
 import by.forecasts.config.TestDatabaseConfig;
-import by.forecasts.utils.SessionManager;
+import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -16,13 +16,6 @@ import javax.transaction.Transactional;
 @Transactional
 @ContextConfiguration(classes = TestDatabaseConfig.class)
 public abstract class BaseTest {
-
-//    protected static final TeamDaoImpl teamDao = TeamDaoImpl.getInstance();
-//    protected static final TournamentDaoImpl tournamentDao = TournamentDaoImpl.getInstance();
-//    protected static final UserDaoImpl userDao = UserDaoImpl.getInstance();
-//    protected static final MatchDaoImpl matchDao = MatchDaoImpl.getInstance();
-//    protected static final ForecastDaoImpl forecastDao = ForecastDaoImpl.getInstance();
-//    protected static final TournamentGroupDaoImpl tournamentGroupDao = TournamentGroupDaoImpl.getInstance();
 
     @Autowired
     protected ForecastDaoImpl forecastDao;

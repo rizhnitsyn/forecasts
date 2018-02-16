@@ -1,7 +1,9 @@
 package by.forecasts.dao;
 
+import by.forecasts.config.TestDatabaseConfig;
 import by.forecasts.entities.*;
 import org.junit.Test;
+import org.springframework.test.context.ContextConfiguration;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

@@ -12,5 +12,6 @@ public final class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
     public void registerOnTournament(Tournament tournament, User user) {
         getSessionFactory().getCurrentSession().refresh(tournament);
         tournament.getUsers().add(user);
+        user.getTournaments().add(tournament);
     }
 }
