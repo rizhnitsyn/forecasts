@@ -14,7 +14,7 @@ public class MatchDaoImpl extends BaseDaoImpl<Match>  implements MatchDao {
     public List<Match> getMatchesForForecast(Long tournamentId, Long userId) {
         return getSessionFactory().getCurrentSession()
                 .createQuery("select m from Match m where m.tournament.id = :trId "
-                + "and m.id not in (select f from Forecast f where f.user.id = :userId)", Match.class)
+                + "and m.id not in (select f.match.id from Forecast f where f.user.id = :userId)", Match.class)
                 .setParameter("trId", tournamentId)
                 .setParameter("userId", userId)
                 .getResultList();

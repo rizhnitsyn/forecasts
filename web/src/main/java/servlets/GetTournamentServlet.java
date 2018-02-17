@@ -2,7 +2,6 @@ package servlets;
 
 import by.forecasts.config.ApplicationContextHolder;
 import by.forecasts.service.TournamentService;
-import by.forecasts.service.implementation.TournamentServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

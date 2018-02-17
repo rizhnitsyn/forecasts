@@ -23,7 +23,7 @@ public class MatchDaoTest extends BaseTest {
         Tournament tournament1 = new Tournament("Tournament 12", team1, LocalDate.now(), 1L);
         tournamentDao.save(tournament1);
 
-        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", 1L, "log", "pass");
+        User user = new User("Andrei_log", "Rizhnitsyn", "ra2@bsb.by", 1L, "log", "pass");
         userDao.save(user);
 
         Match match1 = new Match(LocalDateTime.now(), 1L, team1, team2, tournament1);
@@ -33,17 +33,7 @@ public class MatchDaoTest extends BaseTest {
 
         Forecast forecast = new Forecast(new MatchScore(3, 2), user, match1);
         forecastDao.save(forecast);
-        System.out.println(user.getId());
-        System.out.println(tournament1.getId());
-        System.out.println(match1.getId());
-        System.out.println(match2.getId());
         List<Match> matchesForForecast = matchDao.getMatchesForForecast(tournament1.getId(), user.getId());
-
-        matchesForForecast.forEach(System.out::println);
-        matchesForForecast.stream()
-                .map(Match::getForecasts)
-                .forEach(forecasts -> System.out.println(forecast));
-
 
         assertThat(matchesForForecast, hasSize(1));
         assertEquals(matchesForForecast.iterator().next().getFirstTeam().getTeamName(), "Spain12");

@@ -4,9 +4,6 @@ import by.forecasts.config.ApplicationContextHolder;
 import by.forecasts.service.ForecastService;
 import by.forecasts.service.TournamentService;
 import by.forecasts.service.UserService;
-import by.forecasts.service.implementation.ForecastServiceImpl;
-import by.forecasts.service.implementation.TournamentServiceImpl;
-import by.forecasts.service.implementation.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
