@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @ToString(callSuper = true)
 @Table(name = "regular_groups")
 @PrimaryKeyJoinColumn(name = "group_id")
-public class RegularGroup extends TournamentGroup {
+public class RegularGroup extends Group {
 
     public RegularGroup(int teamsCountInGroup, int groupOutCount, int matchesCountBetweenTeams, Long groupNameId, Tournament tournament) {
         super(matchesCountBetweenTeams, groupNameId, tournament);

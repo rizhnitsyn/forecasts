@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @ToString(callSuper = true)
 @Table(name = "playoff_groups")
 @PrimaryKeyJoinColumn(name = "group_id")
-public class PlayoffGroup extends TournamentGroup {
+public class PlayoffGroup extends Group {
 
     public PlayoffGroup(int matchesCountBetweenTeams, Long groupNameId, Tournament tournament, boolean isExtraTimeAllowed) {
         super(matchesCountBetweenTeams, groupNameId, tournament);

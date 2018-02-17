@@ -50,7 +50,7 @@ public class Tournament extends BaseEntity {
     private Set<Match> matches = new HashSet<>();
 
     @OneToMany(mappedBy = "tournament")
-    private Set<TournamentGroup> groups = new HashSet<>();
+    private Set<Group> groups = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "registration_desc",

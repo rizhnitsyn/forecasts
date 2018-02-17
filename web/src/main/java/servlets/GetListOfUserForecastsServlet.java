@@ -1,8 +1,9 @@
 package servlets;
 
-import by.forecasts.ForecastService;
-import by.forecasts.TournamentService;
-import by.forecasts.UserService;
+import by.forecasts.config.ApplicationContextHolder;
+import by.forecasts.service.ForecastService;
+import by.forecasts.service.TournamentService;
+import by.forecasts.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,8 +19,12 @@ public class GetListOfUserForecastsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("tournaments", TournamentService.getInstance().getListOfTournaments());
-        req.setAttribute("users", UserService.getInstance().getListOfUsers());
+        TournamentService tournamentService = ApplicationContextHolder.getBean(TournamentService.class);
+        UserService userService = ApplicationContextHolder.getBean(UserService.class);
+        ForecastService forecastService = ApplicationContextHolder.getBean(ForecastService.class);
+
+        req.setAttribute("tournaments", tournamentService.getListOfTournaments());
+        req.setAttribute("users", userService.getListOfUsers());
 
         if (req.getParameter("pageId") != null) {
             Long tournamentId = (Long) req.getSession().getAttribute("tournamentId");
@@ -28,7 +33,7 @@ public class GetListOfUserForecastsServlet extends HttpServlet {
             Long matchStateId =  (Long) req.getSession().getAttribute("matchState");
             Integer pageId = Integer.parseInt(req.getParameter("pageId"));
 
-            List<Object[]> userForecasts = ForecastService.getInstance().getUserForecasts(tournamentId, userId,
+            List<Object[]> userForecasts = forecastService.getUserForecasts(tournamentId, userId,
                 matchStateId, recordsCnt, pageId);
             req.getSession().removeAttribute("forecasts");
             req.getSession().setAttribute("forecasts", userForecasts);
@@ -40,6 +45,8 @@ public class GetListOfUserForecastsServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ForecastService forecastService = ApplicationContextHolder.getBean(ForecastService.class);
+
         Long tournamentId = Long.parseLong(req.getParameter("tournamentId"));
         Long userId = Long.parseLong(req.getParameter("userId"));
         int recordsCnt = Integer.valueOf(req.getParameter("recordsCnt"));
@@ -47,7 +54,7 @@ public class GetListOfUserForecastsServlet extends HttpServlet {
         if (req.getParameter("matchState") == null) {
             matchStateId = 2L;
         }
-        Long countOfUserForecasts = ForecastService.getInstance().getCountOfUserForecasts(tournamentId, userId, matchStateId);
+        Long countOfUserForecasts = forecastService.getCountOfUserForecasts(tournamentId, userId, matchStateId);
 
         Long pagesCount =  countOfUserForecasts / recordsCnt;
         if (countOfUserForecasts % recordsCnt != 0) {
@@ -58,7 +65,7 @@ public class GetListOfUserForecastsServlet extends HttpServlet {
         for (int i = 0; i < pagesCount; i++) {
             pageList.add(i + 1);
         }
-        List<Object[]> userForecasts = ForecastService.getInstance().getUserForecasts(tournamentId, userId,
+        List<Object[]> userForecasts = forecastService.getUserForecasts(tournamentId, userId,
                 matchStateId, recordsCnt, 1);
 
         req.getSession().setAttribute("pageList", pageList);
