@@ -1,69 +1,53 @@
 package by.forecasts.dao.common;
 
 import by.forecasts.entities.BaseEntity;
-import by.forecasts.utils.SessionManager;
-import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.GenericTypeResolver;
 
 import java.util.List;
 
-public abstract class BaseDaoImpl<T extends BaseEntity> {
+public abstract class BaseDaoImpl<T extends BaseEntity> implements BaseDao<T> {
+
+    @Autowired
+    private SessionFactory sessionFactory;
 
     private Class<T> entityClass;
 
-    public BaseDaoImpl(Class<T> entityClass) {
-        this.entityClass = entityClass;
+    protected SessionFactory getSessionFactory() {
+        return sessionFactory;
     }
 
+    @SuppressWarnings("unchecked")
+    public BaseDaoImpl() {
+        this.entityClass = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), BaseDaoImpl.class);
+    }
+
+    @Override
     public Long save(T entityToSave) {
-        Session session = SessionManager.getSession();
-        session.beginTransaction();
-
-        session.save(entityToSave);
-
-        session.getTransaction().commit();
-        session.close();
+        sessionFactory.getCurrentSession().save(entityToSave);
         return entityToSave.getId();
     }
 
+    @Override
     public T findById(Long id) {
-        Session session = SessionManager.getSession();
-        session.beginTransaction();
-
-        T foundEntity = session.get(entityClass, id);
-
-        session.getTransaction().commit();
-        session.close();
-        return foundEntity;
+        return sessionFactory.getCurrentSession()
+                .get(entityClass, id);
     }
 
+    @Override
     public List<T> findAll() {
-        Session session = SessionManager.getSession();
-        session.beginTransaction();
-
-        List<T> resultList = session.createQuery("select e from " + entityClass.getName() + " e ", entityClass).getResultList();
-
-        session.getTransaction().commit();
-        session.close();
-        return resultList;
+        return sessionFactory.getCurrentSession()
+                .createQuery("select e from " + entityClass.getName() + " e ", entityClass).getResultList();
     }
 
+    @Override
     public void delete(T deleteEntity) {
-        Session session = SessionManager.getSession();
-        session.beginTransaction();
-
-        session.delete(deleteEntity);
-
-        session.getTransaction().commit();
-        session.close();
+        sessionFactory.getCurrentSession().delete(deleteEntity);
     }
 
+    @Override
     public void update(T updatedEntity) {
-        Session session = SessionManager.getSession();
-        session.beginTransaction();
-
-        session.update(updatedEntity);
-
-        session.getTransaction().commit();
-        session.close();
+        sessionFactory.getCurrentSession().update(updatedEntity);
     }
 }

@@ -1,6 +1,7 @@
 package servlets;
 
-import by.forecasts.TournamentService;
+import by.forecasts.config.ApplicationContextHolder;
+import by.forecasts.service.TournamentService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +15,8 @@ public class GetTournamentServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("tournament", TournamentService.getInstance().getTournamentById(1L));
+        TournamentService tournamentService = ApplicationContextHolder.getBean(TournamentService.class);
+        req.setAttribute("tournament", tournamentService.getTournamentById(1L));
         req.getRequestDispatcher("/WEB-INF/jsp/show_tournament.jsp")
                 .forward(req, resp);
     }
