@@ -3,8 +3,6 @@ package by.forecasts.dao;
 import by.forecasts.entities.Team;
 import by.forecasts.entities.Tournament;
 import by.forecasts.entities.User;
-import org.hamcrest.Matchers;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -19,21 +17,21 @@ import static org.junit.Assert.assertThat;
 public class TournamentDaoTest extends BaseTest {
 
     @Test
-    public void getTournamentsByUser() {
+    public void getTournamentsByUserTest() {
         Team team1 = new Team("France");
         Team team2 = new Team("Spain");
-        TEAM_DAO.save(team1);
-        TEAM_DAO.save(team2);
+        teamDao.save(team1);
+        teamDao.save(team2);
         Tournament tournament1 = new Tournament("Tournament 1", team1, LocalDate.now(), 1L);
         Tournament tournament2 = new Tournament("Tournament 2", team2, LocalDate.now(), 1L);
-        TOURNAMENT_DAO.save(tournament1);
-        TOURNAMENT_DAO.save(tournament2);
+        tournamentDao.save(tournament1);
+        tournamentDao.save(tournament2);
         User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", 1L, "log", "pass");
-        USER_DAO.save(user);
-        USER_DAO.registerOnTournament(tournament1, user);
-        USER_DAO.registerOnTournament(tournament2, user);
+        userDao.save(user);
+        userDao.registerOnTournament(tournament1, user);
+        userDao.registerOnTournament(tournament2, user);
 
-        List<Tournament> tournaments = TOURNAMENT_DAO.getTournamentsFilterByUser(user.getId());
+        List<Tournament> tournaments = tournamentDao.getTournamentsFilterByUser(user.getId());
 
         assertThat(tournaments, hasSize(2));
         List<String> names = tournaments.stream()
