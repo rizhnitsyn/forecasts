@@ -1,11 +1,6 @@
-package by.forecasts.dao;
+package by.forecasts.repository;
 
-import by.forecasts.entities.Team;
-import by.forecasts.entities.Tournament;
-import org.junit.Assert;
 import org.junit.Test;
-
-import java.time.LocalDate;
 
 public class TeamDaoTest extends BaseTest {
 

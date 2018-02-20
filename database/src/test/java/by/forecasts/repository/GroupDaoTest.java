@@ -1,10 +1,6 @@
-package by.forecasts.dao;
+package by.forecasts.repository;
 
-import by.forecasts.entities.*;
 import org.junit.Test;
-
-import java.time.LocalDate;
-import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertEquals;

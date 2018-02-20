@@ -1,23 +1,15 @@
-package by.forecasts.dao;
+package by.forecasts.repository;
 
-import by.forecasts.entities.Team;
-import by.forecasts.entities.Tournament;
-import by.forecasts.entities.User;
 import org.junit.Test;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-public class TournamentDaoTest extends BaseTest {
+public class UserDaoTest extends BaseTest {
 
     @Test
-    public void getTournamentsByUserTest() {
+    public void registerOnTournamentTest() {
 //        Team team1 = new Team("France");
 //        Team team2 = new Team("Spain");
 //        teamRepository.save(team1);
@@ -30,13 +22,9 @@ public class TournamentDaoTest extends BaseTest {
 //        userRepository.save(user);
 //        userRepository.registerOnTournament(tournament1, user);
 //        userRepository.registerOnTournament(tournament2, user);
-
-//        List<Tournament> tournaments = tournamentRepository.getTournamentsFilterByUser(user.getId());
-
-//        assertThat(tournaments, hasSize(2));
-//        List<String> names = tournaments.stream()
-//                .map(Tournament::getName)
-//                .collect(Collectors.toList());
-//        assertThat(names, containsInAnyOrder("Tournament 1", "Tournament 2"));
+//        assertThat(tournament1.getUsers(), hasSize(1));
+//        assertThat(tournament2.getUsers(), hasSize(1));
+//        assertEquals(tournament1.getUsers().iterator().next().getFirstName(), "Andrei");
+//        assertEquals(tournament2.getUsers().iterator().next().getFirstName(), "Andrei");
     }
 }

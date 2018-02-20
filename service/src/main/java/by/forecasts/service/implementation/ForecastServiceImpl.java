@@ -1,6 +1,6 @@
 package by.forecasts.service.implementation;
 
-import by.forecasts.dao.ForecastDao;
+import by.forecasts.repositories.ForecastRepository;
 import by.forecasts.service.ForecastService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,20 +12,22 @@ import java.util.List;
 @Transactional
 public class ForecastServiceImpl implements ForecastService {
 
-    private final ForecastDao forecastDao;
+    private final ForecastRepository forecastRepository;
 
     @Autowired
-    public ForecastServiceImpl(ForecastDao forecastDao) {
-        this.forecastDao = forecastDao;
+    public ForecastServiceImpl(ForecastRepository forecastRepository) {
+        this.forecastRepository = forecastRepository;
     }
 
     @Override
     public List<Object[]> getUserForecasts(Long tournamentId, Long userId, Long matchStateId, int recordsCnt, int pageNo) {
-        return forecastDao.getUserForecastsOfTournament(userId, tournamentId, matchStateId, recordsCnt, pageNo);
+//        return forecastRepository.getUserForecastsOfTournament(userId, tournamentId, matchStateId, recordsCnt, pageNo);
+        return null;
     }
 
     @Override
     public Long getCountOfUserForecasts(Long tournamentId, Long userId, Long matchStateId) {
-        return forecastDao.getCountOfUserForecasts(userId, tournamentId, matchStateId);
+        return null;
+//        return forecastRepository.getCountOfUserForecasts(userId, tournamentId, matchStateId);
     }
 }

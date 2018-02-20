@@ -1,4 +1,4 @@
-package by.forecasts.dao;
+package by.forecasts.repository;
 
 
 import by.forecasts.entities.Forecast;
