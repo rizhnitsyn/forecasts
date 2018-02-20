@@ -25,13 +25,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 
-public class BaseDaoTest extends BaseTest {
+public class CrudOperationsTest extends BaseTest {
 
     @Test
     public void teamTest() {
         Team team = new Team("Ямайка");
         teamRepository.save(team);
-        Iterable<Team> teams = teamRepository.findAll();
+        List<Team> teams = teamRepository.findAll();
+
+        assertThat(teams, hasSize(1));
         assertEquals(teams.iterator().next().getTeamName(), "Ямайка");
     }
 
@@ -41,7 +43,9 @@ public class BaseDaoTest extends BaseTest {
         teamRepository.save(team);
         Tournament tournament = new Tournament("ЧМ 2018", team, LocalDate.now(), 2L);
         tournamentRepository.save(tournament);
-        Iterable<Tournament> tournaments = tournamentRepository.findAll();
+        List<Tournament> tournaments = tournamentRepository.findAll();
+
+        assertThat(tournaments, hasSize(1));
         assertEquals(tournaments.iterator().next().getName(), "ЧМ 2018");
     }
 
@@ -59,9 +63,10 @@ public class BaseDaoTest extends BaseTest {
         Match match1 = new Match(matchScore, LocalDateTime.now(), 1L, team1, team2, tournament);
         matchRepository.save(match1);
 
-        Iterable<Match> matches = matchRepository.findAll();
+        List<Match> matches = matchRepository.findAll();
         Match foundMatch = matches.iterator().next();
 
+        assertThat(matches, hasSize(1));
         assertThat(foundMatch.getFirstTeam().getTeamName(), equalTo("Ямайка"));
         assertThat(foundMatch.getTournament().getName(), equalTo("ЧМ 2018"));
         assertThat(foundMatch.getMatchFinalResult().getFirstResult(), equalTo(1));
@@ -72,7 +77,9 @@ public class BaseDaoTest extends BaseTest {
     public void userTest() {
         User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", 1L, "log", "pass");
         userRepository.save(user);
-        Iterable<User> users = userRepository.findAll();
+        List<User> users = userRepository.findAll();
+
+        assertThat(users, hasSize(1));
         assertEquals(users.iterator().next().getEmail(), "ra@bsb.by");
     }
 
@@ -98,9 +105,10 @@ public class BaseDaoTest extends BaseTest {
         Forecast forecast = new Forecast(matchScore1, user, match);
         forecastRepository.save(forecast);
 
-        Iterable<Forecast> forecasts = forecastRepository.findAll();
+        List<Forecast> forecasts = forecastRepository.findAll();
         Forecast foundForecast = forecasts.iterator().next();
 
+        assertThat(forecasts, hasSize(1));
         assertThat(foundForecast.getMatchForecast().getFirstResult(), Matchers.equalTo(3));
         assertThat(foundForecast.getUser().getFirstName(), Matchers.equalTo("Andrei"));
     }
@@ -135,7 +143,6 @@ public class BaseDaoTest extends BaseTest {
 
         RegularGroup regularGroup1 = (RegularGroup) groupRepository.findOne(2L);
         PlayoffGroup playoffGroup1 = (PlayoffGroup) groupRepository.findOne(1L);
-        Iterable<Group> groups = groupRepository.findAll();
 
         assertThat(regularGroup1.getTeamsCountInGroup(), Matchers.equalTo(4));
         assertThat(regularGroup1.getTournament().getName(), Matchers.equalTo("ЧМ 2018"));
@@ -149,12 +156,7 @@ public class BaseDaoTest extends BaseTest {
         Team team1 = new Team("France");
         teamRepository.save(team);
         teamRepository.save(team1);
-        Iterator<Team> iterator = teamRepository.findAll().iterator();
-        List<Team> teams = new ArrayList<>();
-
-        while (iterator.hasNext()) {
-            teams.add(iterator.next());
-        }
+        List<Team> teams = teamRepository.findAll();
 
         List<String> teamNames = teams.stream()
                 .map(Team::getTeamName)
@@ -169,7 +171,7 @@ public class BaseDaoTest extends BaseTest {
         assertEquals(team.getTeamName(), "Spain");
         teamRepository.delete(team);
 
-        Iterable<Team> teamIterable = teamRepository.findAll();
+        List<Team> teamIterable = teamRepository.findAll();
 
         assertThat(teamIterable.iterator().hasNext(), Matchers.is(false));
     }
