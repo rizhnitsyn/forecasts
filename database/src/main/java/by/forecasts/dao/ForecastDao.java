@@ -1,12 +1,11 @@
 package by.forecasts.dao;
 
 
-import by.forecasts.dao.common.BaseDao;
 import by.forecasts.entities.Forecast;
 
 import java.util.List;
 
-public interface ForecastDao extends BaseDao<Forecast> {
+public interface ForecastDao  {
 
     List<Forecast> getAllForecastsOfUser(Long userId);
 

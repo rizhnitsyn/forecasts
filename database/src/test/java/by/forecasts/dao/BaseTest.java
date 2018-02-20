@@ -7,6 +7,14 @@ import by.forecasts.dao.implementation.MatchDaoImpl;
 import by.forecasts.dao.implementation.TeamDaoImpl;
 import by.forecasts.dao.implementation.TournamentDaoImpl;
 import by.forecasts.dao.implementation.UserDaoImpl;
+import by.forecasts.repositories.ForecastRepository;
+import by.forecasts.repositories.GroupRepository;
+import by.forecasts.repositories.MatchRepository;
+import by.forecasts.repositories.PlayoffGroupRepository;
+import by.forecasts.repositories.RegularGroupRepository;
+import by.forecasts.repositories.TeamRepository;
+import by.forecasts.repositories.TournamentRepository;
+import by.forecasts.repositories.UserRepository;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -23,41 +31,26 @@ import javax.transaction.Transactional;
 public abstract class BaseTest {
 
     @Autowired
-    protected ForecastDaoImpl forecastDao;
+    protected ForecastRepository forecastRepository;
 
     @Autowired
-    protected MatchDaoImpl matchDao;
+    protected MatchRepository matchRepository;
 
     @Autowired
-    protected TournamentDaoImpl tournamentDao;
+    protected TournamentRepository tournamentRepository;
 
     @Autowired
-    protected TeamDaoImpl teamDao;
+    protected TeamRepository teamRepository;
 
     @Autowired
-    protected GroupDaoImpl groupDao;
+    protected GroupRepository groupRepository;
 
     @Autowired
-    protected PlayoffGroupDao playoffGroupDao;
+    protected PlayoffGroupRepository playoffGroupRepository;
 
     @Autowired
-    protected RegularGroupDao regularGroupDao;
+    protected RegularGroupRepository regularGroupRepository;
 
     @Autowired
-    protected UserDaoImpl userDao;
-
-    @Before
-    public void initSessionFactory() {
-//        SessionManager.setH2Config();
-    }
-
-    @After
-    public void finish() {
-//        SessionManager.getSessionFactory().close();
-    }
-
-    @AfterClass
-    public static void initDef() {
-//        SessionManager.setMySqlConfig();
-    }
+    protected UserRepository userRepository;
 }
