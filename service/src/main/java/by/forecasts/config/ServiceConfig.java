@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import(DatabaseConfig.class)
+@Import(PersistenceConfig.class)
 @ComponentScan(basePackages = {"by.forecasts.service"})
 public class ServiceConfig {
 
