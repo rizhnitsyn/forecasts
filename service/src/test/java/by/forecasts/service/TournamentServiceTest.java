@@ -23,9 +23,9 @@ public class TournamentServiceTest extends BaseServiceTest {
         assertThat(tournaments.size(), Matchers.greaterThan(3));
     }
 
-    @Test
-    public void getTournamentsFilterByUserTest() {
-        List<Tournament> tournaments = tournamentService.getTournamentsFilterByUser(1L);
-        assertThat(tournaments.size(), Matchers.greaterThan(3));
-    }
+//    @Test
+//    public void getTournamentsFilterByUserTest() {
+//        List<Tournament> tournaments = tournamentService.getTournamentsFilterByUser(1L);
+//        assertThat(tournaments.size(), Matchers.greaterThan(3));
+//    }
 }
