@@ -11,7 +11,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-public class MatchDaoTest extends BaseTest {
+public class MatchTest extends BaseTest {
 
     @Test
     public void getMatchesForForecastsTest() {
@@ -36,7 +36,11 @@ public class MatchDaoTest extends BaseTest {
         List<Match> matchesForForecast = matchRepository
                 .findMatchesAvailableForForecast(tournament1.getId(), user.getId());
 
+        List<Match> matchesForForecast2 = matchRepository
+                .findAllByTournamentIdAndForecastsUserId(tournament1.getId(), user.getId());
+
         assertThat(matchesForForecast, hasSize(1));
+        assertEquals(matchesForForecast.iterator().next().getTournament().getName(), matchesForForecast2.iterator().next().getTournament().getName());
         assertEquals(matchesForForecast.iterator().next().getFirstTeam().getTeamName(), "Spain12");
     }
 }

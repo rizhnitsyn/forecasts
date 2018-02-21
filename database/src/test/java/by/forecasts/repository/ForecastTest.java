@@ -6,7 +6,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-public class ForecastDaoTest extends BaseTest {
+public class ForecastTest extends BaseTest {
 
     @Test
     public void getForecastsOfUserTest() {

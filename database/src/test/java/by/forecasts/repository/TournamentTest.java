@@ -14,7 +14,7 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
 
-public class TournamentDaoTest extends BaseTest {
+public class TournamentTest extends BaseTest {
 
     @Test
     public void getTournamentsByUserTest() {
@@ -34,7 +34,9 @@ public class TournamentDaoTest extends BaseTest {
         tournament2.getUsers().add(user);
         tournament2.getUsers().add(user2);
 
-        List<Tournament> tournaments = tournamentRepository.getAllByUsers_id(user.getId());
+        List<Tournament> tournaments = tournamentRepository.getAllByUsersId(user.getId());
+
+        System.out.println(tournaments);
 
         assertThat(tournaments, hasSize(2));
         List<String> names = tournaments.stream()

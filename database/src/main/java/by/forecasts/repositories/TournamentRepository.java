@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface TournamentRepository extends JpaRepository<Tournament, Long> {
 
-    List<Tournament> getAllByUsers_id(Long userId);
+    List<Tournament> getAllByUsersId(Long userId);
 }
