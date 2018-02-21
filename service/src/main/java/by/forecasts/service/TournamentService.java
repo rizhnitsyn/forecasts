@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface TournamentService {
 
-    Tournament getTournamentById(Long id);
+    Tournament findOne(Long id);
 
-    List<Tournament> getListOfTournaments();
+    List<Tournament> findAll();
 
     List<Tournament> getTournamentsFilterByUser(Long userId);
 }

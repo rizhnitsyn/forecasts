@@ -59,10 +59,10 @@
             </tr>
             <c:forEach var="forecast" items="${sessionScope.forecasts}">
                 <tr class="widget-list3">
-                    <td>${forecast[0]}</td>
-                    <td>${forecast[1]}</td>
-                    <td>${forecast[2]}</td>
-                    <td>${forecast[3]}</td>
+                    <td>${forecast.match.firstTeam.teamName}</td>
+                    <td>${forecast.match.secondTeam.teamName}</td>
+                    <td>${forecast.matchForecast.firstResult}</td>
+                    <td>${forecast.matchForecast.secondResult}</td>
                 </tr>
             </c:forEach>
         </table>

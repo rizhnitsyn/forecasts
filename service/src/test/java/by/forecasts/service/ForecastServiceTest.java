@@ -1,5 +1,6 @@
 package by.forecasts.service;
 
+import by.forecasts.entities.Forecast;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,7 +11,7 @@ public class ForecastServiceTest extends BaseServiceTest {
 
     @Test
     public void getUserForecastsTest() {
-        List<Object[]> userForecasts = forecastService.getUserForecasts(1L, 1L, 2L, 5, 2);
+        List<Forecast> userForecasts = forecastService.getUserForecasts(1L, 1L, 2L, 5, 2);
         Assert.assertThat(userForecasts, Matchers.hasSize(5));
     }
 

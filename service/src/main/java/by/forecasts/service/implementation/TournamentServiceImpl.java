@@ -21,13 +21,13 @@ public class TournamentServiceImpl implements TournamentService {
     }
 
     @Override
-    public Tournament getTournamentById(Long id) {
+    public Tournament findOne(Long id) {
         return tournamentRepository.findOne(id);
     }
 
     @Override
-    public List<Tournament> getListOfTournaments() {
-        return null;
+    public List<Tournament> findAll() {
+        return tournamentRepository.findAll();
     }
 
     @Override

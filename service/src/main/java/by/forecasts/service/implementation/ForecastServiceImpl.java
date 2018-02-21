@@ -1,8 +1,11 @@
 package by.forecasts.service.implementation;
 
+import by.forecasts.entities.Forecast;
 import by.forecasts.repositories.ForecastRepository;
 import by.forecasts.service.ForecastService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,14 +23,14 @@ public class ForecastServiceImpl implements ForecastService {
     }
 
     @Override
-    public List<Object[]> getUserForecasts(Long tournamentId, Long userId, Long matchStateId, int recordsCnt, int pageNo) {
-//        return forecastRepository.getUserForecastsOfTournament(userId, tournamentId, matchStateId, recordsCnt, pageNo);
-        return null;
+    public List<Forecast> getUserForecasts(Long tournamentId, Long userId, Long matchStateId, int recordsCnt, int pageNo) {
+        PageRequest pageRequest = new PageRequest(pageNo, recordsCnt);
+        Page<Forecast> forecastPage = forecastRepository.findAllByUserIdAndMatchTournamentIdAndMatchMatchState(userId, tournamentId, matchStateId, pageRequest);
+        return forecastPage.getContent();
     }
 
     @Override
-    public Long getCountOfUserForecasts(Long tournamentId, Long userId, Long matchStateId) {
-        return null;
-//        return forecastRepository.getCountOfUserForecasts(userId, tournamentId, matchStateId);
+    public Long getCountOfUserForecasts(Long userId, Long tournamentId, Long matchStateId) {
+        return forecastRepository.countAllByUserIdAndMatchTournamentIdAndMatchMatchState(userId, tournamentId, matchStateId);
     }
 }

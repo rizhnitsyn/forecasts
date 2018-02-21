@@ -16,7 +16,7 @@ public class GetTournamentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         TournamentService tournamentService = ApplicationContextHolder.getBean(TournamentService.class);
-        req.setAttribute("tournament", tournamentService.getTournamentById(1L));
+        req.setAttribute("tournament", tournamentService.findOne(1L));
         req.getRequestDispatcher("/WEB-INF/jsp/show_tournament.jsp")
                 .forward(req, resp);
     }

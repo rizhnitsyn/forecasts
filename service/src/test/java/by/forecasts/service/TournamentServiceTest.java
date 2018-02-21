@@ -13,13 +13,13 @@ public class TournamentServiceTest extends BaseServiceTest {
 
     @Test
     public void getTournamentByIdTest() {
-        Tournament tournamentById = tournamentService.getTournamentById(1L);
+        Tournament tournamentById = tournamentService.findOne(1L);
         assertEquals(tournamentById.getName(),  "Чемпионат Европы 2016");
     }
 
     @Test
     public void getListOfTournamentsTest() {
-        List<Tournament> tournaments = tournamentService.getListOfTournaments();
+        List<Tournament> tournaments = tournamentService.findAll();
         assertThat(tournaments.size(), Matchers.greaterThan(3));
     }
 
