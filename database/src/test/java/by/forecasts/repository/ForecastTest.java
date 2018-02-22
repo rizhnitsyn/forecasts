@@ -82,8 +82,6 @@ public class ForecastTest extends BaseTest {
         System.out.println(forecastPage.getTotalPages());
 
         List<Forecast> content = forecastPage.getContent();
-
-
-//        Assert.assertEquals(2L, (long) count);
+        Assert.assertEquals(2, content.size());
     }
 }
