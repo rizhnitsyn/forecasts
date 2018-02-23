@@ -1,7 +1,7 @@
 package by.forecasts.service.implementation;
 
-import by.forecasts.dao.UserDao;
 import by.forecasts.entities.User;
+import by.forecasts.repositories.UserRepository;
 import by.forecasts.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,15 +13,15 @@ import java.util.List;
 @Transactional
 public class UserServiceImpl implements UserService {
 
-    private final UserDao userDao;
+    private final UserRepository userRepository;
 
     @Autowired
-    public UserServiceImpl(UserDao userDao) {
-        this.userDao = userDao;
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
-    public List<User> getListOfUsers() {
-        return userDao.findAll();
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 }

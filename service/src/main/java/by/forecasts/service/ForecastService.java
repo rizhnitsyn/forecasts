@@ -1,10 +1,11 @@
 package by.forecasts.service;
 
-import java.util.List;
+import by.forecasts.entities.Forecast;
+import org.springframework.data.domain.Page;
 
 public interface ForecastService {
 
-    List<Object[]> getUserForecasts(Long tournamentId, Long userId, Long matchStateId, int recordsCnt, int pageNo);
+    Page<Forecast> getUserForecasts(Long tournamentId, Long userId, Long matchStateId, int recordsCnt, int pageNo);
 
     Long getCountOfUserForecasts(Long tournamentId, Long userId, Long matchStateId);
 }

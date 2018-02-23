@@ -1,6 +1,7 @@
 package by.forecasts.entities;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,12 +17,14 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "teams")
 @ToString(callSuper = true, exclude = {"visitorMatches", "homeMatches"})
 public class Team extends BaseEntity {
 
     public Team(String teamName) {
+        super();
         this.teamName = teamName;
     }
 
