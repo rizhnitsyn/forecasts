@@ -9,8 +9,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 @Transactional
 public class ForecastServiceImpl implements ForecastService {
@@ -23,10 +21,9 @@ public class ForecastServiceImpl implements ForecastService {
     }
 
     @Override
-    public List<Forecast> getUserForecasts(Long tournamentId, Long userId, Long matchStateId, int recordsCnt, int pageNo) {
+    public Page<Forecast> getUserForecasts(Long tournamentId, Long userId, Long matchStateId, int recordsCnt, int pageNo) {
         PageRequest pageRequest = new PageRequest(pageNo, recordsCnt);
-        Page<Forecast> forecastPage = forecastRepository.findAllByUserIdAndMatchTournamentIdAndMatchMatchState(userId, tournamentId, matchStateId, pageRequest);
-        return forecastPage.getContent();
+        return forecastRepository.findAllByUserIdAndMatchTournamentIdAndMatchMatchState(userId, tournamentId, matchStateId, pageRequest);
     }
 
     @Override

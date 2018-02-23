@@ -25,29 +25,24 @@
             </c:forEach>
         </select>
 
-        <p> Только для оконченных матчей <input type="checkbox" name="matchState" value="1"
-            <c:if test="${sessionScope.matchState == 1}"> checked </c:if>
-        ></p>
+        <p> Только для оконченных матчей
+            <input type="checkbox" name="matchState" value="1" <c:if test="${sessionScope.matchState == 1}">checked</c:if> >
+        </p>
 
         <p>Количество записей на странице<p>
             <select class="form-field" id="recordsCnt" name="recordsCnt">
-                <option value="5"
-                    <c:if test="${sessionScope.recordsCnt == 5}"> selected </c:if>
-                >5</option>
-                <option value="10"
-                    <c:if test="${sessionScope.recordsCnt == 10}"> selected </c:if>
-                >10</option>
-                <option value="20"
-                    <c:if test="${sessionScope.recordsCnt == 20}"> selected </c:if>
-                >20</option>
+                <option value="5" <c:if test="${sessionScope.recordsCnt == 5}"> selected </c:if> >5</option>
+                <option value="10" <c:if test="${sessionScope.recordsCnt == 10}"> selected </c:if> >10</option>
+                <option value="20" <c:if test="${sessionScope.recordsCnt == 20}"> selected </c:if> >20</option>
             </select>
-
         <p><button class="btn-class" type="submit">Применить фильтр</button></p>
     </form>
 
-    <c:forEach var="page" items="${sessionScope.pageList}">
-        <a href="${pageContext.request.contextPath}/listOfForecasts?pageId=${page}">${page}</a>
-    </c:forEach>
+    <c:if test="${sessionScope.pageCount != 0}">
+        <c:forEach var="page" begin="0" end="${sessionScope.pageCount}" >
+            <a href="${pageContext.request.contextPath}/listOfForecasts?pageId=${page}">${page + 1}</a>
+        </c:forEach>
+    </c:if>
 
     <c:if test="${not empty sessionScope.forecasts}">
         <table class="simple-little-table">
