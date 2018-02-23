@@ -1,4 +1,4 @@
-package by.forecasts.dao;
+package by.forecasts.repository;
 
 import by.forecasts.entities.*;
 import org.junit.Test;
@@ -11,31 +11,36 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-public class MatchDaoTest extends BaseTest {
+public class MatchTest extends BaseTest {
 
     @Test
     public void getMatchesForForecastsTest() {
         Team team1 = new Team("France12");
         Team team2 = new Team("Spain12");
-        teamDao.save(team1);
-        teamDao.save(team2);
+        teamRepository.save(team1);
+        teamRepository.save(team2);
 
         Tournament tournament1 = new Tournament("Tournament 12", team1, LocalDate.now(), 1L);
-        tournamentDao.save(tournament1);
+        tournamentRepository.save(tournament1);
 
         User user = new User("Andrei_log", "Rizhnitsyn", "ra2@bsb.by", 1L, "log", "pass");
-        userDao.save(user);
+        userRepository.save(user);
 
         Match match1 = new Match(LocalDateTime.now(), 1L, team1, team2, tournament1);
         Match match2 = new Match(LocalDateTime.now(), 1L, team2, team1, tournament1);
-        matchDao.save(match1);
-        matchDao.save(match2);
+        matchRepository.save(match1);
+        matchRepository.save(match2);
 
         Forecast forecast = new Forecast(new MatchScore(3, 2), user, match1);
-        forecastDao.save(forecast);
-        List<Match> matchesForForecast = matchDao.getMatchesForForecast(tournament1.getId(), user.getId());
+        forecastRepository.save(forecast);
+        List<Match> matchesForForecast = matchRepository
+                .findMatchesAvailableForForecast(tournament1.getId(), user.getId());
+
+        List<Match> matchesForForecast2 = matchRepository
+                .findAllByTournamentIdAndForecastsUserId(tournament1.getId(), user.getId());
 
         assertThat(matchesForForecast, hasSize(1));
+        assertEquals(matchesForForecast.iterator().next().getTournament().getName(), matchesForForecast2.iterator().next().getTournament().getName());
         assertEquals(matchesForForecast.iterator().next().getFirstTeam().getTeamName(), "Spain12");
     }
 }

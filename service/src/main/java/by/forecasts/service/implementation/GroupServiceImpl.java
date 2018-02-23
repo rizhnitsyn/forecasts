@@ -1,6 +1,6 @@
 package by.forecasts.service.implementation;
 
-import by.forecasts.dao.GroupDao;
+import by.forecasts.repositories.GroupRepository;
 import by.forecasts.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,10 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class GroupServiceImpl implements GroupService {
 
-    private final GroupDao groupDao;
+    private final GroupRepository groupRepository;
 
     @Autowired
-    public GroupServiceImpl(GroupDao groupDao) {
-        this.groupDao = groupDao;
+    public GroupServiceImpl(GroupRepository groupRepository) {
+        this.groupRepository = groupRepository;
     }
 }
