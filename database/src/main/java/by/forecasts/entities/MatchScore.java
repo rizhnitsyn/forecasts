@@ -1,7 +1,6 @@
 package by.forecasts.entities;
 
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,8 +13,8 @@ import javax.persistence.Embeddable;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @ToString
+@AllArgsConstructor
 @Embeddable
 public class MatchScore {
 

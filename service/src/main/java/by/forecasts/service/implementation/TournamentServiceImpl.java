@@ -1,7 +1,7 @@
 package by.forecasts.service.implementation;
 
-import by.forecasts.dao.TournamentDao;
 import by.forecasts.entities.Tournament;
+import by.forecasts.repositories.TournamentRepository;
 import by.forecasts.service.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,25 +13,25 @@ import java.util.List;
 @Transactional
 public class TournamentServiceImpl implements TournamentService {
 
-    private final TournamentDao tournamentDao;
+    private final TournamentRepository tournamentRepository;
 
     @Autowired
-    public TournamentServiceImpl(TournamentDao tournamentDao) {
-        this.tournamentDao = tournamentDao;
+    public TournamentServiceImpl(TournamentRepository tournamentRepository) {
+        this.tournamentRepository = tournamentRepository;
     }
 
     @Override
-    public Tournament getTournamentById(Long id) {
-        return tournamentDao.findById(id);
+    public Tournament findOne(Long id) {
+        return tournamentRepository.findOne(id);
     }
 
     @Override
-    public List<Tournament> getListOfTournaments() {
-        return tournamentDao.findAll();
+    public List<Tournament> findAll() {
+        return tournamentRepository.findAll();
     }
 
     @Override
     public List<Tournament> getTournamentsFilterByUser(Long userId) {
-        return tournamentDao.getTournamentsFilterByUser(userId);
+        return null;
     }
 }
