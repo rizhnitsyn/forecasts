@@ -1,5 +1,6 @@
 package by.forecasts.service.implementation;
 
+import by.forecasts.dto.ForecastFilter;
 import by.forecasts.entities.Forecast;
 import by.forecasts.repositories.ForecastRepository;
 import by.forecasts.service.ForecastService;
@@ -21,9 +22,13 @@ public class ForecastServiceImpl implements ForecastService {
     }
 
     @Override
-    public Page<Forecast> getUserForecasts(Long tournamentId, Long userId, Long matchStateId, int recordsCnt, int pageNo) {
-        PageRequest pageRequest = new PageRequest(pageNo, recordsCnt);
-        return forecastRepository.findAllByUserIdAndMatchTournamentIdAndMatchMatchState(userId, tournamentId, matchStateId, pageRequest);
+    public Page<Forecast> getUserForecasts(ForecastFilter forecastFilter) {
+        PageRequest pageRequest = new PageRequest(forecastFilter.getPageNo(), forecastFilter.getRecordsOnPage());
+        return forecastRepository.findAllByUserIdAndMatchTournamentIdAndMatchMatchState(
+                forecastFilter.getUserId(),
+                forecastFilter.getTournamentId(),
+                forecastFilter.getMatchStateId(),
+                pageRequest);
     }
 
     @Override
