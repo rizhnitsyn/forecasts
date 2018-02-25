@@ -1,6 +1,11 @@
 package by.forecasts.dto;
 
-import lombok.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
@@ -8,10 +13,10 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class ForecastFilter {
-    Long tournamentId;
-    Long userId;
-    Long matchStateId;
-    int recordsOnPage;
-    int pageNo;
-    int pagesCount;
+    private Long tournamentId;
+    private Long userId;
+    private Long matchStateId;
+    private int recordsOnPage;
+    private int pageNo;
+    private int pagesCount;
 }
