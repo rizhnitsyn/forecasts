@@ -1,19 +1,17 @@
 package by.forecasts.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class ForecastFilter {
     Long tournamentId;
     Long userId;
     Long matchStateId;
-    int recordsCnt;
-    int PageNo;
-
+    int recordsOnPage;
+    int pageNo;
+    int pagesCount;
 }

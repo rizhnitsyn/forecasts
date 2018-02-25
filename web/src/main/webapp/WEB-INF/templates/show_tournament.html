@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Tournament info</title>
 </head>
 <body>
+    <h2 class="form-title" th:text="${tournament.name}" >Турнир: </h2>
+    <p>Дата начала игр турнира: <span class="span-class" th:text="${tournament.startDate}"> </span></p>
+    <p>Страна организатор турнира: <span class="span-class" th:text="${tournament.organizer.teamName}">  </span></p>
+    <p>Состояние турнира: <span class="span-class" th:text="${tournament.stateId}"> </span></p>
+    <div th:if="${!tournament.matches.isEmpty()}">
+        <table class="simple-little-table">
+            <tr>
+                <th>Матч</th>
+                <th>Счет</th>
+                <th>Дата матча</th>
+            </tr>
+                <tr class="widget-list3" th:each="match : ${tournament.matches}">
+                    <td th:text="${match.firstTeam.teamName + ' - ' + match.firstTeam.teamName}"></td>
+                    <td>
+                        <span th:if="${match.matchFinalResult} != null"
+                              th:text="${match.matchFinalResult.firstResult + ' - ' + match.matchFinalResult.secondResult}"></span>
+                        <span class="span-class_green" th:if="${match.matchFinalResult} == null">ожидается</span>
+                    </td>
+                    <td th:text="${match.matchDateTime}"></td>
+                </tr>
+        </table>
 
+    </div>
 </body>
 </html>
