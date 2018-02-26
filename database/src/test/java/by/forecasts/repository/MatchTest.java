@@ -23,7 +23,7 @@ public class MatchTest extends BaseTest {
         Tournament tournament1 = new Tournament("Tournament 12", team1, LocalDate.now(), 1L);
         tournamentRepository.save(tournament1);
 
-        User user = new User("Andrei_log", "Rizhnitsyn", "ra2@bsb.by", 1L, "log", "pass");
+        User user = new User("Andrei_log", "Rizhnitsyn", "ra2@bsb.by", new UserStates(), "log", "pass");
         userRepository.save(user);
 
         Match match1 = new Match(LocalDateTime.now(), 1L, team1, team2, tournament1);

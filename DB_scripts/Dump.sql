@@ -463,7 +463,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `users_login_uindex` (`login`),
   KEY `user_stets_fk1_idx` (`user_state_id`),
-  CONSTRAINT `user_stets_fk1` FOREIGN KEY (`user_state_id`) REFERENCES `user_states` (`user_state_id`)
+  CONSTRAINT `user_stets_fk1` FOREIGN KEY (`user_state_id`) REFERENCES `user_states` (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

@@ -7,7 +7,7 @@ CREATE TABLE myforecasts.users
     user_state_id int(11) NOT NULL,
     login varchar(30) NOT NULL,
     password varchar(100) NOT NULL,
-    CONSTRAINT user_stets_fk1 FOREIGN KEY (user_state_id) REFERENCES user_states (user_state_id)
+    CONSTRAINT user_stets_fk1 FOREIGN KEY (user_state_id) REFERENCES user_states (id)
 );
 CREATE UNIQUE INDEX email ON myforecasts.users (email);
 CREATE UNIQUE INDEX users_login_uindex ON myforecasts.users (login);

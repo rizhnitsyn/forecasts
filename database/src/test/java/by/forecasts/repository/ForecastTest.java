@@ -6,6 +6,7 @@ import by.forecasts.entities.MatchScore;
 import by.forecasts.entities.Team;
 import by.forecasts.entities.Tournament;
 import by.forecasts.entities.User;
+import by.forecasts.entities.UserStates;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.data.domain.Page;
@@ -32,7 +33,7 @@ public class ForecastTest extends BaseTest {
         Tournament tournament1 = new Tournament("Tournament 1", team1, LocalDate.now(), 1L);
         tournamentRepository.save(tournament1);
 
-        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", 1L, "log", "pass");
+        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", new UserStates(), "log", "pass");
         userRepository.save(user);
 
         Match match1 = new Match(LocalDateTime.now(), 1L, team1, team2, tournament1);
@@ -61,7 +62,7 @@ public class ForecastTest extends BaseTest {
         Tournament tournament1 = new Tournament("Tournament 1", team1, LocalDate.now(), 1L);
         tournamentRepository.save(tournament1);
 
-        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", 1L, "log", "pass");
+        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", new UserStates(), "log", "pass");
         userRepository.save(user);
 
         Match match1 = new Match(LocalDateTime.now(), 1L, team1, team2, tournament1);

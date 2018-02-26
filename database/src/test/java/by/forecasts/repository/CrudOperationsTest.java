@@ -10,6 +10,7 @@ import by.forecasts.entities.RegularGroup;
 import by.forecasts.entities.Team;
 import by.forecasts.entities.Tournament;
 import by.forecasts.entities.User;
+import by.forecasts.entities.UserStates;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
@@ -75,7 +76,7 @@ public class CrudOperationsTest extends BaseTest {
 
     @Test
     public void userTest() {
-        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", 1L, "log", "pass");
+        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", new UserStates(), "log", "pass");
         userRepository.save(user);
         List<User> users = userRepository.findAll();
 
@@ -96,7 +97,7 @@ public class CrudOperationsTest extends BaseTest {
         MatchScore matchScore = new MatchScore(1, 2);
         Match match = new Match(matchScore, LocalDateTime.now(), 1L, team1, team2, tournament);
         matchRepository.save(match);
-        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", 1L, "log", "pass");
+        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", new UserStates(), "log", "pass");
         userRepository.save(user);
 
         tournament.getUsers().add(user);

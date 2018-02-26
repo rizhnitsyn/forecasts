@@ -11,10 +11,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -38,9 +36,12 @@ public class UserServiceImpl implements UserService {
         if (loggedUser == null) {
             throw new UsernameNotFoundException("User doesn't exist!");
         }
+        List<GrantedAuthority> userRoles = new ArrayList<>();
+        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(loggedUser.getUserState().getUserState());
+        userRoles.add(simpleGrantedAuthority);
 
-
-        return null;
+        return new org.springframework.security.core.userdetails.User(loggedUser.getLogin(), loggedUser.getPassword(), userRoles);
     }
+
 
 }

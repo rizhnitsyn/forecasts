@@ -13,15 +13,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
 
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        super.configure(http);
+    }
+
     @Autowired
     public SecurityConfig(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        super.configure(http);
-    }
+
 
 
 }

@@ -3,6 +3,7 @@ package by.forecasts.repository;
 import by.forecasts.entities.Team;
 import by.forecasts.entities.Tournament;
 import by.forecasts.entities.User;
+import by.forecasts.entities.UserStates;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -25,8 +26,8 @@ public class TournamentTest extends BaseTest {
         Tournament tournament2 = new Tournament("Tournament 2", team2, LocalDate.now(), 1L);
         tournamentRepository.save(tournament1);
         tournamentRepository.save(tournament2);
-        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", 1L, "log", "pass");
-        User user2 = new User("Andrei2", "Rizhnitsyn2", "ra2@bsb.by", 1L, "log2", "pass");
+        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", new UserStates(), "log", "pass");
+        User user2 = new User("Andrei2", "Rizhnitsyn2", "ra2@bsb.by", new UserStates(), "log2", "pass");
         userRepository.save(user);
         userRepository.save(user2);
         tournament1.getUsers().add(user);
