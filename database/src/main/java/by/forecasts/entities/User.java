@@ -7,7 +7,9 @@ import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.HashSet;
@@ -31,7 +33,6 @@ public class User extends BaseEntity {
     }
 
     @Column(name = "first_name", nullable = false)
-
     private String firstName;
 
     @Column(name = "second_name", nullable = false)
@@ -40,7 +41,8 @@ public class User extends BaseEntity {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "user_state_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "team_state_id", nullable = false)
     private Long userState;
 
     @Column(name = "login", nullable = false, unique = true)
