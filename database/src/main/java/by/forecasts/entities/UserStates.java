@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @ToString(callSuper = true)
 @Table(name = "user_states")
-public class UserStates extends BaseEntity{
+public class UserStates extends BaseEntity {
 
     @Column(name = "user_state", nullable = false)
     private String userState;
