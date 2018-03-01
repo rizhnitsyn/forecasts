@@ -22,11 +22,42 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .anyRequest().authenticated()
+                    .antMatchers("/home").permitAll()
+                    .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll();
+                    .formLogin()
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/home")
+                        .usernameParameter("login")
+                        .passwordParameter("password")
+                        .permitAll()
+                .and()
+                    .logout()
+                    .logoutUrl("/logout")//POST!
+                    .logoutSuccessUrl("/home");
+
+//        http
+//                .authorizeRequests()
+////                    .antMatchers("/home")
+////                        .authenticated()
+////                    .antMatchers("/admin")
+////                        .hasAuthority("ADMIN")
+//                    .anyRequest()
+//                        .authenticated()
+//                .and()
+//                    .formLogin()
+//                        .loginPage("/login")
+////                        .loginProcessingUrl("/customLoginUrl")
+//                        .defaultSuccessUrl("/home")
+//                        .usernameParameter("login")
+//                        .passwordParameter("password")
+////                .and()
+////                    .logout()
+////                    .logoutUrl("/logout") //POST!
+////                .and()
+////                    .httpBasic()
+//                .and()
+//                .csrf().disable(); // To make logout work with GET - Don't use!!!!
 
         http.userDetailsService(userDetailsService);
     }
