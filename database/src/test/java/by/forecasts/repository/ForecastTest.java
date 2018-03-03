@@ -33,11 +33,15 @@ public class ForecastTest extends BaseTest {
         Tournament tournament1 = new Tournament("Tournament 1", team1, LocalDate.now(), 1L);
         tournamentRepository.save(tournament1);
 
-        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", new UserState(), "log", "pass");
+        UserState userState = new UserState("active user");
+        userStateRepository.save(userState);
+        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", userState, "log", "pass");
         userRepository.save(user);
 
-        Match match1 = new Match(LocalDateTime.now(), new MatchState(), team1, team2, tournament1);
-        Match match2 = new Match(LocalDateTime.now(), new MatchState(), team2, team1, tournament1);
+        MatchState matchState = new MatchState("active match");
+        matchStateRepository.save(matchState);
+        Match match1 = new Match(LocalDateTime.now(), matchState, team1, team2, tournament1);
+        Match match2 = new Match(LocalDateTime.now(), matchState, team2, team1, tournament1);
         matchRepository.save(match1);
         matchRepository.save(match2);
 
@@ -47,7 +51,7 @@ public class ForecastTest extends BaseTest {
         forecastRepository.save(forecast2);
 
         Long count = forecastRepository
-                .countAllByUserIdAndMatchTournamentIdAndMatchMatchState(user.getId(), tournament1.getId(), 1L);
+                .countAllByUserIdAndMatchTournamentIdAndMatchMatchStateId(user.getId(), tournament1.getId(), matchState.getId());
 
         Assert.assertEquals(2L, (long) count);
     }
@@ -62,11 +66,15 @@ public class ForecastTest extends BaseTest {
         Tournament tournament1 = new Tournament("Tournament 1", team1, LocalDate.now(), 1L);
         tournamentRepository.save(tournament1);
 
-        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", new UserState(), "log", "pass");
+        UserState userState = new UserState("active user");
+        userStateRepository.save(userState);
+        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", userState, "log", "pass");
         userRepository.save(user);
 
-        Match match1 = new Match(LocalDateTime.now(), new MatchState(), team1, team2, tournament1);
-        Match match2 = new Match(LocalDateTime.now(), new MatchState(), team2, team1, tournament1);
+        MatchState matchState = new MatchState("active match");
+        matchStateRepository.save(matchState);
+        Match match1 = new Match(LocalDateTime.now(), matchState, team1, team2, tournament1);
+        Match match2 = new Match(LocalDateTime.now(), matchState, team2, team1, tournament1);
         matchRepository.save(match1);
         matchRepository.save(match2);
 
@@ -78,7 +86,7 @@ public class ForecastTest extends BaseTest {
         PageRequest pageRequest = new PageRequest(0, 5);
 
         Page<Forecast> forecastPage = forecastRepository
-                .findAllByUserIdAndMatchTournamentIdAndMatchMatchState(user.getId(), tournament1.getId(), 1L, pageRequest);
+                .findAllByUserIdAndMatchTournamentIdAndMatchMatchStateId(user.getId(), tournament1.getId(), matchState.getId(), pageRequest);
 
         System.out.println(forecastPage.getTotalPages());
 

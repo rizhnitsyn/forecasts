@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ForecastRepository extends JpaRepository<Forecast, Long> {
 
-    Page<Forecast> findAllByUserIdAndMatchTournamentIdAndMatchMatchState(Long userId, Long tournamentId, Long matchStateId, Pageable pageable);
+    Page<Forecast> findAllByUserIdAndMatchTournamentIdAndMatchMatchStateId(Long userId, Long tournamentId, Long matchStateId, Pageable pageable);
 
-    Long countAllByUserIdAndMatchTournamentIdAndMatchMatchState(Long userId, Long tournamentId, Long matchStateId);
+    Long countAllByUserIdAndMatchTournamentIdAndMatchMatchStateId(Long userId, Long tournamentId, Long matchStateId);
 }

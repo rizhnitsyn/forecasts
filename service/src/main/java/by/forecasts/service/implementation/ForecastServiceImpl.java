@@ -24,7 +24,7 @@ public class ForecastServiceImpl implements ForecastService {
     @Override
     public Page<Forecast> getUserForecasts(ForecastFilter forecastFilter) {
         PageRequest pageRequest = new PageRequest(forecastFilter.getPageNo(), forecastFilter.getRecordsOnPage());
-        return forecastRepository.findAllByUserIdAndMatchTournamentIdAndMatchMatchState(
+        return forecastRepository.findAllByUserIdAndMatchTournamentIdAndMatchMatchStateId(
                 forecastFilter.getUserId(),
                 forecastFilter.getTournamentId(),
                 forecastFilter.getMatchStateId(),
@@ -33,6 +33,6 @@ public class ForecastServiceImpl implements ForecastService {
 
     @Override
     public Long getCountOfUserForecasts(Long userId, Long tournamentId, Long matchStateId) {
-        return forecastRepository.countAllByUserIdAndMatchTournamentIdAndMatchMatchState(userId, tournamentId, matchStateId);
+        return forecastRepository.countAllByUserIdAndMatchTournamentIdAndMatchMatchStateId(userId, tournamentId, matchStateId);
     }
 }

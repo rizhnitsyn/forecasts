@@ -26,8 +26,10 @@ public class TournamentTest extends BaseTest {
         Tournament tournament2 = new Tournament("Tournament 2", team2, LocalDate.now(), 1L);
         tournamentRepository.save(tournament1);
         tournamentRepository.save(tournament2);
-        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", new UserState(), "log", "pass");
-        User user2 = new User("Andrei2", "Rizhnitsyn2", "ra2@bsb.by", new UserState(), "log2", "pass");
+        UserState userState = new UserState("active user");
+        userStateRepository.save(userState);
+        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", userState, "log", "pass");
+        User user2 = new User("Andrei2", "Rizhnitsyn2", "ra2@bsb.by", userState, "log2", "pass");
         userRepository.save(user);
         userRepository.save(user2);
         tournament1.getUsers().add(user);
