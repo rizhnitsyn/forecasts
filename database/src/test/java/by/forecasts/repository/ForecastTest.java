@@ -6,6 +6,7 @@ import by.forecasts.entities.MatchScore;
 import by.forecasts.entities.MatchState;
 import by.forecasts.entities.Team;
 import by.forecasts.entities.Tournament;
+import by.forecasts.entities.TournamentState;
 import by.forecasts.entities.User;
 import by.forecasts.entities.UserState;
 import org.junit.Assert;
@@ -30,7 +31,9 @@ public class ForecastTest extends BaseTest {
         teamRepository.save(team1);
         teamRepository.save(team2);
 
-        Tournament tournament1 = new Tournament("Tournament 1", team1, LocalDate.now(), 1L);
+        TournamentState tournamentState = new TournamentState("active");
+        tournamentStateRepository.save(tournamentState);
+        Tournament tournament1 = new Tournament("Tournament 1", team1, LocalDate.now(), tournamentState);
         tournamentRepository.save(tournament1);
 
         UserState userState = new UserState("active user");
@@ -63,7 +66,9 @@ public class ForecastTest extends BaseTest {
         teamRepository.save(team1);
         teamRepository.save(team2);
 
-        Tournament tournament1 = new Tournament("Tournament 1", team1, LocalDate.now(), 1L);
+        TournamentState tournamentState = new TournamentState("active");
+        tournamentStateRepository.save(tournamentState);
+        Tournament tournament1 = new Tournament("Tournament 1", team1, LocalDate.now(), tournamentState);
         tournamentRepository.save(tournament1);
 
         UserState userState = new UserState("active user");

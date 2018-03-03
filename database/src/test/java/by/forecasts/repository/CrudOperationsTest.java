@@ -9,6 +9,7 @@ import by.forecasts.entities.PlayoffGroup;
 import by.forecasts.entities.RegularGroup;
 import by.forecasts.entities.Team;
 import by.forecasts.entities.Tournament;
+import by.forecasts.entities.TournamentState;
 import by.forecasts.entities.User;
 import by.forecasts.entities.UserState;
 import org.hamcrest.Matchers;
@@ -42,7 +43,9 @@ public class CrudOperationsTest extends BaseTest {
     public void tournamentTest() {
         Team team = new Team("Ямайка");
         teamRepository.save(team);
-        Tournament tournament = new Tournament("ЧМ 2018", team, LocalDate.now(), 2L);
+        TournamentState tournamentState = new TournamentState("active");
+        tournamentStateRepository.save(tournamentState);
+        Tournament tournament = new Tournament("ЧМ 2018", team, LocalDate.now(), tournamentState);
         tournamentRepository.save(tournament);
         List<Tournament> tournaments = tournamentRepository.findAll();
 
@@ -58,7 +61,9 @@ public class CrudOperationsTest extends BaseTest {
         teamRepository.save(team1);
         teamRepository.save(team2);
         teamRepository.save(team3);
-        Tournament tournament = new Tournament("ЧМ 2018", team3, LocalDate.now(), 1L);
+        TournamentState tournamentState = new TournamentState("active");
+        tournamentStateRepository.save(tournamentState);
+        Tournament tournament = new Tournament("ЧМ 2018", team3, LocalDate.now(), tournamentState);
         tournamentRepository.save(tournament);
         MatchScore matchScore = new MatchScore(1, 2);
         MatchState matchState = new MatchState("active match");
@@ -96,7 +101,9 @@ public class CrudOperationsTest extends BaseTest {
         teamRepository.save(team1);
         teamRepository.save(team2);
         teamRepository.save(team3);
-        Tournament tournament = new Tournament("ЧМ 2018", team3, LocalDate.now(), 1L);
+        TournamentState tournamentState = new TournamentState("active");
+        tournamentStateRepository.save(tournamentState);
+        Tournament tournament = new Tournament("ЧМ 2018", team3, LocalDate.now(), tournamentState);
         tournamentRepository.save(tournament);
         MatchScore matchScore = new MatchScore(1, 2);
         MatchState matchState = new MatchState("active match");
@@ -126,7 +133,9 @@ public class CrudOperationsTest extends BaseTest {
     public void groupsTest() {
         Team team = new Team("Россия");
         teamRepository.save(team);
-        Tournament tournament = new Tournament("ЧМ 2018", team, LocalDate.now(), 1L);
+        TournamentState tournamentState = new TournamentState("active");
+        tournamentStateRepository.save(tournamentState);
+        Tournament tournament = new Tournament("ЧМ 2018", team, LocalDate.now(), tournamentState);
         tournamentRepository.save(tournament);
 
         RegularGroup regularGroup = new RegularGroup(4, 2, 2,

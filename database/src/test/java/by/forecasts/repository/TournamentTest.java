@@ -2,6 +2,7 @@ package by.forecasts.repository;
 
 import by.forecasts.entities.Team;
 import by.forecasts.entities.Tournament;
+import by.forecasts.entities.TournamentState;
 import by.forecasts.entities.User;
 import by.forecasts.entities.UserState;
 import org.junit.Test;
@@ -22,8 +23,10 @@ public class TournamentTest extends BaseTest {
         Team team2 = new Team("Spain");
         teamRepository.save(team1);
         teamRepository.save(team2);
-        Tournament tournament1 = new Tournament("Tournament 1", team1, LocalDate.now(), 1L);
-        Tournament tournament2 = new Tournament("Tournament 2", team2, LocalDate.now(), 1L);
+        TournamentState tournamentState = new TournamentState("active");
+        tournamentStateRepository.save(tournamentState);
+        Tournament tournament1 = new Tournament("Tournament 1", team1, LocalDate.now(), tournamentState);
+        Tournament tournament2 = new Tournament("Tournament 2", team2, LocalDate.now(), tournamentState);
         tournamentRepository.save(tournament1);
         tournamentRepository.save(tournament2);
         UserState userState = new UserState("active user");

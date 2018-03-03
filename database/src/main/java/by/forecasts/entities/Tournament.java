@@ -26,11 +26,11 @@ import java.util.Set;
 @ToString(callSuper = true, exclude = {"matches", "groups", "users"})
 public class Tournament extends BaseEntity {
 
-    public Tournament(String name, Team organizer, LocalDate startDate, Long stateId) {
+    public Tournament(String name, Team organizer, LocalDate startDate, TournamentState tournamentState) {
         this.name = name;
         this.organizer = organizer;
         this.startDate = startDate;
-        this.stateId = stateId;
+        this.tournamentState = tournamentState;
     }
 
     @Column(name = "tournament_name", nullable = false, unique = true)
@@ -43,8 +43,9 @@ public class Tournament extends BaseEntity {
     @Column(name = "tournament_start_date", nullable = false)
     private LocalDate startDate;
 
-    @Column(name = "tournament_state_id", nullable = false)
-    private Long stateId;
+    @ManyToOne
+    @JoinColumn(name = "tournament_state_id", nullable = false)
+    private TournamentState tournamentState;
 
     @OneToMany(mappedBy = "tournament", fetch = FetchType.EAGER)
     private Set<Match> matches = new HashSet<>();

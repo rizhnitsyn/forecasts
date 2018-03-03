@@ -12,7 +12,7 @@
     <h2 class="form-title" th:text="${tournament.name}" >Турнир: </h2>
     <p>Дата начала игр турнира: <span class="span-class" th:text="${tournament.startDate}"> </span></p>
     <p>Страна организатор турнира: <span class="span-class" th:text="${tournament.organizer.teamName}">  </span></p>
-    <p>Состояние турнира: <span class="span-class" th:text="${tournament.stateId}"> </span></p>
+    <p>Состояние турнира: <span class="span-class" th:text="${tournament.tournamentState}"> </span></p>
     <div th:if="${!tournament.matches.isEmpty()}">
         <table class="simple-little-table">
             <tr>

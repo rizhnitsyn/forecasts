@@ -20,15 +20,15 @@ public class MatchTest extends BaseTest {
         teamRepository.save(team1);
         teamRepository.save(team2);
 
-        Tournament tournament1 = new Tournament("Tournament 12", team1, LocalDate.now(), 1L);
+        TournamentState tournamentState = new TournamentState("active");
+        tournamentStateRepository.save(tournamentState);
+        Tournament tournament1 = new Tournament("Tournament 12", team1, LocalDate.now(), tournamentState);
         tournamentRepository.save(tournament1);
-
 
         UserState userState = new UserState("admin");
         userStateRepository.save(userState);
         User user = new User("Andrei_log", "Rizhnitsyn", "ra2@bsb.by", userState, "log", "pass");
         userRepository.save(user);
-
 
         MatchState matchState = new MatchState("active match");
         matchStateRepository.save(matchState);

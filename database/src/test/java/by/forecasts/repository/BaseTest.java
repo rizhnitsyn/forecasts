@@ -9,6 +9,7 @@ import by.forecasts.repositories.PlayoffGroupRepository;
 import by.forecasts.repositories.RegularGroupRepository;
 import by.forecasts.repositories.TeamRepository;
 import by.forecasts.repositories.TournamentRepository;
+import by.forecasts.repositories.TournamentStateRepository;
 import by.forecasts.repositories.UserRepository;
 import by.forecasts.repositories.UserStateRepository;
 import org.junit.runner.RunWith;
@@ -52,4 +53,7 @@ public abstract class BaseTest {
 
     @Autowired
     protected UserStateRepository userStateRepository;
+
+    @Autowired
+    TournamentStateRepository tournamentStateRepository;
 }
