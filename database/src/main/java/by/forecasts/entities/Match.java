@@ -26,7 +26,7 @@ import java.util.Set;
 @ToString(exclude = "forecasts", callSuper = true)
 public class Match extends BaseEntity {
 
-    public Match(LocalDateTime matchDateTime, Long matchState, Team firstTeam, Team secondTeam, Tournament tournament) {
+    public Match(LocalDateTime matchDateTime, MatchState matchState, Team firstTeam, Team secondTeam, Tournament tournament) {
         this.matchDateTime = matchDateTime;
         this.matchState = matchState;
         this.firstTeam = firstTeam;
@@ -34,7 +34,7 @@ public class Match extends BaseEntity {
         this.tournament = tournament;
     }
 
-    public Match(MatchScore matchFinalResult, LocalDateTime matchDateTime, Long matchState, Team firstTeam, Team secondTeam, Tournament tournament) {
+    public Match(MatchScore matchFinalResult, LocalDateTime matchDateTime, MatchState matchState, Team firstTeam, Team secondTeam, Tournament tournament) {
         this.matchFinalResult = matchFinalResult;
         this.matchDateTime = matchDateTime;
         this.matchState = matchState;
@@ -54,8 +54,9 @@ public class Match extends BaseEntity {
     @Column(name = "match_datetime", nullable = false)
     private LocalDateTime matchDateTime;
 
-    @Column(name = "match_state_id", nullable = false)
-    private Long matchState;
+    @ManyToOne
+    @JoinColumn(name = "match_state_id", nullable = false)
+    private MatchState matchState;
 
     @ManyToOne
     @JoinColumn(name = "first_team_id", nullable = false)

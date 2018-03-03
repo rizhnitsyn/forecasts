@@ -1,5 +1,6 @@
 package by.forecasts.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,14 +10,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+@Entity
 @Getter
 @Setter
-@Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString(callSuper = true)
-@Table(name = "user_states")
-public class UserStates extends BaseEntity {
+@Table(name = "match_states")
+public class MatchState extends BaseEntity {
 
-    @Column(name = "user_state", nullable = false)
-    private String userState;
+    @Column(name = "match_state", nullable = false)
+    private String matchState;
 }

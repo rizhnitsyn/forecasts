@@ -2,26 +2,26 @@ package by.forecasts.repository;
 
 
 import by.forecasts.entities.Forecast;
-import by.forecasts.entities.Group;
 import by.forecasts.entities.Match;
 import by.forecasts.entities.MatchScore;
+import by.forecasts.entities.MatchState;
 import by.forecasts.entities.PlayoffGroup;
 import by.forecasts.entities.RegularGroup;
 import by.forecasts.entities.Team;
 import by.forecasts.entities.Tournament;
 import by.forecasts.entities.User;
-import by.forecasts.entities.UserStates;
+import by.forecasts.entities.UserState;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
@@ -61,7 +61,9 @@ public class CrudOperationsTest extends BaseTest {
         Tournament tournament = new Tournament("ЧМ 2018", team3, LocalDate.now(), 1L);
         tournamentRepository.save(tournament);
         MatchScore matchScore = new MatchScore(1, 2);
-        Match match1 = new Match(matchScore, LocalDateTime.now(), 1L, team1, team2, tournament);
+        MatchState matchState = new MatchState("active match");
+        matchStateRepository.save(matchState);
+        Match match1 = new Match(matchScore, LocalDateTime.now(), matchState, team1, team2, tournament);
         matchRepository.save(match1);
 
         List<Match> matches = matchRepository.findAll();
@@ -76,7 +78,9 @@ public class CrudOperationsTest extends BaseTest {
 
     @Test
     public void userTest() {
-        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", new UserStates(), "log", "pass");
+        UserState userState = new UserState("active user");
+        userStateRepository.save(userState);
+        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", userState, "log", "pass");
         userRepository.save(user);
         List<User> users = userRepository.findAll();
 
@@ -95,9 +99,13 @@ public class CrudOperationsTest extends BaseTest {
         Tournament tournament = new Tournament("ЧМ 2018", team3, LocalDate.now(), 1L);
         tournamentRepository.save(tournament);
         MatchScore matchScore = new MatchScore(1, 2);
-        Match match = new Match(matchScore, LocalDateTime.now(), 1L, team1, team2, tournament);
+        MatchState matchState = new MatchState("active match");
+        matchStateRepository.save(matchState);
+        Match match = new Match(matchScore, LocalDateTime.now(), matchState, team1, team2, tournament);
         matchRepository.save(match);
-        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", new UserStates(), "log", "pass");
+        UserState userState = new UserState("active user");
+        userStateRepository.save(userState);
+        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", userState, "log", "pass");
         userRepository.save(user);
 
         tournament.getUsers().add(user);

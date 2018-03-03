@@ -3,15 +3,15 @@ package by.forecasts.repository;
 import by.forecasts.entities.Forecast;
 import by.forecasts.entities.Match;
 import by.forecasts.entities.MatchScore;
+import by.forecasts.entities.MatchState;
 import by.forecasts.entities.Team;
 import by.forecasts.entities.Tournament;
 import by.forecasts.entities.User;
-import by.forecasts.entities.UserStates;
+import by.forecasts.entities.UserState;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -33,11 +33,11 @@ public class ForecastTest extends BaseTest {
         Tournament tournament1 = new Tournament("Tournament 1", team1, LocalDate.now(), 1L);
         tournamentRepository.save(tournament1);
 
-        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", new UserStates(), "log", "pass");
+        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", new UserState(), "log", "pass");
         userRepository.save(user);
 
-        Match match1 = new Match(LocalDateTime.now(), 1L, team1, team2, tournament1);
-        Match match2 = new Match(LocalDateTime.now(), 1L, team2, team1, tournament1);
+        Match match1 = new Match(LocalDateTime.now(), new MatchState(), team1, team2, tournament1);
+        Match match2 = new Match(LocalDateTime.now(), new MatchState(), team2, team1, tournament1);
         matchRepository.save(match1);
         matchRepository.save(match2);
 
@@ -62,11 +62,11 @@ public class ForecastTest extends BaseTest {
         Tournament tournament1 = new Tournament("Tournament 1", team1, LocalDate.now(), 1L);
         tournamentRepository.save(tournament1);
 
-        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", new UserStates(), "log", "pass");
+        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", new UserState(), "log", "pass");
         userRepository.save(user);
 
-        Match match1 = new Match(LocalDateTime.now(), 1L, team1, team2, tournament1);
-        Match match2 = new Match(LocalDateTime.now(), 1L, team2, team1, tournament1);
+        Match match1 = new Match(LocalDateTime.now(), new MatchState(), team1, team2, tournament1);
+        Match match2 = new Match(LocalDateTime.now(), new MatchState(), team2, team1, tournament1);
         matchRepository.save(match1);
         matchRepository.save(match2);
 

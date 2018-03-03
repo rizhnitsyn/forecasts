@@ -23,7 +23,7 @@ import java.util.Set;
 @ToString(callSuper = true, exclude = "forecasts")
 public class User extends BaseEntity {
 
-    public User(String firstName, String secondName, String email, UserStates userState, String login, String password) {
+    public User(String firstName, String secondName, String email, UserState userState, String login, String password) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.email = email;
@@ -43,7 +43,7 @@ public class User extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_state_id", nullable = false)
-    private UserStates userState;
+    private UserState userState;
 
     @Column(name = "login", nullable = false, unique = true)
     private String login;
