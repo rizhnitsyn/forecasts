@@ -26,17 +26,17 @@ import java.util.Set;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Group extends BaseEntity {
 
-    public Group(int matchesCountBetweenTeams, Long groupNameId, Tournament tournament) {
+    public Group(int matchesCountBetweenTeams, String groupName, Tournament tournament) {
         this.matchesCountBetweenTeams = matchesCountBetweenTeams;
-        this.groupNameId = groupNameId;
+        this.groupName = groupName;
         this.tournament = tournament;
     }
 
     @Column(name = "match_count_between_teams", nullable = false)
     private int matchesCountBetweenTeams;
 
-    @Column(name = "group_name_id", nullable = false)
-    private Long groupNameId;
+    @Column(name = "group_name", nullable = false)
+    private String groupName;
 
     @ManyToOne
     @JoinColumn(name = "tournament_id", nullable = false)

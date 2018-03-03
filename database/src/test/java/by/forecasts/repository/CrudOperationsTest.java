@@ -139,8 +139,8 @@ public class CrudOperationsTest extends BaseTest {
         tournamentRepository.save(tournament);
 
         RegularGroup regularGroup = new RegularGroup(4, 2, 2,
-                1L, tournament);
-        PlayoffGroup playoffGroup = new PlayoffGroup(2, 2L, tournament, true);
+                "group 2", tournament);
+        PlayoffGroup playoffGroup = new PlayoffGroup(2, "group 3", tournament, true);
         groupRepository.save(playoffGroup);
         groupRepository.save(regularGroup);
 
