@@ -8,6 +8,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @Configuration
 @ComponentScan(basePackages = "controller")
 @EnableWebMvc
-@Import(value = {ThymeleafConfig.class, InternationalizationConfig.class})
+@Import(value = {ThymeleafConfig.class})
 public class WebConfig {
 }

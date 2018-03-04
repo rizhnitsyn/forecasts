@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -19,13 +19,10 @@
             <li><a th:href="@{/home}">Правила игры</a></li>
             <li><a th:href="@{/user+'?'+id= + ${loggedUser.userId}}">Личный кабинет</a></li>
             <li><a th:href="@{/saveUser}">Зарегистрироваться</a></li>
-            <!--<div sec:authentication="">-->
-                <!--<li><a th:href="@{/login}">Войти</a></li>-->
-            <!--</div>-->
-            <!--<div sec:authentication="">-->
-                <!--<li><a th:href="@{/login}">Выйти</a></li>-->
-            <!--</div>-->
-            <!--<li sec:authentication="'Выйти'"><a th:href="@{/logout}"> </a></li>-->
+            <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Войти</a></li>
+            <li sec:authorize="isAuthenticated()">
+                <a th:href="@{/logout}" th:text="${'Выйти('+#authentication.name+')'}">Выйти</a>
+            </li>
         </ul>
     </div>
 </aside><!-- .left-sidebar -->

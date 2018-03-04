@@ -1,4 +1,5 @@
 import by.forecasts.config.ServiceConfig;
+import config.InternationalizationConfig;
 import config.SecurityConfig;
 import config.WebConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
@@ -7,7 +8,7 @@ public class WebApplicationInitializer extends AbstractAnnotationConfigDispatche
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[] {ServiceConfig.class, SecurityConfig.class};
+        return new Class[] {ServiceConfig.class, SecurityConfig.class, InternationalizationConfig.class};
     }
 
     @Override
