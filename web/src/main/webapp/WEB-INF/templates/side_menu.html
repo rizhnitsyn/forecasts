@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<aside class="left-sidebar" th:fragment="menu">
+    <div class="widget">
+        <h3 class="widget-title">Категории</h3>
+        <ul class="widget-list">
+            <li><a th:href="@{/tournamentList}">Подписаться на турнир</a></li>
+            <li><a th:href="@{/userList}">Список пользователей</a></li>
+            <li><a th:href="@{/forecastTournaments}">Сделать прогноз</a></li>
+            <li><a th:href="@{/tournamentAllMatches}">Все мои прогнозы</a></li>
+            <li><a th:href="@{/tournamentStatistic}">Результаты турниров</a></li>
+            <li><a th:href="@{/home}">Правила игры</a></li>
+            <li><a th:href="@{/user+'?'+id= + ${loggedUser.userId}}">Личный кабинет</a></li>
+            <li><a th:href="@{/saveUser}">Зарегистрироваться</a></li>
+            <!--<div sec:authentication="">-->
+                <!--<li><a th:href="@{/login}">Войти</a></li>-->
+            <!--</div>-->
+            <!--<div sec:authentication="">-->
+                <!--<li><a th:href="@{/login}">Выйти</a></li>-->
+            <!--</div>-->
+            <!--<li sec:authentication="'Выйти'"><a th:href="@{/logout}"> </a></li>-->
+        </ul>
+    </div>
+</aside><!-- .left-sidebar -->
+
+</body>
+</html>

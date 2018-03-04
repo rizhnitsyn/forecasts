@@ -1,12 +1,47 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
+    <link th:href="@{/css/style.css}"
+          rel="stylesheet" type="text/css">
 </head>
 <body>
+
+    <div class="wrapper">
+        <div th:replace="header::header"></div>
+
+        <div class="middle">
+            <div class="container">
+                <main class="content">
+
+                    <h3>Общие правила</h3>
+                    <p> 1.) По окончании конкурса определяется основной победитель - победитель конкурса прогнозов </p>
+                    <p> 2.) Прогнозы на все матчи группового турнира предоставляются до начала матча открытия Турнира</p>
+                    <p> 3.) Прогноз на каждый конкретный матч стадии плей-офф предоставляется после того, как становятся
+                        известны команды-участницы данного матча и до начала данного матча</p>
+                    <h3>Начисление очков</h3>
+                    <p>6 - полностью угаданный счет</p>
+                    <p>4 - угаданная разница мячей (кроме ничьих)</p>
+                    <p>3 - угаданная ничья</p>
+                    <p>1 - угаданный исход матча (кроме ничьих)</p>
+                    <h3>Преимущество при равенстве очков</h3>
+                    <p>При равенстве очков преимущество имеет участник с наибольшим значением в графе "6", далее - "4", "3", "1"</p>
+                    <p>При полном равенстве значений преимущество имеет участник, прогноз на групповой турнир от
+                        которого получен раньше</p>
+
+                </main><!-- .content -->
+            </div><!-- .container-->
+
+            <div th:replace="side_menu::menu"></div>
+        </div><!-- .middle-->
+    </div><!-- .wrapper -->
+
+    <div th:replace="footer::footer"></div>
+
     <div th:text="${#authentication.name}">
-         The value of the "name" property of the authentication object should appear here.
+        The value of the "name" property of the authentication object should appear here.
     </div>
 
     <div sec:authentication="name">
