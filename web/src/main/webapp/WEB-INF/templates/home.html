@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link th:href="@{/css/style.css}"
-          rel="stylesheet" type="text/css">
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" href="/resources/css/style.css">
 </head>
 <body>
 
@@ -40,20 +38,5 @@
 
     <div th:replace="footer::footer"></div>
 
-    <!--<div th:text="${#authentication.name}">-->
-        <!--The value of the "name" property of the authentication object should appear here.-->
-    <!--</div>-->
-
-    <!--<div sec:authentication="name">-->
-        <!--The value of the "name" property of the authentication object should appear here.-->
-    <!--</div>-->
-
-    <!--<div sec:authorize="hasRole('ROLE_ADMIN')">-->
-        <!--This will only be displayed if authenticated user has role ROLE_ADMIN.-->
-    <!--</div>-->
-
-    <!--<div sec:authorize-url="/admin">-->
-        <!--This will only be displayed if authenticated user can call the "/admin" URL.-->
-    <!--</div>-->
 </body>
 </html>

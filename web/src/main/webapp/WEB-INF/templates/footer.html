@@ -1,16 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" href="/resources/css/style.css">
 </head>
 <body>
 
 <footer class="footer" th:fragment="footer">
     <div>
-        <span>USER</span>
+        <span sec:authorize="isAuthenticated()" >
+            <span th:text="#{loc.logged.user}"></span>
+            <span sec:authentication="name"></span>
+        </span>
         <span class="footer-class2">
-                <a th:href="@{/language=ru_RU}">RU</a>  <a th:href="@{/language=en_EN}">EN</a>
+            <a th:href="@{${#httpServletRequest.requestURI}(language='ru_RU')}">RU</a>
+            <a th:href="@{${#httpServletRequest.requestURI}(language='en_US')}">EN</a>
         </span>
     </div>
 </footer><!-- .footer -->

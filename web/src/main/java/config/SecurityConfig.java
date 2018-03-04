@@ -3,6 +3,7 @@ package config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,10 +20,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring()
+                .antMatchers("/js/**")
+                .antMatchers("/css/**")
+                .antMatchers("/jpg/**");
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
                     .antMatchers("/home").permitAll()
+                    .antMatchers("/login").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()
@@ -33,31 +43,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .permitAll()
                 .and()
                     .logout()
-                    .logoutUrl("/logout")//POST!
-                    .logoutSuccessUrl("/home");
-
-//        http
-//                .authorizeRequests()
-////                    .antMatchers("/home")
-////                        .authenticated()
-////                    .antMatchers("/admin")
-////                        .hasAuthority("ADMIN")
-//                    .anyRequest()
-//                        .authenticated()
-//                .and()
-//                    .formLogin()
-//                        .loginPage("/login")
-////                        .loginProcessingUrl("/customLoginUrl")
-//                        .defaultSuccessUrl("/home")
-//                        .usernameParameter("login")
-//                        .passwordParameter("password")
-////                .and()
-////                    .logout()
-////                    .logoutUrl("/logout") //POST!
-////                .and()
-////                    .httpBasic()
-//                .and()
-//                .csrf().disable(); // To make logout work with GET - Don't use!!!!
+                        .logoutUrl("/logout")//POST!
+                        .logoutSuccessUrl("/home")
+                        .permitAll();
 
         http.userDetailsService(userDetailsService);
     }
