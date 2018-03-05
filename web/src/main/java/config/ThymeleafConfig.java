@@ -19,17 +19,17 @@ public class ThymeleafConfig {
         return resolver;
     }
 
-    @Bean
-    public SpringSecurityDialect securityDialect() {
-        return new SpringSecurityDialect();
-    }
+//    @Bean
+//    public SpringSecurityDialect securityDialect() {
+//        return new SpringSecurityDialect();
+//    }
 
     @Bean
     public SpringTemplateEngine templateEngine() {
         SpringTemplateEngine engine = new SpringTemplateEngine();
         engine.setEnableSpringELCompiler(true);
         engine.setTemplateResolver(templateResolver());
-        engine.addDialect(securityDialect());
+        engine.addDialect(new SpringSecurityDialect());
         return engine;
     }
 

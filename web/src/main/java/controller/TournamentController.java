@@ -21,4 +21,9 @@ public class TournamentController {
         model.addAttribute("tournament", tournamentService.findOne(1L));
         return "show_tournament";
     }
+
+    @GetMapping("/tournamentList")
+    public String showTournamentList() {
+        return "show_tournament_list";
+    }
 }

@@ -5,9 +5,9 @@
     <title>Tournament info</title>
 </head>
 <body>
-    <div sec:authorize="isAuthenticated()">
-        This content is only shown to authenticated users.
-    </div>
+    <!--<div sec:authorize="isAuthenticated()">-->
+        <!--This content is only shown to authenticated users.-->
+    <!--</div>-->
 
     <h2 class="form-title" th:text="${tournament.name}" >Турнир: </h2>
     <p>Дата начала игр турнира: <span class="span-class" th:text="${tournament.startDate}"> </span></p>
