@@ -12,7 +12,7 @@
     <div class="widget">
         <h3 class="widget-title">Категории</h3>
         <ul class="widget-list">
-            <li><a th:href="@{/tournamentList}">Турниры</a></li>
+            <li><a th:href="@{/tournamentList}">Активные турниры</a></li>
             <li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/userList}">Пользователи</a></li>
             <li><a th:href="@{/forecastTournaments}">Сделать прогноз</a></li>
             <li><a th:href="@{/tournamentAllMatches}">Мои прогнозы</a></li>
