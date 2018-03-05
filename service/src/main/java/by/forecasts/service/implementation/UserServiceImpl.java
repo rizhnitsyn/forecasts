@@ -33,15 +33,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         User loggedUser = userRepository.findByLogin(login);
+        System.out.println(login);
         if (loggedUser == null) {
             throw new UsernameNotFoundException("User doesn't exist!");
         }
         List<GrantedAuthority> userRoles = new ArrayList<>();
         SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(loggedUser.getUserState().getUserState());
         userRoles.add(simpleGrantedAuthority);
-
         return new org.springframework.security.core.userdetails.User(loggedUser.getLogin(), loggedUser.getPassword(), userRoles);
     }
-
-
 }

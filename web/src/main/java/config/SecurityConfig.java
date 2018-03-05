@@ -7,12 +7,16 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
+
+    private static final String ENCODING = "UTF-8";
 
     @Autowired
     public SecurityConfig(UserDetailsService userDetailsService) {
@@ -27,8 +31,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/jpg/**");
     }
 
+    private CharacterEncodingFilter encodingFilter(String encoding) {
+        CharacterEncodingFilter filter = new CharacterEncodingFilter();
+        filter.setEncoding(encoding);
+        filter.setForceEncoding(true);
+        return filter;
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http
+                .addFilterBefore(encodingFilter(ENCODING),CsrfFilter.class);
         http
                 .authorizeRequests()
                     .antMatchers("/home").permitAll()
@@ -47,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .logoutUrl("/logout")//POST!
                         .logoutSuccessUrl("/home")
                         .permitAll();
-
-        http.userDetailsService(userDetailsService);
+        http
+                .userDetailsService(userDetailsService);
     }
 }
