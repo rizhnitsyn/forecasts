@@ -27,18 +27,7 @@
                         <!--</p></li>-->
                     <!--</c:forEach>-->
                 <!--</ul>-->
-
-                <div sec:authorize="hasAuthority('ADMIN')">
-                    This content is only shown to administrators. РАБОТАЕТ!!!!
-                </div>
-
-                <sec:authorize access="hasRole('ROLE_ADMIN')">
-                    тут то что видит только ROLE_ADMIN. РАБОТАЕТ!!!!
-                </sec:authorize>
-
-                <!--<span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>-->
-
-                <form th:action="@{/tournamentList}" method="post" th:if="${#authentication.authorities.iterator().next() == 'ADMIN'}">
+                <form th:action="@{/tournamentList}" method="post" sec:authorize="hasAuthority('ADMIN')">
                     <button class="btn-class" type="submit">Добавить новый турнир</button>
                 </form>
 
