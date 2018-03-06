@@ -1,5 +1,6 @@
 package by.forecasts.service;
 
+import by.forecasts.dto.TournamentShortViewDto;
 import by.forecasts.entities.Tournament;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -13,8 +14,8 @@ public class TournamentServiceTest extends BaseServiceTest {
 
     @Test
     public void getTournamentByIdTest() {
-        Tournament tournamentById = tournamentService.findOne(1L);
-        assertEquals(tournamentById.getName(),  "Чемпионат Европы 2016");
+        TournamentShortViewDto tournamentShortViewDto = tournamentService.findOne(1L, 1L);
+        assertEquals(tournamentShortViewDto.getName(),  "Чемпионат Европы 2016");
     }
 
     @Test

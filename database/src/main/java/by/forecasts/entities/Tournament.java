@@ -47,7 +47,7 @@ public class Tournament extends BaseEntity {
     @JoinColumn(name = "tournament_state_id", nullable = false)
     private TournamentState tournamentState;
 
-    @OneToMany(mappedBy = "tournament", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "tournament")
     private Set<Match> matches = new HashSet<>();
 
     @OneToMany(mappedBy = "tournament")
