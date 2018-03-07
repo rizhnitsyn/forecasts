@@ -69,12 +69,16 @@ public class TournamentController {
     }
 
     @PostMapping("/tournament/close")
-    public String closeTournamentBtn() {
-        return "show_tournament";
+    public String closeTournamentBtn(Model model) {
+        TournamentShortViewDto tournament = (TournamentShortViewDto) model.asMap().get("tournament");
+        tournamentService.closeTournament(tournament.getId());
+        return "redirect: /tournamentList";
     }
 
     @PostMapping("/tournament/config")
-    public String configTournamentBtn() {
-        return "show_tournament";
+    public String configTournamentBtn(Model model) {
+        TournamentShortViewDto tournament = (TournamentShortViewDto) model.asMap().get("tournament");
+        return "redirect: /tournament/groups?trId=" + tournament.getId();
     }
+
 }

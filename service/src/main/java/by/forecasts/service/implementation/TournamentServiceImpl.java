@@ -91,4 +91,11 @@ public class TournamentServiceImpl implements TournamentService {
         User user = userRepository.findOne(userId);
         tournament.registerOnTournament(user);
     }
+
+    @Override
+    public void closeTournament(Long tournamentId) {
+        Tournament tournament = tournamentRepository.findOne(tournamentId);
+        TournamentState newState = tournamentStateRepository.getOne(2L);
+        tournament.setTournamentState(newState);
+    }
 }

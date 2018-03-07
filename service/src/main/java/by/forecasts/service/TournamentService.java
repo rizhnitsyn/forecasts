@@ -18,4 +18,6 @@ public interface TournamentService {
     List<TournamentShortViewDto> getTournamentsFilterByState(Long stateId, Long userId);
 
     void registerOnTournament(Long tournamentId, Long userId);
+
+    void closeTournament(Long tournamentId);
 }

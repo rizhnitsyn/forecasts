@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Tournament info</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" href="/resources/css/style.css">
+</head>
+<body>
+<div class="wrapper">
+    <div th:replace="header::header"></div>
+
+    <div class="middle">
+        <div class="container">
+            <main class="content">
+
+                <h2 class="form-title">Список групп турнира:</h2>
+                <p>Для добавлния команд в группу кликните по группе или создайте новую группу.</p>
+
+                <ul class="widget-list2">
+                    <li th:each="group:${groups}">
+                        <a th:href="@{/group(id=${group.id})}"
+                           th:text="${group.groupName}"></a>
+                    </li>
+                </ul>
+
+                <form th:action="@{/tournament/groups}" th:method="post">
+                    <button class="btn-class" type="submit" th:value="${tournamentId}">Создать новую группу</button>
+                </form>
+
+            </main><!-- .content -->
+        </div><!-- .container-->
+
+        <div th:replace="side_menu::menu"></div>
+    </div><!-- .middle-->
+</div><!-- .wrapper -->
+
+<!--<div sec:authorize="hasAuthority('ADMIN')">-->
+<!--This content is only shown to administrators. РАБОТАЕТ!!!!-->
+<!--</div>-->
+
+<!--<sec:authorize access="hasRole('ROLE_ADMIN')">-->
+<!--тут то что видит только ROLE_ADMIN. РАБОТАЕТ!!!!-->
+<!--</sec:authorize>-->
+
+<div th:replace="footer::footer"></div>
+
+</body>
+</html>
