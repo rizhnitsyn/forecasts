@@ -11,7 +11,11 @@ public interface TournamentService {
 
     List<Tournament> findAll();
 
+    Tournament save(TournamentShortViewDto tournament);
+
     List<Tournament> getTournamentsFilterByUser(Long userId);
 
     List<TournamentShortViewDto> getTournamentsFilterByState(Long stateId, Long userId);
+
+    void registerOnTournament(Long tournamentId, Long userId);
 }
