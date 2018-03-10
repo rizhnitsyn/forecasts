@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Group</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" href="/resources/css/style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div th:replace="header::header"></div>
+
+        <div class="middle">
+            <div class="container">
+                <main class="content">
+                    <h2 class="form-title">[[${regGroup.groupName}]] турнира [[${tournament.name}]]:</h2>
+                    <p>Количество матчей между командами: <span class="span-class" th:text="${regGroup.matchesCountBetweenTeams}"></span></p>
+                    <p>Количество команд в группе: <span class="span-class" th:text="${regGroup.teamsCountInGroup}"></span></p>
+                    <p>Количество команд выходяйщих в плейофф: <span class="span-class" th:text="${regGroup.groupOutCount}"></span></p>
+
+                </main><!-- .content -->
+            </div><!-- .container-->
+
+            <div th:replace="side_menu::menu"></div>
+        </div><!-- .middle-->
+    </div><!-- .wrapper -->
+    <div th:replace="footer::footer"></div>
+
+</body>
+</html>

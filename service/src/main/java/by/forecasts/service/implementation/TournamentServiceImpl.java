@@ -50,6 +50,15 @@ public class TournamentServiceImpl implements TournamentService {
     }
 
     @Override
+    public TournamentShortViewDto findOne(Long id) {
+        Tournament tournament = tournamentRepository.findOne(id);
+        TournamentShortViewDto tournamentShortViewDto = new TournamentShortViewDto();
+        tournamentShortViewDto.setId(tournament.getId());
+        tournamentShortViewDto.setName(tournament.getName());
+        return tournamentShortViewDto;
+    }
+
+    @Override
     public List<Tournament> findAll() {
         return tournamentRepository.findAll();
     }

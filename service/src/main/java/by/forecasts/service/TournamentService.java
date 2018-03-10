@@ -9,6 +9,8 @@ public interface TournamentService {
 
     TournamentShortViewDto findOne(Long id, Long userId);
 
+    TournamentShortViewDto findOne(Long id);
+
     List<Tournament> findAll();
 
     Tournament save(TournamentShortViewDto tournament);

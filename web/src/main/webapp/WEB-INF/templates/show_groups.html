@@ -14,7 +14,7 @@
         <div class="container">
             <main class="content">
 
-                <h2 class="form-title">Список групп турнира:</h2>
+                <h2 class="form-title">Список групп турнира [[${tournament.name}]]:</h2>
                 <p>Для добавлния команд в группу кликните по группе или создайте новую группу.</p>
 
                 <ul class="widget-list2">
@@ -23,9 +23,21 @@
                            th:text="${group.groupName}"></a>
                     </li>
                 </ul>
-
+                <br>
+                <br>
                 <form th:action="@{/tournament/groups}" th:method="post">
-                    <button class="btn-class" type="submit" th:value="${tournamentId}">Создать новую группу</button>
+                    <p>Для создания новой группы выберите тип группы и нажмите "Создать"</p>
+                    <p>Тип новой группы:
+                        <label for="regular">
+                            <input type="radio" name="groupTypeId" id="regular" th:value="1">
+                            <span>Регулярная</span>
+                        </label>
+                        <label for="playoff">
+                            <input type="radio" name="groupTypeId" id="playoff" th:value="2">
+                            <span>Плейофф</span>
+                        </label>
+                    </p>
+                    <button class="btn-class" type="submit">Создать новую группу</button>
                 </form>
 
             </main><!-- .content -->
@@ -34,14 +46,6 @@
         <div th:replace="side_menu::menu"></div>
     </div><!-- .middle-->
 </div><!-- .wrapper -->
-
-<!--<div sec:authorize="hasAuthority('ADMIN')">-->
-<!--This content is only shown to administrators. РАБОТАЕТ!!!!-->
-<!--</div>-->
-
-<!--<sec:authorize access="hasRole('ROLE_ADMIN')">-->
-<!--тут то что видит только ROLE_ADMIN. РАБОТАЕТ!!!!-->
-<!--</sec:authorize>-->
 
 <div th:replace="footer::footer"></div>
 
