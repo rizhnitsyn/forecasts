@@ -10,6 +10,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -62,22 +63,20 @@ public class TournamentController {
     }
 
     @PostMapping("/tournament/reg")
-    public String registerOnTournamentBtn(@AuthenticationPrincipal UserDetailDto user, Model model) {
-        TournamentShortViewDto tournament = (TournamentShortViewDto) model.asMap().get("tournament");
+    public String registerOnTournamentBtn(@AuthenticationPrincipal UserDetailDto user,
+                                          @ModelAttribute("tournament") TournamentShortViewDto tournament) {
         tournamentService.registerOnTournament(tournament.getId(), user.getId());
         return "redirect: /tournament?id=" + tournament.getId();
     }
 
     @PostMapping("/tournament/close")
-    public String closeTournamentBtn(Model model) {
-        TournamentShortViewDto tournament = (TournamentShortViewDto) model.asMap().get("tournament");
+    public String closeTournamentBtn(@ModelAttribute("tournament") TournamentShortViewDto tournament) {
         tournamentService.closeTournament(tournament.getId());
         return "redirect: /tournamentList";
     }
 
     @PostMapping("/tournament/config")
-    public String configTournamentBtn(Model model) {
-        TournamentShortViewDto tournament = (TournamentShortViewDto) model.asMap().get("tournament");
+    public String configTournamentBtn(@ModelAttribute("tournament") TournamentShortViewDto tournament) {
         return "redirect: /tournament/groups?trId=" + tournament.getId();
     }
 

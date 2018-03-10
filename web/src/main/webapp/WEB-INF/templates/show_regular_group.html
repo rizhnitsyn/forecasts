@@ -18,6 +18,17 @@
                     <p>Количество команд в группе: <span class="span-class" th:text="${regGroup.teamsCountInGroup}"></span></p>
                     <p>Количество команд выходяйщих в плейофф: <span class="span-class" th:text="${regGroup.groupOutCount}"></span></p>
 
+
+                    <form th:action="@{/group(id=${regGroup.id})}" th:method="post" sec:authorize="hasAuthority('ADMIN')">
+                        <p>Добавить команду в группу: </p>
+                        <select class="form-field" id="newTeam" name="newTeam">
+                            <option th:each="team:${teams}"
+                                    th:text="${team.teamName}"
+                                    th:value="${team.id}"></option>
+                        </select>
+
+                        <button class="btn-class" type="submit">Добавить</button>
+                    </form>
                 </main><!-- .content -->
             </div><!-- .container-->
 
