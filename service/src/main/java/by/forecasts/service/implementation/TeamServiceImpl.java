@@ -56,6 +56,11 @@ public class TeamServiceImpl implements TeamService {
 
     }
 
+    @Override
+    public List<Team> findAllTeamsByGroupId(Long groupId) {
+        return teamRepository.findAllByGroupsId(groupId);
+    }
+
     private List<Team> getExceptList(List<Team> exceptList) {
         if (exceptList.size() == 0) {
             return teamRepository.findAll();

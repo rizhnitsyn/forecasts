@@ -13,4 +13,10 @@ public interface MatchRepository extends JpaRepository<Match, Long> {
     List<Match> findMatchesAvailableForForecast(Long tournamentId, Long userId);
 
     List<Match> findAllByTournamentIdAndForecastsUserId(Long tournamentId, Long userId);
+
+    List<Match> findAllByTournamentGroupsId(Long groupId);
+
+    List<Match> findAllByTournamentIdAndFirstTeamGroupsId(Long tournamentId, Long groupId);
+
+    Long countAllByTournamentIdAndFirstTeamGroupsIdAndFirstTeamIdInAndSecondTeamIdIn(Long tournamentId, Long groupId, List<Long> firstTeamId, List<Long> secondTeamId);
 }

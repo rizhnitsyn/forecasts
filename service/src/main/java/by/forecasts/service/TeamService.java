@@ -13,4 +13,6 @@ public interface TeamService {
 
     List<Team> findAllPlayoffTeamsNotInUseInTournament(Long tournamentId);
 
+    List<Team> findAllTeamsByGroupId(Long groupId);
+
 }

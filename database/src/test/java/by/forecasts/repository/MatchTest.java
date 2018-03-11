@@ -49,4 +49,6 @@ public class MatchTest extends BaseTest {
         assertEquals(matchesForForecast.iterator().next().getTournament().getName(), matchesForForecast2.iterator().next().getTournament().getName());
         assertEquals(matchesForForecast.iterator().next().getFirstTeam().getTeamName(), "Spain12");
     }
+
+
 }

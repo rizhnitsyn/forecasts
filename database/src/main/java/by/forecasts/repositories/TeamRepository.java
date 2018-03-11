@@ -11,4 +11,6 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
     List<Team> findAllByIdNotIn(List<Long> teams);
 
     List<Team> findAllByGroupsIdIn(List<Long> groups);
+
+    List<Team> findAllByGroupsId(Long groupId);
 }

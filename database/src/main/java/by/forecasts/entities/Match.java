@@ -1,5 +1,6 @@
 package by.forecasts.entities;
 
+import by.forecasts.dto.MatchShortViewDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,6 +33,14 @@ public class Match extends BaseEntity {
         this.firstTeam = firstTeam;
         this.secondTeam = secondTeam;
         this.tournament = tournament;
+    }
+
+    public Match(MatchShortViewDto match) {
+        this.matchDateTime = match.getMatchDateTime();
+        this.matchState = match.getMatchState();
+        this.firstTeam = match.getFirstTeam();
+        this.secondTeam = match.getSecondTeam();
+        this.tournament = match.getTournament();
     }
 
     public Match(MatchScore matchFinalResult, LocalDateTime matchDateTime, MatchState matchState, Team firstTeam, Team secondTeam, Tournament tournament) {

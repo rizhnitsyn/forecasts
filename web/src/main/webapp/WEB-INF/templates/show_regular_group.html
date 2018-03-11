@@ -28,7 +28,10 @@
                     </table>
                     <br>
 
-                    <form th:action="@{/group/add(grId=${regGroup.id})}" th:method="post" sec:authorize="hasAuthority('ADMIN')">
+                    <form th:action="@{/group/add(grId=${regGroup.id})}"
+                          th:if="${regGroup.teamsInGroup.size() < regGroup.teamsCountInGroup}"
+                          th:method="post"
+                          sec:authorize="hasAuthority('ADMIN')">
                         <p>Добавить команду в группу: </p>
                         <select class="form-field" id="newTeam" name="newTeam">
                             <option th:each="team:${teams}"
@@ -39,7 +42,7 @@
                     </form>
 
                     <form th:action="@{/group/del(grId=${regGroup.id})}" th:method="post" sec:authorize="hasAuthority('ADMIN')">
-                        <p>Удалить команду в группу: </p>
+                        <p>Удалить команду из группы: </p>
                         <select class="form-field" id="delTeam" name="delTeam">
                             <option th:each="team:${regGroup.teamsInGroup}"
                                     th:text="${team.teamName}"
@@ -47,6 +50,13 @@
                         </select>
                         <button class="btn-class" type="submit">Удалить</button>
                     </form>
+
+                    <br>
+                    <ul class="widget-list3">
+                        <li><a th:href="@{/matches/calendar(grId=${regGroup.id})}">График игр</a></li>
+                        <br>
+                        <li><a th:href="@{/tournament/groups(trId=${tournament.id})}">Вернуться к списку групп</a></li>
+                    </ul>
                 </main><!-- .content -->
             </div><!-- .container-->
 
