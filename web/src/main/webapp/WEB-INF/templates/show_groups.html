@@ -19,7 +19,7 @@
 
                 <ul class="widget-list2">
                     <li th:each="group:${groups}">
-                        <a th:href="@{/group(id=${group.id})}"
+                        <a th:href="@{/group(grId=${group.id})}"
                            th:text="${group.groupName}"></a>
                     </li>
                 </ul>

@@ -18,16 +18,34 @@
                     <p>Количество команд в группе: <span class="span-class" th:text="${regGroup.teamsCountInGroup}"></span></p>
                     <p>Количество команд выходяйщих в плейофф: <span class="span-class" th:text="${regGroup.groupOutCount}"></span></p>
 
+                    <table class="simple-little-table" th:if="${!regGroup.teamsInGroup.isEmpty()}">
+                        <tr>
+                            <th>Команда</th>
+                        </tr>
+                        <tr class="widget-list3" th:each="team:${regGroup.teamsInGroup}">
+                            <td th:text="${team.teamName}"></td>
+                        </tr>
+                    </table>
+                    <br>
 
-                    <form th:action="@{/group(id=${regGroup.id})}" th:method="post" sec:authorize="hasAuthority('ADMIN')">
+                    <form th:action="@{/group/add(grId=${regGroup.id})}" th:method="post" sec:authorize="hasAuthority('ADMIN')">
                         <p>Добавить команду в группу: </p>
                         <select class="form-field" id="newTeam" name="newTeam">
                             <option th:each="team:${teams}"
                                     th:text="${team.teamName}"
                                     th:value="${team.id}"></option>
                         </select>
-
                         <button class="btn-class" type="submit">Добавить</button>
+                    </form>
+
+                    <form th:action="@{/group/del(grId=${regGroup.id})}" th:method="post" sec:authorize="hasAuthority('ADMIN')">
+                        <p>Удалить команду в группу: </p>
+                        <select class="form-field" id="delTeam" name="delTeam">
+                            <option th:each="team:${regGroup.teamsInGroup}"
+                                    th:text="${team.teamName}"
+                                    th:value="${team.id}"></option>
+                        </select>
+                        <button class="btn-class" type="submit">Удалить</button>
                     </form>
                 </main><!-- .content -->
             </div><!-- .container-->

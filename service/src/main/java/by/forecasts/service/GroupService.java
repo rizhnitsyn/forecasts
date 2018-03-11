@@ -9,4 +9,8 @@ public interface GroupService {
     List<Group> getAllGroupsByTournamentID(Long id);
 
     Group findOne(Long id);
+
+    void addTeam(Long groupId, Long teamId);
+
+    void delTeam(Long groupId, Long teamId);
 }

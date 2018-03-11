@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
-@SessionAttributes({"tournament"})
+@SessionAttributes("tournament")
 public class GroupController {
 
     private final GroupService groupService;
@@ -82,8 +84,9 @@ public class GroupController {
     }
 
     @GetMapping("/group")
-    public String showGroup(Model model, Long id, @ModelAttribute("tournament") TournamentShortViewDto tournament) {
-        Group group = groupService.findOne(id);
+    public String showGroup(@ModelAttribute("tournament") TournamentShortViewDto tournament, Model model, Long grId) {
+        Group group = groupService.findOne(grId);
+
         if (group instanceof RegularGroup) {
             RegularGroup regularGroup = (RegularGroup) group;
             model.addAttribute("regGroup", regularGroup);
@@ -92,6 +95,11 @@ public class GroupController {
         }
         if (group instanceof PlayoffGroup) {
             PlayoffGroup playoffGroup = (PlayoffGroup) group;
+            List<String> playoffTeams = playoffGroup.getTeamsInGroup().stream()
+                    .sorted(Comparator.comparing(Team::getTeamName))
+                    .map(Team::getTeamName)
+                    .collect(Collectors.toList());
+            model.addAttribute("playoffTeams", playoffTeams);
             model.addAttribute("offGroup", playoffGroup);
             model.addAttribute("teams", teamService.findAllPlayoffTeamsNotInUseInTournament(tournament.getId()));
             return "show_playoff_group";
@@ -99,13 +107,16 @@ public class GroupController {
         return "redirect: /tournament/groups?trId=" + tournament.getId();
     }
 
-    @PostMapping("/group")
-    public String addTeam(@ModelAttribute("tournament") TournamentShortViewDto tournament, Long id, Long newTeam) {
-        System.out.println(id);
-        System.out.println(newTeam);
-
-
-
-        return "redirect: /tournament/groups?trId=" + tournament.getId();
+    @PostMapping("/group/add")
+    public String addTeam(Long grId, Long newTeam) {
+        groupService.addTeam(grId, newTeam);
+        return "redirect: /group?grId=" + grId;
     }
+
+    @PostMapping("/group/del")
+    public String delTeam(Long grId, Long delTeam) {
+        groupService.delTeam(grId, delTeam);
+        return "redirect: /group?grId=" + grId;
+    }
+
 }

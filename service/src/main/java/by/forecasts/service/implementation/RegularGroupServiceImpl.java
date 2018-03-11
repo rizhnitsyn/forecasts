@@ -1,8 +1,10 @@
 package by.forecasts.service.implementation;
 
 import by.forecasts.entities.RegularGroup;
+import by.forecasts.entities.Team;
 import by.forecasts.entities.Tournament;
 import by.forecasts.repositories.RegularGroupRepository;
+import by.forecasts.repositories.TeamRepository;
 import by.forecasts.repositories.TournamentRepository;
 import by.forecasts.service.RegularGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
