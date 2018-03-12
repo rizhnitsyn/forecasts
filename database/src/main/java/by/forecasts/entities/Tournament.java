@@ -61,6 +61,6 @@ public class Tournament extends BaseEntity {
 
     @Transient
     public void registerOnTournament(User user) {
-        this.getUsers().add(user);
+        this.users.add(user);
     }
 }

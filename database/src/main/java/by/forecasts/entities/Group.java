@@ -52,10 +52,10 @@ public abstract class Group extends BaseEntity {
 
     @Transient
     public void addTeam(Team team) {
-        this.getTeamsInGroup().add(team);
+        this.teamsInGroup.add(team);
     }
 
     @Transient public void delTeam(Team team) {
-        this.getTeamsInGroup().remove(team);
+        this.teamsInGroup.remove(team);
     }
 }
