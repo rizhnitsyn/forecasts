@@ -31,8 +31,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findByLogin(String login) {
+        return userRepository.findByLogin(login);
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        User loggedUser = userRepository.findByLogin(login);
+        User loggedUser = findByLogin(login);
         if (loggedUser == null) {
             throw new UsernameNotFoundException("User doesn't exist!");
         }

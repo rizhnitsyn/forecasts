@@ -1,6 +1,7 @@
 package by.forecasts.service;
 
 import by.forecasts.entities.Tournament;
+import by.forecasts.entities.User;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
@@ -23,9 +24,10 @@ public class TournamentServiceTest extends BaseServiceTest {
         assertThat(tournaments.size(), Matchers.greaterThan(3));
     }
 
-//    @Test
-//    public void getTournamentsFilterByUserTest() {
-//        List<Tournament> tournaments = tournamentService.getTournamentsFilterByUser(1L);
-//        assertThat(tournaments.size(), Matchers.greaterThan(3));
-//    }
+    @Test
+    public void getTournamentsFilterByUserTest() {
+        User tournaments = userService.findByLogin("rizhnitsyn");
+        System.out.println(tournaments);
+    }
+
 }
