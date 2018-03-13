@@ -1,6 +1,7 @@
 package by.forecasts.service;
 
 import by.forecasts.entities.User;
+import by.forecasts.entities.UserState;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
@@ -8,4 +9,7 @@ import java.util.List;
 public interface UserService extends UserDetailsService {
 
     List<User> findAll();
+
+    void saveUser(User user);
+
 }
