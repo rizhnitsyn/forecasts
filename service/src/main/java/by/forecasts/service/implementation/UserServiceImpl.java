@@ -53,6 +53,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void updateUser(User user) {
+        userRepository.save(user);
+    }
+
+    @Override
     @Loggable
     public UserDetailDto loadUserByUsername(String login) throws UsernameNotFoundException {
         User loggedUser = userRepository.findByLogin(login);

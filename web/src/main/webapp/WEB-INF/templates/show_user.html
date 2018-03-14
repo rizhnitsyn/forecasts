@@ -14,28 +14,27 @@
         <div class="container">
             <main class="content">
 
-                <form th:action="@{/user}" th:method="post" th:object="${currentUser}">
                     <h2 class="form-title">Данные пользователя</h2>
-                    <p>Имя: <span class="span-class" th:text="*{firstName}" th:value="*{firstName}" th:field="*{userState}"></span></p>
-                    <p>Фамилия: <span class="span-class" th:text="*{secondName}" th:value="*{secondName}" th:field="*{secondName}"></span></p>
-                    <p>Email: <span class="span-class" th:text="*{email}" th:value="*{email}" th:field="*{email}"></span></p>
-                    <p>Пользователь: <span class="span-class" th:text="*{userState.userState}"></span></p>
+                    <p>Имя: <span class="span-class" th:text="${currentUser.firstName}"></span></p>
+                    <p>Фамилия: <span class="span-class" th:text="${currentUser.secondName}"></span></p>
+                    <p>Email: <span class="span-class" th:text="${currentUser.email}"></span></p>
+                    <p>Пользователь: <span class="span-class" th:text="${currentUser.userState.userState}"></span></p>
 
-                    <!--<p sec:authorize="hasAuthority('ADMIN')" th:if="*{id != ${#authentication.principal.id}}">-->
-                        <select class="form-field" name="userState">
-                           <option th:each="userState: ${userStates}"
-                                   th:text="${userState.userState}"
-                                   th:field="*{userState.id}"
-                                   th:value="${userState.id}"></option>
-                        </select>
-                        <button class="btn-class" type="submit">Сменить статус пользователя</button>
-                    <!--</p>-->
+                    <form th:action="@{/user/edit}" th:method="post">
+                        <p sec:authorize="hasAuthority('ADMIN')" th:if="${currentUser.id!=#authentication.principal.id}">
+                            <select class="form-field" th:field="${state.id}">
+                               <option th:each="state: ${userStates}"
+                                       th:text="${state.userState}"
+                                       th:value="${state.id}"></option>
+                            </select>
+                            <button class="btn-class" type="submit">Сменить статус пользователя</button>
+                        </p>
+                    </form>
 
-                    <!--<c:if test="${sessionScope.loggedUser.userId == requestScope.user.id}">-->
-                        <!--<button class="btn-class" type="submit" name="idPassword" value="${requestScope.user.id}">Сменить пароль</button></p>-->
-                    <!--</c:if>-->
-
-                </form>
+                    <form th:action="@{/user}" th:method="post">
+                        <button class="btn-class" type="submit"
+                                th:if="${currentUser.id==#authentication.principal.id}">Сменить пароль</button>
+                    </form>
 
             </main><!-- .content -->
         </div><!-- .container-->
@@ -43,14 +42,6 @@
         <div th:replace="side_menu::menu"></div>
     </div><!-- .middle-->
 </div><!-- .wrapper -->
-
-<!--<div sec:authorize="hasAuthority('ADMIN')">-->
-    <!--This content is only shown to administrators. РАБОТАЕТ!!!!-->
-<!--</div>-->
-
-<!--<sec:authorize access="hasRole('ROLE_ADMIN')">-->
-    <!--тут то что видит только ROLE_ADMIN. РАБОТАЕТ!!!!-->
-<!--</sec:authorize>-->
 
 <div th:replace="footer::footer"></div>
 </body>

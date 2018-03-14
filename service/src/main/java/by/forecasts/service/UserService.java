@@ -15,4 +15,6 @@ public interface UserService extends UserDetailsService {
     User findOne(Long id);
 
     List<UserState> findAllUserStates();
+
+    void updateUser(User user);
 }

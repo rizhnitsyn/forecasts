@@ -21,7 +21,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
-@ToString(callSuper = true, exclude = "forecasts")
+@ToString(callSuper = true, exclude = {"forecasts", "tournaments"})
 public class User extends BaseEntity {
 
     public User(String firstName, String secondName, String email, UserState userState, String login, String password) {
