@@ -1,9 +1,7 @@
 package by.forecasts.repositories;
 
 import by.forecasts.entities.RegularGroup;
-import by.forecasts.entities.Team;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 

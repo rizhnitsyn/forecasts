@@ -31,12 +31,12 @@ public class GroupTest extends BaseTest {
         PlayoffGroup playoffGroup = new PlayoffGroup(4, "A", tournament1,  true);
         regularGroupRepository.save(regularGroup);
         playoffGroupRepository.save(playoffGroup);
-//        List<RegularGroup> regularGroups = regularGroupRepository.getGroupsOfTournament(tournament1.getId());
-//        List<PlayoffGroup> playoffGroups = playoffGroupRepository.getGroupsOfTournament(tournament1.getId());
-        List<Group> groupsOfTournament = groupRepository.getAllByTournamentId(1L);
+        List<RegularGroup> regularGroups = regularGroupRepository.findAllByTournamentId(tournament1.getId());
+        List<PlayoffGroup> playoffGroups = playoffGroupRepository.findAllByTournamentId(tournament1.getId());
+//        List<Group> groupsOfTournament = groupRepository.getAllByTournamentId(1L);
 
-        assertThat(groupsOfTournament, hasSize(2));
-//        assertThat(regularGroups, hasSize(1));
-//        assertThat(playoffGroups, hasSize(1));
+//        assertThat(groupsOfTournament, hasSize(2));
+        assertThat(regularGroups, hasSize(1));
+        assertThat(playoffGroups, hasSize(1));
     }
 }

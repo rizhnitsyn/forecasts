@@ -1,7 +1,6 @@
 package by.forecasts.service;
 
 import by.forecasts.entities.Team;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 

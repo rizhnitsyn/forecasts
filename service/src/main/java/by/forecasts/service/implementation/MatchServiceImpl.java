@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -62,8 +61,8 @@ public class MatchServiceImpl implements MatchService {
 
         Group group = groupRepository.findOne(match.getGroupId());
         if (matchesCount >= group.getMatchesCountBetweenTeams()) {
-            match.setError("Между этими командами не может быть более " + group.getMatchesCountBetweenTeams() + " матчей. " +
-                    "Внесите правильный матч!");
+            match.setError("Между этими командами не может быть более " + group.getMatchesCountBetweenTeams() + " матчей. "
+                    + "Внесите правильный матч!");
         } else {
             Match newMatch = new Match(match);
             matchRepository.save(newMatch);

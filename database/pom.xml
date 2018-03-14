@@ -9,7 +9,7 @@
 
     <artifactId>database</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>dao</name>
+    <name>database</name>
     <url>http://maven.apache.org</url>
 
     <properties>

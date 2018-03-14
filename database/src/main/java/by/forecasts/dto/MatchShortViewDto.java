@@ -23,6 +23,6 @@ public class MatchShortViewDto {
     private Team secondTeam;
     private MatchState matchState;
     private Tournament tournament;
-    private Long GroupId;
+    private Long groupId;
     private String error;
 }
