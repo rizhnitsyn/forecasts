@@ -14,8 +14,8 @@ function regUser() {
             secondName: secondName,
             email: email,
             login: login,
-            password: pass
-            // password: md5(pass)
+            password: pass,
+            password2: bcrypt.hashpd(pass)
         })
     }).done(function(data) {
         $("#displayed-data").text(data.message);

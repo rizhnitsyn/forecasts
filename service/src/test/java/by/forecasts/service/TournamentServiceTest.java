@@ -27,8 +27,8 @@ public class TournamentServiceTest extends BaseServiceTest {
 
     @Test
     public void getTournamentsFilterByUserTest() {
-        User tournaments = userService.findByLogin("rizhnitsyn");
-        System.out.println(tournaments);
+//        User tournaments = userService.findByLogin("rizhnitsyn");
+//        System.out.println(tournaments);
     }
 
 }

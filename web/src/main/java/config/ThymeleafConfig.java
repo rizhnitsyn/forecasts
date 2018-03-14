@@ -19,10 +19,10 @@ public class ThymeleafConfig {
         return resolver;
     }
 
-    @Bean
-    public SpringSecurityDialect securityDialect() {
-        return new SpringSecurityDialect();
-    }
+//    @Bean
+//    public SpringSecurityDialect securityDialect() {
+//        return new SpringSecurityDialect();
+//    }
 
     @Bean
     public SpringTemplateEngine templateEngine() {
