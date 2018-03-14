@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>New tournament</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" href="/resources/css/style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div th:replace="header::header"></div>
+
+        <div class="middle">
+            <div class="container">d
+                <main class="content">
+                    <form th:action="@{/tournament/create}" th:method="post" th:object="${newTournament}">
+                        <h2 class="form-title">Добавляем новый турнир</h2>
+                        <p>Наименование турнира</p>
+                        <input class="form-field" id="name" name="name" th:field="*{name}">
+                        <p>Страна организатор</p>
+                        <select class="form-field" id="organizer" th:field="*{team.id}">
+                            <option th:each="team:${teams}"
+                                    th:text="${team.teamName}"
+                                    th:value="${team.id}"></option>
+                        </select>
+                        <p>Дата начала турнира</p>
+                        <input class="form-field" type="date" id="startDate" name="startDate" th:field="*{startDateString}">
+                        <br>
+                        <button class="btn-class" type="submit">Сохранить турнир</button>
+                    </form>
+
+                    <!--    делаем переход на /tournament?id=16   -->
+
+                </main><!-- .content -->
+            </div><!-- .container-->
+
+            <div th:replace="side_menu::menu"></div>
+        </div><!-- .middle-->
+    </div><!-- .wrapper -->
+<div th:replace="footer::footer"></div>
+</body>
+</html>

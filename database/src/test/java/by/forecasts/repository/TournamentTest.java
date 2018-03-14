@@ -2,8 +2,9 @@ package by.forecasts.repository;
 
 import by.forecasts.entities.Team;
 import by.forecasts.entities.Tournament;
+import by.forecasts.entities.TournamentState;
 import by.forecasts.entities.User;
-import by.forecasts.entities.UserStates;
+import by.forecasts.entities.UserState;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -22,12 +23,16 @@ public class TournamentTest extends BaseTest {
         Team team2 = new Team("Spain");
         teamRepository.save(team1);
         teamRepository.save(team2);
-        Tournament tournament1 = new Tournament("Tournament 1", team1, LocalDate.now(), 1L);
-        Tournament tournament2 = new Tournament("Tournament 2", team2, LocalDate.now(), 1L);
+        TournamentState tournamentState = new TournamentState("active");
+        tournamentStateRepository.save(tournamentState);
+        Tournament tournament1 = new Tournament("Tournament 1", team1, LocalDate.now(), tournamentState);
+        Tournament tournament2 = new Tournament("Tournament 2", team2, LocalDate.now(), tournamentState);
         tournamentRepository.save(tournament1);
         tournamentRepository.save(tournament2);
-        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", new UserStates(), "log", "pass");
-        User user2 = new User("Andrei2", "Rizhnitsyn2", "ra2@bsb.by", new UserStates(), "log2", "pass");
+        UserState userState = new UserState("active user");
+        userStateRepository.save(userState);
+        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", userState, "log", "pass");
+        User user2 = new User("Andrei2", "Rizhnitsyn2", "ra2@bsb.by", userState, "log2", "pass");
         userRepository.save(user);
         userRepository.save(user2);
         tournament1.getUsers().add(user);

@@ -1,36 +1,48 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Tournament info</title>
+    <title>Tournament list</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" href="/resources/css/style.css">
 </head>
 <body>
-    <div sec:authorize="isAuthenticated()">
-        This content is only shown to authenticated users.
-    </div>
 
-    <h2 class="form-title" th:text="${tournament.name}" >Турнир: </h2>
-    <p>Дата начала игр турнира: <span class="span-class" th:text="${tournament.startDate}"> </span></p>
-    <p>Страна организатор турнира: <span class="span-class" th:text="${tournament.organizer.teamName}">  </span></p>
-    <p>Состояние турнира: <span class="span-class" th:text="${tournament.stateId}"> </span></p>
-    <div th:if="${!tournament.matches.isEmpty()}">
-        <table class="simple-little-table">
-            <tr>
-                <th>Матч</th>
-                <th>Счет</th>
-                <th>Дата матча</th>
-            </tr>
-                <tr class="widget-list3" th:each="match : ${tournament.matches}">
-                    <td th:text="${match.firstTeam.teamName + ' - ' + match.firstTeam.teamName}"></td>
-                    <td>
-                        <span th:if="${match.matchFinalResult} != null"
-                              th:text="${match.matchFinalResult.firstResult + ' - ' + match.matchFinalResult.secondResult}"></span>
-                        <span class="span-class_green" th:if="${match.matchFinalResult} == null">ожидается</span>
-                    </td>
-                    <td th:text="${match.matchDateTime}"></td>
-                </tr>
-        </table>
+<div class="wrapper">
+    <div th:replace="header::header"></div>
 
-    </div>
+    <div class="middle">
+        <div class="container">
+            <main class="content">
+                <h2 class="form-title" th:text="${tournament.name}" >Турнир: </h2>
+                <p>Дата начала игр турнира: <span class="span-class" th:text="${tournament.startDate}"> </span></p>
+                <p>Страна организатор турнира: <span class="span-class" th:text="${tournament.team.teamName}">  </span></p>
+                <p>Состояние турнира: <span class="span-class" th:text="${tournament.state.tournamentState}"> </span></p>
+                <p>Статус регистрации на турнир:
+                    <span class="span-class" th:if="${tournament.registered}">зарегистрирован на турнир</span>
+                    <span class="span-class" th:if="${!tournament.registered}">нет регистрации на турнир</span>
+                </p>
+
+                <form th:action="@{/tournament/reg}" th:method="post" th:if="${!tournament.registered}">
+                    <button class="btn-class" type="submit" name="idReg" th:value="${tournament.id}">Зарегистрироваться на турнир</button>
+                </form>
+                <form th:action="@{/tournament/close}" th:method="post">
+                    <button class="btn-class" type="submit" name="idClose" th:value="${tournament.id}"
+                            sec:authorize="hasAuthority('ADMIN')">Завершить турнир</button>
+                </form>
+                <form th:action="@{/tournament/config}" th:method="post">
+                    <button class="btn-class" type="submit" name="idConfig" th:value="${tournament.id}"
+                            sec:authorize="hasAuthority('ADMIN')">Настройка турнира</button>
+                </form>
+
+            </main><!-- .content -->
+        </div><!-- .container-->
+
+        <div th:replace="side_menu::menu"></div>
+    </div><!-- .middle-->
+</div><!-- .wrapper -->
+
+<div th:replace="footer::footer"></div>
+
 </body>
 </html>

@@ -7,13 +7,13 @@ import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,11 +26,11 @@ import java.util.Set;
 @ToString(callSuper = true, exclude = {"matches", "groups", "users"})
 public class Tournament extends BaseEntity {
 
-    public Tournament(String name, Team organizer, LocalDate startDate, Long stateId) {
+    public Tournament(String name, Team organizer, LocalDate startDate, TournamentState tournamentState) {
         this.name = name;
         this.organizer = organizer;
         this.startDate = startDate;
-        this.stateId = stateId;
+        this.tournamentState = tournamentState;
     }
 
     @Column(name = "tournament_name", nullable = false, unique = true)
@@ -43,10 +43,11 @@ public class Tournament extends BaseEntity {
     @Column(name = "tournament_start_date", nullable = false)
     private LocalDate startDate;
 
-    @Column(name = "tournament_state_id", nullable = false)
-    private Long stateId;
+    @ManyToOne
+    @JoinColumn(name = "tournament_state_id", nullable = false)
+    private TournamentState tournamentState;
 
-    @OneToMany(mappedBy = "tournament", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "tournament")
     private Set<Match> matches = new HashSet<>();
 
     @OneToMany(mappedBy = "tournament")
@@ -57,4 +58,9 @@ public class Tournament extends BaseEntity {
             joinColumns = @JoinColumn(name = "tournament_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> users = new HashSet<>();
+
+    @Transient
+    public void registerOnTournament(User user) {
+        this.users.add(user);
+    }
 }

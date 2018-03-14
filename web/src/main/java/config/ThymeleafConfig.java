@@ -29,7 +29,7 @@ public class ThymeleafConfig {
         SpringTemplateEngine engine = new SpringTemplateEngine();
         engine.setEnableSpringELCompiler(true);
         engine.setTemplateResolver(templateResolver());
-        engine.addDialect(securityDialect());
+        engine.addDialect(new SpringSecurityDialect());
         return engine;
     }
 

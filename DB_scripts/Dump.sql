@@ -64,7 +64,7 @@ CREATE TABLE `group_names` (
   PRIMARY KEY (`group_name_id`),
   UNIQUE KEY `group_type_name_UNIQUE` (`group_name`),
   KEY `group_names__fk` (`group_type_id`),
-  CONSTRAINT `group_names__fk` FOREIGN KEY (`group_type_id`) REFERENCES `group_types` (`group_type_id`)
+  CONSTRAINT `group_names__fk` FOREIGN KEY (`group_type_id`) REFERENCES `group_types` (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -118,7 +118,7 @@ CREATE TABLE `groups_in_tournament` (
   KEY `groups_in_tournament_group_names_group_name_id_fk` (`group_name_id`),
   KEY `groups_in_tournament_tournaments_tournament_id_fk` (`tournament_id`),
   CONSTRAINT `FKdfq8xjsopclpw9wuqo1gq5a1g` FOREIGN KEY (`tournament_id`) REFERENCES `tournaments` (`id`),
-  CONSTRAINT `groups_in_tournament_group_names_group_name_id_fk` FOREIGN KEY (`group_name_id`) REFERENCES `group_names` (`group_name_id`),
+  CONSTRAINT `groups_in_tournament_group_names_group_name_id_fk` FOREIGN KEY (`group_name_id`) REFERENCES `group_names` (id),
   CONSTRAINT `groups_in_tournament_tournaments_tournament_id_fk` FOREIGN KEY (`tournament_id`) REFERENCES `tournaments` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -405,7 +405,7 @@ CREATE TABLE `tournaments` (
   KEY `TOURNAMENTS_fk1` (`tournament_state_id`),
   CONSTRAINT `FKosef54py3vv9cn5v6dl7h0dlw` FOREIGN KEY (`team_organizer_id`) REFERENCES `teams` (`id`),
   CONSTRAINT `TOURNAMENTS_fk0` FOREIGN KEY (`team_organizer_id`) REFERENCES `teams` (`id`),
-  CONSTRAINT `TOURNAMENTS_fk1` FOREIGN KEY (`tournament_state_id`) REFERENCES `tournament_states` (`tournament_state_id`)
+  CONSTRAINT `TOURNAMENTS_fk1` FOREIGN KEY (`tournament_state_id`) REFERENCES `tournament_states` (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

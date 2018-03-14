@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" href="/resources/css/style.css">
+</head>
+<body>
+
+<aside class="left-sidebar" th:fragment="menu">
+    <div class="widget">
+        <h3 class="widget-title">Категории</h3>
+        <ul class="widget-list">
+            <li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/tournamentList}">Настройка турниров</a></li>
+            <li><a th:href="@{/tournamentList}">Подписаться на турнир</a></li>
+            <li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/userList}">Пользователи</a></li>
+            <li><a th:href="@{/forecastTournaments}">Сделать прогноз</a></li>
+            <li><a th:href="@{/tournamentAllMatches}">Мои прогнозы</a></li>
+            <li><a th:href="@{/tournamentStatistic}">Результаты турниров</a></li>
+            <li><a th:href="@{/home}">Правила игры</a></li>
+            <li><a th:href="@{/user+'?'+id= + ${loggedUser.userId}}">Личный кабинет</a></li>
+            <li><a th:href="@{/saveUser}">Зарегистрироваться</a></li>
+            <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Войти</a></li>
+            <li sec:authorize="isAuthenticated()">
+                <form id="myform" th:method="post" th:action="@{/logout}">
+                    <input type="hidden" name="name"/>
+                    <a th:text="${'Выйти('+#authentication.name+')'}"
+                       onclick="document.getElementById('myform').submit();">Выйти</a>
+                </form>
+            </li>
+        </ul>
+    </div>
+</aside><!-- .left-sidebar -->
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>New match</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" href="/resources/css/style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div th:replace="header::header"></div>
+
+        <div class="middle">
+            <div class="container">d
+                <main class="content">
+                    <form th:action="@{/matches/create}" th:method="post" th:object="${newMatch}">
+                        <h2 class="form-title">Добавляем матч в рассписание</h2>
+                        <p>Команда 1</p>
+                        <select class="form-field" id="firstTeam" th:field="*{firstTeam.id}">
+                            <option th:each="team:${teams}"
+                                    th:text="${team.teamName}"
+                                    th:value="${team.id}"></option>
+                        </select>
+                        <p>Команда 2</p>
+
+                        <select class="form-field" id="secondTeam" th:field="*{secondTeam.id}">
+                            <option th:each="team:${teams}"
+                                    th:text="${team.teamName}"
+                                    th:value="${team.id}"></option>
+                        </select>
+                        <p>Время начала матча</p>
+                        <input class="form-field" type="datetime-local" th:field="*{matchDateTimeString}">
+                        <br>
+                        <input type="hidden" name="name" th:field="*{groupId}" th:value="${newMatch.groupId}"/>
+                        <button class="btn-class" type="submit">Сохранить матч</button>
+                    </form>
+
+                </main><!-- .content -->
+            </div><!-- .container-->
+
+            <div th:replace="side_menu::menu"></div>
+        </div><!-- .middle-->
+    </div><!-- .wrapper -->
+<div th:replace="footer::footer"></div>
+</body>
+</html>

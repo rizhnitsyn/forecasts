@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -23,7 +24,7 @@ import java.util.Set;
 @ToString(callSuper = true, exclude = "forecasts")
 public class User extends BaseEntity {
 
-    public User(String firstName, String secondName, String email, UserStates userState, String login, String password) {
+    public User(String firstName, String secondName, String email, UserState userState, String login, String password) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.email = email;
@@ -43,7 +44,7 @@ public class User extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_state_id", nullable = false)
-    private UserStates userState;
+    private UserState userState;
 
     @Column(name = "login", nullable = false, unique = true)
     private String login;
@@ -51,9 +52,9 @@ public class User extends BaseEntity {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
     private Set<Tournament> tournaments = new HashSet<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<Forecast> forecasts = new HashSet<>();
 }

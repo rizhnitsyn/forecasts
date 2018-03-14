@@ -19,8 +19,8 @@ import javax.persistence.Table;
 @PrimaryKeyJoinColumn(name = "group_id")
 public class PlayoffGroup extends Group {
 
-    public PlayoffGroup(int matchesCountBetweenTeams, Long groupNameId, Tournament tournament, boolean isExtraTimeAllowed) {
-        super(matchesCountBetweenTeams, groupNameId, tournament);
+    public PlayoffGroup(int matchesCountBetweenTeams, String groupName, Tournament tournament, boolean isExtraTimeAllowed) {
+        super(matchesCountBetweenTeams, groupName, tournament);
         this.isExtraTimeAllowed = isExtraTimeAllowed;
     }
 

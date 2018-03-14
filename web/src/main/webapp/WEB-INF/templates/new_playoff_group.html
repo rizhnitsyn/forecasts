@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Group</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" href="/resources/css/style.css">
+</head>
+<body>
+<div class="wrapper">
+    <div th:replace="header::header"></div>
+
+    <div class="middle">
+        <div class="container">
+            <main class="content">
+
+                <form th:action="@{/tournament/groups/createPlayoffGroup}" th:method="post" th:object="${playoffGroup}">
+                    <h2 class="form-title">Создаем новую группу</h2>
+                    <p>Наименование группы</p>
+                    <input class="form-field" id="name" name="name" th:field="*{groupName}">
+                    <p>Количество матчей между командами</p>
+                    <input class="form-field" id="matchCount" name="matchCount" th:field="*{matchesCountBetweenTeams}">
+                    <p>Дополнительное время
+                        <label for="yesExtraTime">
+                            <input type="radio" id="yesExtraTime" th:field="*{extraTimeAllowed}" th:value="true">
+                            <span>Да</span>
+                        </label>
+                        <label for="noExtraTime">
+                            <input type="radio" id="noExtraTime" th:field="*{extraTimeAllowed}" th:value="false">
+                            <span>Нет</span>
+                        </label>
+                    </p>
+                    <br>
+                    <button class="btn-class" type="submit">Создать группу</button>
+                </form>
+
+            </main><!-- .content -->
+        </div><!-- .container-->
+
+        <div th:replace="side_menu::menu"></div>
+    </div><!-- .middle-->
+</div><!-- .wrapper -->
+
+<!--<div sec:authorize="hasAuthority('ADMIN')">-->
+<!--This content is only shown to administrators. РАБОТАЕТ!!!!-->
+<!--</div>-->
+
+<!--<sec:authorize access="hasRole('ROLE_ADMIN')">-->
+<!--тут то что видит только ROLE_ADMIN. РАБОТАЕТ!!!!-->
+<!--</sec:authorize>-->
+
+<div th:replace="footer::footer"></div>
+</body>
+</html>

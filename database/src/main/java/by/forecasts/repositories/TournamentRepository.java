@@ -8,4 +8,7 @@ import java.util.List;
 public interface TournamentRepository extends JpaRepository<Tournament, Long> {
 
     List<Tournament> getAllByUsersId(Long userId);
+
+    List<Tournament> getAllByTournamentStateId(Long tournamentStateId);
+
 }

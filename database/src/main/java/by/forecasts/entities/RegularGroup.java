@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Getter
 @Setter
@@ -19,8 +20,8 @@ import javax.persistence.Table;
 @PrimaryKeyJoinColumn(name = "group_id")
 public class RegularGroup extends Group {
 
-    public RegularGroup(int teamsCountInGroup, int groupOutCount, int matchesCountBetweenTeams, Long groupNameId, Tournament tournament) {
-        super(matchesCountBetweenTeams, groupNameId, tournament);
+    public RegularGroup(int teamsCountInGroup, int groupOutCount, int matchesCountBetweenTeams, String groupName, Tournament tournament) {
+        super(matchesCountBetweenTeams, groupName, tournament);
         this.teamsCountInGroup = teamsCountInGroup;
         this.groupOutCount = groupOutCount;
     }

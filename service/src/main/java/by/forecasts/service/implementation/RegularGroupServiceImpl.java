@@ -1,6 +1,11 @@
 package by.forecasts.service.implementation;
 
+import by.forecasts.entities.RegularGroup;
+import by.forecasts.entities.Team;
+import by.forecasts.entities.Tournament;
 import by.forecasts.repositories.RegularGroupRepository;
+import by.forecasts.repositories.TeamRepository;
+import by.forecasts.repositories.TournamentRepository;
 import by.forecasts.service.RegularGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,9 +16,18 @@ import org.springframework.transaction.annotation.Transactional;
 public class RegularGroupServiceImpl implements RegularGroupService {
 
     private final RegularGroupRepository regularGroupRepository;
+    private final TournamentRepository tournamentRepository;
 
     @Autowired
-    public RegularGroupServiceImpl(RegularGroupRepository regularGroupRepository) {
+    public RegularGroupServiceImpl(RegularGroupRepository regularGroupRepository, TournamentRepository tournamentRepository) {
         this.regularGroupRepository = regularGroupRepository;
+        this.tournamentRepository = tournamentRepository;
+    }
+
+    @Override
+    public void save(RegularGroup regularGroup, Long tournamentId) {
+        Tournament tournament = tournamentRepository.findOne(tournamentId);
+        regularGroup.setTournament(tournament);
+        regularGroupRepository.save(regularGroup);
     }
 }

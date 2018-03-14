@@ -20,14 +20,20 @@ public class MatchTest extends BaseTest {
         teamRepository.save(team1);
         teamRepository.save(team2);
 
-        Tournament tournament1 = new Tournament("Tournament 12", team1, LocalDate.now(), 1L);
+        TournamentState tournamentState = new TournamentState("active");
+        tournamentStateRepository.save(tournamentState);
+        Tournament tournament1 = new Tournament("Tournament 12", team1, LocalDate.now(), tournamentState);
         tournamentRepository.save(tournament1);
 
-        User user = new User("Andrei_log", "Rizhnitsyn", "ra2@bsb.by", new UserStates(), "log", "pass");
+        UserState userState = new UserState("admin");
+        userStateRepository.save(userState);
+        User user = new User("Andrei_log", "Rizhnitsyn", "ra2@bsb.by", userState, "log", "pass");
         userRepository.save(user);
 
-        Match match1 = new Match(LocalDateTime.now(), 1L, team1, team2, tournament1);
-        Match match2 = new Match(LocalDateTime.now(), 1L, team2, team1, tournament1);
+        MatchState matchState = new MatchState("active match");
+        matchStateRepository.save(matchState);
+        Match match1 = new Match(LocalDateTime.now(), matchState, team1, team2, tournament1);
+        Match match2 = new Match(LocalDateTime.now(), matchState, team2, team1, tournament1);
         matchRepository.save(match1);
         matchRepository.save(match2);
 
@@ -43,4 +49,6 @@ public class MatchTest extends BaseTest {
         assertEquals(matchesForForecast.iterator().next().getTournament().getName(), matchesForForecast2.iterator().next().getTournament().getName());
         assertEquals(matchesForForecast.iterator().next().getFirstTeam().getTeamName(), "Spain12");
     }
+
+
 }

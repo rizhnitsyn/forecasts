@@ -3,15 +3,16 @@ package by.forecasts.repository;
 import by.forecasts.entities.Forecast;
 import by.forecasts.entities.Match;
 import by.forecasts.entities.MatchScore;
+import by.forecasts.entities.MatchState;
 import by.forecasts.entities.Team;
 import by.forecasts.entities.Tournament;
+import by.forecasts.entities.TournamentState;
 import by.forecasts.entities.User;
-import by.forecasts.entities.UserStates;
+import by.forecasts.entities.UserState;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -30,14 +31,20 @@ public class ForecastTest extends BaseTest {
         teamRepository.save(team1);
         teamRepository.save(team2);
 
-        Tournament tournament1 = new Tournament("Tournament 1", team1, LocalDate.now(), 1L);
+        TournamentState tournamentState = new TournamentState("active");
+        tournamentStateRepository.save(tournamentState);
+        Tournament tournament1 = new Tournament("Tournament 1", team1, LocalDate.now(), tournamentState);
         tournamentRepository.save(tournament1);
 
-        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", new UserStates(), "log", "pass");
+        UserState userState = new UserState("active user");
+        userStateRepository.save(userState);
+        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", userState, "log", "pass");
         userRepository.save(user);
 
-        Match match1 = new Match(LocalDateTime.now(), 1L, team1, team2, tournament1);
-        Match match2 = new Match(LocalDateTime.now(), 1L, team2, team1, tournament1);
+        MatchState matchState = new MatchState("active match");
+        matchStateRepository.save(matchState);
+        Match match1 = new Match(LocalDateTime.now(), matchState, team1, team2, tournament1);
+        Match match2 = new Match(LocalDateTime.now(), matchState, team2, team1, tournament1);
         matchRepository.save(match1);
         matchRepository.save(match2);
 
@@ -47,7 +54,7 @@ public class ForecastTest extends BaseTest {
         forecastRepository.save(forecast2);
 
         Long count = forecastRepository
-                .countAllByUserIdAndMatchTournamentIdAndMatchMatchState(user.getId(), tournament1.getId(), 1L);
+                .countAllByUserIdAndMatchTournamentIdAndMatchMatchStateId(user.getId(), tournament1.getId(), matchState.getId());
 
         Assert.assertEquals(2L, (long) count);
     }
@@ -59,14 +66,20 @@ public class ForecastTest extends BaseTest {
         teamRepository.save(team1);
         teamRepository.save(team2);
 
-        Tournament tournament1 = new Tournament("Tournament 1", team1, LocalDate.now(), 1L);
+        TournamentState tournamentState = new TournamentState("active");
+        tournamentStateRepository.save(tournamentState);
+        Tournament tournament1 = new Tournament("Tournament 1", team1, LocalDate.now(), tournamentState);
         tournamentRepository.save(tournament1);
 
-        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", new UserStates(), "log", "pass");
+        UserState userState = new UserState("active user");
+        userStateRepository.save(userState);
+        User user = new User("Andrei", "Rizhnitsyn", "ra@bsb.by", userState, "log", "pass");
         userRepository.save(user);
 
-        Match match1 = new Match(LocalDateTime.now(), 1L, team1, team2, tournament1);
-        Match match2 = new Match(LocalDateTime.now(), 1L, team2, team1, tournament1);
+        MatchState matchState = new MatchState("active match");
+        matchStateRepository.save(matchState);
+        Match match1 = new Match(LocalDateTime.now(), matchState, team1, team2, tournament1);
+        Match match2 = new Match(LocalDateTime.now(), matchState, team2, team1, tournament1);
         matchRepository.save(match1);
         matchRepository.save(match2);
 
@@ -78,7 +91,7 @@ public class ForecastTest extends BaseTest {
         PageRequest pageRequest = new PageRequest(0, 5);
 
         Page<Forecast> forecastPage = forecastRepository
-                .findAllByUserIdAndMatchTournamentIdAndMatchMatchState(user.getId(), tournament1.getId(), 1L, pageRequest);
+                .findAllByUserIdAndMatchTournamentIdAndMatchMatchStateId(user.getId(), tournament1.getId(), matchState.getId(), pageRequest);
 
         System.out.println(forecastPage.getTotalPages());
 

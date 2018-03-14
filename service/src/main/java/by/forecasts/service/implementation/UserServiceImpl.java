@@ -1,12 +1,13 @@
 package by.forecasts.service.implementation;
 
+import by.forecasts.dto.UserDetailDto;
 import by.forecasts.entities.User;
 import by.forecasts.repositories.UserRepository;
+import by.forecasts.repositories.UserStateRepository;
 import by.forecasts.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,10 +20,12 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final UserStateRepository userStateRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, UserStateRepository userStateRepository) {
         this.userRepository = userRepository;
+        this.userStateRepository = userStateRepository;
     }
 
     @Override
@@ -31,22 +34,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByLogin(String login) {
-        return userRepository.findByLogin(login);
+    public void saveUser(User user) {
+        user.setUserState(userStateRepository.getOne(1L));
+        userRepository.save(user);
     }
 
     @Override
-    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        User loggedUser = findByLogin(login);
+    public UserDetailDto loadUserByUsername(String login) throws UsernameNotFoundException {
+        User loggedUser = userRepository.findByLogin(login);
         if (loggedUser == null) {
             throw new UsernameNotFoundException("User doesn't exist!");
         }
         List<GrantedAuthority> userRoles = new ArrayList<>();
         SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(loggedUser.getUserState().getUserState());
         userRoles.add(simpleGrantedAuthority);
-
-        return new org.springframework.security.core.userdetails.User(loggedUser.getLogin(), loggedUser.getPassword(), userRoles);
+        UserDetailDto userDetailDto = new UserDetailDto(loggedUser.getLogin(), loggedUser.getPassword(), userRoles);
+        userDetailDto.setId(loggedUser.getId());
+        return userDetailDto;
     }
-
 
 }
