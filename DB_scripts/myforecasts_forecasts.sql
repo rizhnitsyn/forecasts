@@ -1,344 +1,62 @@
-CREATE TABLE myforecasts.forecasts
-(
-    id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    match_id int(11) NOT NULL,
-    first_team_forecast int(11) NOT NULL,
-    second_team_forecast int(11) NOT NULL,
-    user_id int(11) NOT NULL,
-    CONSTRAINT FORECASTS_fk0 FOREIGN KEY (match_id) REFERENCES matches (id),
-    CONSTRAINT FORECASTS_fk1 FOREIGN KEY (user_id) REFERENCES users (id)
-);
-CREATE INDEX FORECASTS_fk1 ON myforecasts.forecasts (user_id);
-CREATE UNIQUE INDEX unique_index ON myforecasts.forecasts (match_id, user_id);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (1, 3, 0, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (2, 1, 2, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (3, 1, 1, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (4, 2, 0, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (5, 1, 2, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (6, 3, 1, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (7, 2, 0, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (8, 2, 0, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (9, 0, 1, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (10, 1, 1, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (11, 2, 1, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (12, 1, 0, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (13, 1, 2, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (14, 1, 2, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (15, 2, 0, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (16, 2, 0, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (17, 1, 0, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (18, 2, 1, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (19, 2, 1, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (20, 1, 1, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (21, 3, 1, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (22, 2, 1, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (23, 1, 0, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (24, 1, 1, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (25, 0, 0, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (26, 1, 2, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (27, 1, 0, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (28, 1, 2, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (29, 1, 2, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (30, 1, 3, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (31, 1, 1, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (32, 1, 2, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (33, 0, 1, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (34, 0, 2, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (35, 3, 1, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (36, 1, 1, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (1, 1, 0, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (2, 1, 2, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (3, 1, 1, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (4, 1, 1, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (5, 1, 3, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (6, 2, 2, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (7, 3, 0, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (8, 1, 0, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (9, 0, 0, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (10, 2, 2, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (11, 1, 4, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (12, 3, 3, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (13, 1, 0, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (14, 0, 2, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (15, 2, 0, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (16, 2, 1, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (17, 1, 2, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (18, 1, 2, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (19, 1, 0, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (20, 1, 1, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (21, 2, 0, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (22, 2, 2, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (23, 2, 0, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (24, 1, 0, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (25, 2, 1, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (26, 1, 1, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (27, 1, 1, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (28, 1, 2, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (29, 1, 1, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (30, 0, 3, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (31, 1, 0, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (32, 0, 1, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (33, 3, 1, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (34, 0, 2, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (35, 1, 1, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (36, 0, 1, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (38, 2, 1, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (38, 2, 2, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (37, 2, 2, 2);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (37, 2, 1, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (1, 1, 0, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (2, 1, 3, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (3, 2, 1, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (4, 1, 0, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (5, 1, 3, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (6, 2, 1, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (7, 4, 0, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (8, 1, 2, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (9, 1, 1, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (10, 0, 1, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (11, 2, 1, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (12, 3, 0, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (13, 1, 1, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (14, 0, 0, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (15, 2, 0, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (16, 3, 2, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (17, 1, 3, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (18, 2, 3, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (19, 3, 1, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (20, 2, 2, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (21, 1, 2, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (22, 3, 0, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (23, 0, 0, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (24, 2, 0, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (25, 2, 2, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (26, 1, 2, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (27, 1, 2, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (28, 1, 2, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (29, 1, 3, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (30, 1, 4, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (31, 1, 1, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (32, 2, 2, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (33, 0, 0, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (34, 1, 3, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (35, 1, 1, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (36, 0, 3, 3);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (1, 3, 0, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (2, 1, 2, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (3, 2, 2, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (4, 2, 0, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (5, 1, 2, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (6, 3, 0, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (7, 2, 1, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (8, 1, 0, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (9, 1, 3, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (10, 2, 0, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (11, 3, 0, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (12, 4, 0, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (13, 2, 1, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (14, 1, 1, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (15, 3, 0, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (16, 2, 0, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (17, 3, 0, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (18, 3, 1, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (19, 1, 0, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (20, 2, 2, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (21, 3, 0, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (22, 3, 0, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (23, 0, 1, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (24, 1, 0, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (25, 1, 0, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (26, 0, 1, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (27, 1, 0, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (28, 0, 3, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (29, 2, 2, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (30, 0, 5, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (31, 3, 2, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (32, 1, 0, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (33, 1, 2, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (34, 1, 4, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (35, 1, 0, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (36, 0, 1, 4);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (1, 3, 1, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (2, 1, 1, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (3, 1, 1, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (4, 2, 1, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (5, 0, 1, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (6, 2, 2, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (7, 2, 0, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (8, 3, 2, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (9, 0, 1, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (10, 2, 2, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (11, 1, 1, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (12, 2, 0, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (13, 0, 0, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (14, 1, 1, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (15, 2, 0, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (16, 2, 1, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (17, 3, 2, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (18, 4, 1, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (19, 2, 1, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (20, 1, 1, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (21, 3, 1, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (22, 3, 1, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (23, 0, 0, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (24, 2, 1, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (25, 2, 1, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (26, 0, 2, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (27, 1, 1, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (28, 0, 1, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (29, 1, 0, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (30, 0, 1, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (31, 0, 1, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (32, 3, 3, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (33, 2, 0, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (34, 1, 3, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (35, 1, 0, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (36, 1, 2, 5);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (1, 4, 0, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (2, 1, 2, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (3, 2, 1, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (4, 3, 1, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (5, 2, 2, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (6, 3, 1, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (7, 2, 0, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (8, 2, 1, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (9, 1, 1, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (10, 0, 1, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (11, 2, 0, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (12, 1, 0, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (13, 2, 1, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (14, 0, 2, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (15, 2, 0, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (16, 3, 2, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (17, 1, 0, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (18, 2, 1, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (19, 2, 0, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (20, 1, 2, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (21, 3, 2, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (22, 1, 0, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (23, 1, 0, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (24, 1, 1, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (25, 1, 2, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (26, 1, 2, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (27, 1, 0, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (28, 0, 2, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (29, 0, 0, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (30, 0, 3, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (31, 1, 1, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (32, 1, 2, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (33, 1, 2, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (34, 0, 2, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (35, 1, 0, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (36, 0, 1, 6);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (40, 1, 3, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (41, 2, 2, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (1, 2, 0, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (2, 1, 1, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (3, 1, 2, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (4, 1, 2, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (5, 2, 2, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (6, 2, 1, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (7, 3, 1, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (8, 2, 1, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (9, 1, 1, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (10, 0, 0, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (11, 2, 1, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (12, 2, 0, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (13, 2, 1, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (14, 0, 1, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (15, 3, 0, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (16, 3, 2, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (17, 3, 1, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (18, 2, 1, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (19, 2, 1, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (20, 1, 3, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (21, 3, 2, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (22, 2, 0, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (23, 1, 1, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (24, 0, 0, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (25, 1, 1, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (26, 1, 1, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (27, 3, 1, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (28, 1, 1, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (29, 2, 1, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (30, 1, 4, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (31, 1, 2, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (32, 1, 1, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (33, 0, 1, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (34, 1, 3, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (35, 2, 1, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (36, 1, 1, 8);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (1, 2, 0, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (2, 0, 1, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (3, 2, 0, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (4, 1, 1, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (5, 0, 1, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (6, 2, 0, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (7, 2, 0, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (8, 2, 1, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (9, 0, 1, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (10, 2, 1, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (11, 1, 0, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (12, 3, 1, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (13, 1, 0, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (14, 0, 2, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (15, 2, 0, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (16, 2, 0, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (17, 1, 0, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (18, 2, 1, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (19, 2, 2, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (20, 0, 1, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (21, 3, 0, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (22, 1, 0, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (23, 0, 1, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (24, 2, 0, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (25, 1, 1, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (26, 1, 2, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (27, 1, 0, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (28, 0, 3, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (29, 2, 2, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (30, 1, 4, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (31, 2, 0, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (32, 2, 3, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (33, 0, 1, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (34, 0, 2, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (35, 2, 1, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (36, 2, 2, 9);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (1, 2, 0, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (2, 0, 2, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (3, 1, 0, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (4, 1, 2, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (5, 1, 2, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (6, 1, 1, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (7, 2, 0, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (8, 2, 0, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (9, 1, 2, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (10, 1, 1, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (11, 1, 0, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (12, 2, 0, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (13, 1, 0, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (14, 0, 2, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (15, 3, 0, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (16, 2, 0, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (17, 2, 1, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (18, 2, 0, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (19, 2, 1, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (20, 1, 2, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (21, 3, 0, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (22, 3, 1, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (23, 2, 1, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (24, 2, 0, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (25, 0, 0, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (26, 2, 2, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (27, 2, 1, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (28, 0, 2, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (29, 1, 0, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (30, 0, 2, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (31, 1, 2, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (32, 2, 3, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (33, 2, 2, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (34, 1, 3, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (35, 0, 0, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (36, 0, 1, 10);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (42, 4, 4, 1);
-INSERT INTO myforecasts.forecasts (match_id, first_team_forecast, second_team_forecast, user_id) VALUES (44, 1, 1, 2);
+CREATE DATABASE  IF NOT EXISTS `myforecasts` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `myforecasts`;
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+--
+-- Host: localhost    Database: myforecasts
+-- ------------------------------------------------------
+-- Server version	5.7.20-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `forecasts`
+--
+
+DROP TABLE IF EXISTS `forecasts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `forecasts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `match_id` int(11) NOT NULL,
+  `first_team_forecast` int(11) NOT NULL,
+  `second_team_forecast` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_index` (`match_id`,`user_id`),
+  KEY `FORECASTS_fk1` (`user_id`),
+  CONSTRAINT `FKg5akkj2dolt5d4gjd8wx49l48` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `FKgjrbbdkbcttett6tcmdyr6dl3` FOREIGN KEY (`match_id`) REFERENCES `matches` (`id`),
+  CONSTRAINT `FORECASTS_fk0` FOREIGN KEY (`match_id`) REFERENCES `matches` (`id`),
+  CONSTRAINT `FORECASTS_fk1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=333 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `forecasts`
+--
+
+LOCK TABLES `forecasts` WRITE;
+/*!40000 ALTER TABLE `forecasts` DISABLE KEYS */;
+INSERT INTO `forecasts` VALUES (1,1,3,0,1),(2,2,1,2,1),(3,3,1,1,1),(4,4,2,0,1),(5,5,1,2,1),(6,6,3,1,1),(7,7,2,0,1),(8,8,2,0,1),(9,9,0,1,1),(10,10,1,1,1),(11,11,2,1,1),(12,12,1,0,1),(13,13,1,2,1),(14,14,1,2,1),(15,15,2,0,1),(16,16,2,0,1),(17,17,1,0,1),(18,18,2,1,1),(19,19,2,1,1),(20,20,1,1,1),(21,21,3,1,1),(22,22,2,1,1),(23,23,1,0,1),(24,24,1,1,1),(25,25,0,0,1),(26,26,1,2,1),(27,27,1,0,1),(28,28,1,2,1),(29,29,1,2,1),(30,30,1,3,1),(31,31,1,1,1),(32,32,1,2,1),(33,33,0,1,1),(34,34,0,2,1),(35,35,3,1,1),(36,36,1,1,1),(37,1,1,0,2),(38,2,1,2,2),(39,3,1,1,2),(40,4,1,1,2),(41,5,1,3,2),(42,6,2,2,2),(43,7,3,0,2),(44,8,1,0,2),(45,9,0,0,2),(46,10,2,2,2),(47,11,1,4,2),(48,12,3,3,2),(49,13,1,0,2),(50,14,0,2,2),(51,15,2,0,2),(52,16,2,1,2),(53,17,1,2,2),(54,18,1,2,2),(55,19,1,0,2),(56,20,1,1,2),(57,21,2,0,2),(58,22,2,2,2),(59,23,2,0,2),(60,24,1,0,2),(61,25,2,1,2),(62,26,1,1,2),(63,27,1,1,2),(64,28,1,2,2),(65,29,1,1,2),(66,30,0,3,2),(67,31,1,0,2),(68,32,0,1,2),(69,33,3,1,2),(70,34,0,2,2),(71,35,1,1,2),(72,36,0,1,2),(73,38,2,1,2),(74,38,2,2,1),(75,37,2,2,2),(76,37,2,1,1),(77,1,1,0,3),(78,2,1,3,3),(79,3,2,1,3),(80,4,1,0,3),(81,5,1,3,3),(82,6,2,1,3),(83,7,4,0,3),(84,8,1,2,3),(85,9,1,1,3),(86,10,0,1,3),(87,11,2,1,3),(88,12,3,0,3),(89,13,1,1,3),(90,14,0,0,3),(91,15,2,0,3),(92,16,3,2,3),(93,17,1,3,3),(94,18,2,3,3),(95,19,3,1,3),(96,20,2,2,3),(97,21,1,2,3),(98,22,3,0,3),(99,23,0,0,3),(100,24,2,0,3),(101,25,2,2,3),(102,26,1,2,3),(103,27,1,2,3),(104,28,1,2,3),(105,29,1,3,3),(106,30,1,4,3),(107,31,1,1,3),(108,32,2,2,3),(109,33,0,0,3),(110,34,1,3,3),(111,35,1,1,3),(112,36,0,3,3),(113,1,3,0,4),(114,2,1,2,4),(115,3,2,2,4),(116,4,2,0,4),(117,5,1,2,4),(118,6,3,0,4),(119,7,2,1,4),(120,8,1,0,4),(121,9,1,3,4),(122,10,2,0,4),(123,11,3,0,4),(124,12,4,0,4),(125,13,2,1,4),(126,14,1,1,4),(127,15,3,0,4),(128,16,2,0,4),(129,17,3,0,4),(130,18,3,1,4),(131,19,1,0,4),(132,20,2,2,4),(133,21,3,0,4),(134,22,3,0,4),(135,23,0,1,4),(136,24,1,0,4),(137,25,1,0,4),(138,26,0,1,4),(139,27,1,0,4),(140,28,0,3,4),(141,29,2,2,4),(142,30,0,5,4),(143,31,3,2,4),(144,32,1,0,4),(145,33,1,2,4),(146,34,1,4,4),(147,35,1,0,4),(148,36,0,1,4),(149,1,3,1,5),(150,2,1,1,5),(151,3,1,1,5),(152,4,2,1,5),(153,5,0,1,5),(154,6,2,2,5),(155,7,2,0,5),(156,8,3,2,5),(157,9,0,1,5),(158,10,2,2,5),(159,11,1,1,5),(160,12,2,0,5),(161,13,0,0,5),(162,14,1,1,5),(163,15,2,0,5),(164,16,2,1,5),(165,17,3,2,5),(166,18,4,1,5),(167,19,2,1,5),(168,20,1,1,5),(169,21,3,1,5),(170,22,3,1,5),(171,23,0,0,5),(172,24,2,1,5),(173,25,2,1,5),(174,26,0,2,5),(175,27,1,1,5),(176,28,0,1,5),(177,29,1,0,5),(178,30,0,1,5),(179,31,0,1,5),(180,32,3,3,5),(181,33,2,0,5),(182,34,1,3,5),(183,35,1,0,5),(184,36,1,2,5),(185,1,4,0,6),(186,2,1,2,6),(187,3,2,1,6),(188,4,3,1,6),(189,5,2,2,6),(190,6,3,1,6),(191,7,2,0,6),(192,8,2,1,6),(193,9,1,1,6),(194,10,0,1,6),(195,11,2,0,6),(196,12,1,0,6),(197,13,2,1,6),(198,14,0,2,6),(199,15,2,0,6),(200,16,3,2,6),(201,17,1,0,6),(202,18,2,1,6),(203,19,2,0,6),(204,20,1,2,6),(205,21,3,2,6),(206,22,1,0,6),(207,23,1,0,6),(208,24,1,1,6),(209,25,1,2,6),(210,26,1,2,6),(211,27,1,0,6),(212,28,0,2,6),(213,29,0,0,6),(214,30,0,3,6),(215,31,1,1,6),(216,32,1,2,6),(217,33,1,2,6),(218,34,0,2,6),(219,35,1,0,6),(220,36,0,1,6),(221,40,1,3,1),(222,41,2,2,1),(223,1,2,0,8),(224,2,1,1,8),(225,3,1,2,8),(226,4,1,2,8),(227,5,2,2,8),(228,6,2,1,8),(229,7,3,1,8),(230,8,2,1,8),(231,9,1,1,8),(232,10,0,0,8),(233,11,2,1,8),(234,12,2,0,8),(235,13,2,1,8),(236,14,0,1,8),(237,15,3,0,8),(238,16,3,2,8),(239,17,3,1,8),(240,18,2,1,8),(241,19,2,1,8),(242,20,1,3,8),(243,21,3,2,8),(244,22,2,0,8),(245,23,1,1,8),(246,24,0,0,8),(247,25,1,1,8),(248,26,1,1,8),(249,27,3,1,8),(250,28,1,1,8),(251,29,2,1,8),(252,30,1,4,8),(253,31,1,2,8),(254,32,1,1,8),(255,33,0,1,8),(256,34,1,3,8),(257,35,2,1,8),(258,36,1,1,8),(259,1,2,0,9),(260,2,0,1,9),(261,3,2,0,9),(262,4,1,1,9),(263,5,0,1,9),(264,6,2,0,9),(265,7,2,0,9),(266,8,2,1,9),(267,9,0,1,9),(268,10,2,1,9),(269,11,1,0,9),(270,12,3,1,9),(271,13,1,0,9),(272,14,0,2,9),(273,15,2,0,9),(274,16,2,0,9),(275,17,1,0,9),(276,18,2,1,9),(277,19,2,2,9),(278,20,0,1,9),(279,21,3,0,9),(280,22,1,0,9),(281,23,0,1,9),(282,24,2,0,9),(283,25,1,1,9),(284,26,1,2,9),(285,27,1,0,9),(286,28,0,3,9),(287,29,2,2,9),(288,30,1,4,9),(289,31,2,0,9),(290,32,2,3,9),(291,33,0,1,9),(292,34,0,2,9),(293,35,2,1,9),(294,36,2,2,9),(295,1,2,0,10),(296,2,0,2,10),(297,3,1,0,10),(298,4,1,2,10),(299,5,1,2,10),(300,6,1,1,10),(301,7,2,0,10),(302,8,2,0,10),(303,9,1,2,10),(304,10,1,1,10),(305,11,1,0,10),(306,12,2,0,10),(307,13,1,0,10),(308,14,0,2,10),(309,15,3,0,10),(310,16,2,0,10),(311,17,2,1,10),(312,18,2,0,10),(313,19,2,1,10),(314,20,1,2,10),(315,21,3,0,10),(316,22,3,1,10),(317,23,2,1,10),(318,24,2,0,10),(319,25,0,0,10),(320,26,2,2,10),(321,27,2,1,10),(322,28,0,2,10),(323,29,1,0,10),(324,30,0,2,10),(325,31,1,2,10),(326,32,2,3,10),(327,33,2,2,10),(328,34,1,3,10),(329,35,0,0,10),(330,36,0,1,10),(331,42,4,4,1),(332,44,1,1,2);
+/*!40000 ALTER TABLE `forecasts` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2018-03-14 23:47:46

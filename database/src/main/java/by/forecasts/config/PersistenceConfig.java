@@ -75,7 +75,7 @@ public class PersistenceConfig {
         properties.setProperty("hibernate.dialect", hibernateDialect);
         properties.setProperty("hibernate.show_sql", showSql);
         properties.setProperty("hibernate.format_sql", formatSql);
-        properties.setProperty("hibernate.hbm2ddl.auto", creationPolicy);
+//        properties.setProperty("hibernate.hbm2ddl.auto", creationPolicy);
         return properties;
     }
 

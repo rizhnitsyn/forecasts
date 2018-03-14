@@ -51,58 +51,6 @@ INSERT INTO `forecasts` VALUES (1,1,3,0,1),(2,2,1,2,1),(3,3,1,1,1),(4,4,2,0,1),(
 UNLOCK TABLES;
 
 --
--- Table structure for table `group_names`
---
-
-DROP TABLE IF EXISTS `group_names`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `group_names` (
-  `group_name_id` int(11) NOT NULL,
-  `group_name` varchar(45) NOT NULL,
-  `group_type_id` int(11) NOT NULL,
-  PRIMARY KEY (`group_name_id`),
-  UNIQUE KEY `group_type_name_UNIQUE` (`group_name`),
-  KEY `group_names__fk` (`group_type_id`),
-  CONSTRAINT `group_names__fk` FOREIGN KEY (`group_type_id`) REFERENCES `group_types` (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `group_names`
---
-
-LOCK TABLES `group_names` WRITE;
-/*!40000 ALTER TABLE `group_names` DISABLE KEYS */;
-INSERT INTO `group_names` VALUES (1,'Группа А',1),(2,'Группа B',1),(3,'Группа C',1),(4,'Группа D',1),(5,'Группа E',1),(6,'Группа F',1),(7,'Группа G',1),(8,'Группа I',1),(9,'1\\8 финала',2),(10,'1\\4 финала',2),(11,'1\\2 финала',2),(12,'Финал',2);
-/*!40000 ALTER TABLE `group_names` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `group_types`
---
-
-DROP TABLE IF EXISTS `group_types`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `group_types` (
-  `group_type_id` int(11) NOT NULL,
-  `group_type_name` varchar(30) DEFAULT NULL,
-  PRIMARY KEY (`group_type_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `group_types`
---
-
-LOCK TABLES `group_types` WRITE;
-/*!40000 ALTER TABLE `group_types` DISABLE KEYS */;
-INSERT INTO `group_types` VALUES (1,'Групповая стадия'),(2,'Плейофф');
-/*!40000 ALTER TABLE `group_types` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `groups_in_tournament`
 --
 
@@ -113,14 +61,14 @@ CREATE TABLE `groups_in_tournament` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tournament_id` int(11) NOT NULL,
   `match_count_between_teams` int(11) NOT NULL,
-  `group_name_id` int(11) NOT NULL,
+  `group_name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `groups_in_tournament_group_names_group_name_id_fk` (`group_name_id`),
+  UNIQUE KEY `unq_idx1` (`tournament_id`,`group_name`),
+  KEY `groups_in_tournament_group_names_group_name_id_fk` (`group_name`),
   KEY `groups_in_tournament_tournaments_tournament_id_fk` (`tournament_id`),
   CONSTRAINT `FKdfq8xjsopclpw9wuqo1gq5a1g` FOREIGN KEY (`tournament_id`) REFERENCES `tournaments` (`id`),
-  CONSTRAINT `groups_in_tournament_group_names_group_name_id_fk` FOREIGN KEY (`group_name_id`) REFERENCES `group_names` (id),
   CONSTRAINT `groups_in_tournament_tournaments_tournament_id_fk` FOREIGN KEY (`tournament_id`) REFERENCES `tournaments` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -129,6 +77,7 @@ CREATE TABLE `groups_in_tournament` (
 
 LOCK TABLES `groups_in_tournament` WRITE;
 /*!40000 ALTER TABLE `groups_in_tournament` DISABLE KEYS */;
+INSERT INTO `groups_in_tournament` VALUES (17,23,2,'Группа А'),(18,23,2,'Группа B'),(19,23,2,'Группа C'),(20,23,2,'Группа D'),(21,23,2,'Полуфинал'),(22,19,2,'Группа E'),(23,23,2,'Группа F'),(24,9,2,'Группа А'),(25,23,2,'Группа E');
 /*!40000 ALTER TABLE `groups_in_tournament` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -170,9 +119,9 @@ DROP TABLE IF EXISTS `match_states`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `match_states` (
-  `match_state_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `match_state` varchar(30) NOT NULL,
-  PRIMARY KEY (`match_state_id`),
+  PRIMARY KEY (`id`),
   UNIQUE KEY `state_name` (`match_state`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -211,11 +160,12 @@ CREATE TABLE `matches` (
   CONSTRAINT `FK12qdv6a7tt8esxtu2gma054ak` FOREIGN KEY (`first_team_id`) REFERENCES `teams` (`id`),
   CONSTRAINT `FKeeniokyjgo5k6rmhjujatn27i` FOREIGN KEY (`tournament_id`) REFERENCES `tournaments` (`id`),
   CONSTRAINT `FKhpg917fgh6hls86378l46n3cb` FOREIGN KEY (`second_team_id`) REFERENCES `teams` (`id`),
-  CONSTRAINT `PLANNED_MATCHES_fk0` FOREIGN KEY (`match_state_id`) REFERENCES `match_states` (`match_state_id`),
+  CONSTRAINT `FKkfaepnj7ioiq0juurho5r4iqa` FOREIGN KEY (`match_state_id`) REFERENCES `match_states` (`id`),
+  CONSTRAINT `PLANNED_MATCHES_fk0` FOREIGN KEY (`match_state_id`) REFERENCES `match_states` (`id`),
   CONSTRAINT `PLANNED_MATCHES_fk2` FOREIGN KEY (`first_team_id`) REFERENCES `teams` (`id`),
   CONSTRAINT `PLANNED_MATCHES_fk3` FOREIGN KEY (`second_team_id`) REFERENCES `teams` (`id`),
   CONSTRAINT `PLANNED_MATCHES_fk4` FOREIGN KEY (`tournament_id`) REFERENCES `tournaments` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -224,7 +174,7 @@ CREATE TABLE `matches` (
 
 LOCK TABLES `matches` WRITE;
 /*!40000 ALTER TABLE `matches` DISABLE KEYS */;
-INSERT INTO `matches` VALUES (1,2,1,'2016-06-10 17:00:00',2,1,2,1),(2,0,1,'2016-06-10 17:00:00',2,3,4,1),(3,2,1,'2016-06-11 17:00:00',2,5,6,1),(4,1,1,'2016-06-11 19:00:00',2,7,8,1),(5,0,1,'2016-06-12 17:00:00',2,9,10,1),(6,1,0,'2016-06-12 19:00:00',2,11,12,1),(7,2,0,'2016-06-12 21:00:00',2,13,14,1),(8,1,0,'2016-06-13 17:00:00',2,15,16,1),(9,1,1,'2016-06-13 19:00:00',2,17,18,1),(10,0,2,'2016-06-13 21:00:00',2,19,20,1),(11,0,2,'2016-06-14 17:00:00',2,21,22,1),(12,1,1,'2016-06-14 19:00:00',2,23,24,1),(13,1,2,'2016-06-15 17:00:00',2,8,6,1),(14,1,1,'2016-06-15 19:00:00',2,2,4,1),(15,2,0,'2016-06-15 21:00:00',2,1,3,1),(16,2,1,'2016-06-16 17:00:00',2,7,5,1),(17,0,2,'2016-06-16 19:00:00',2,14,12,1),(18,0,0,'2016-06-16 21:00:00',2,13,11,1),(19,1,0,'2016-06-17 17:00:00',2,20,18,1),(20,2,2,'2016-06-17 19:00:00',2,16,10,1),(21,3,0,'2016-06-17 21:00:00',2,15,9,1),(22,3,0,'2016-06-18 17:00:00',2,19,17,1),(23,1,1,'2016-06-18 19:00:00',2,24,22,1),(24,0,0,'2016-06-18 21:00:00',2,23,21,1),(25,0,1,'2016-06-19 17:00:00',2,2,3,1),(26,0,0,'2016-06-19 19:00:00',2,4,1,1),(27,0,3,'2016-06-20 17:00:00',2,8,5,1),(28,0,0,'2016-06-20 19:00:00',2,6,7,1),(29,0,1,'2016-06-21 17:00:00',2,14,11,1),(30,0,1,'2016-06-21 19:00:00',2,12,13,1),(31,0,2,'2016-06-21 21:00:00',2,16,9,1),(32,2,1,'2016-06-21 23:00:00',2,10,15,1),(33,2,1,'2016-06-22 17:00:00',2,24,21,1),(34,3,3,'2016-06-22 19:00:00',2,22,23,1),(35,0,1,'2016-06-22 21:00:00',2,20,17,1),(36,0,1,'2016-06-22 23:00:00',2,18,19,1),(37,243439,1,'2018-12-12 00:00:00',1,3,4,2),(38,243439,1,'2018-12-12 00:00:00',1,3,4,2),(39,243439,1,'2018-12-12 00:00:00',1,3,4,2),(40,1,1,'2018-12-12 00:00:00',1,4,5,9),(41,2,0,'2018-12-12 00:00:00',1,4,5,9),(42,2,3,'2018-12-12 00:00:00',1,4,5,9),(43,1,0,'2018-12-12 00:00:00',1,4,5,9),(44,NULL,NULL,'2018-12-12 00:00:00',1,10,12,10),(45,2,2,'2018-12-12 00:00:00',1,4,5,9),(46,1,0,'2018-12-12 00:00:00',1,4,5,9),(47,2,7,'2018-12-12 00:00:00',1,4,5,9),(48,243439,1,'2018-12-12 00:00:00',1,3,4,2),(49,NULL,NULL,'2017-12-23 17:00:00',1,22,15,9),(50,NULL,NULL,'2017-12-24 18:30:00',1,13,17,9),(51,NULL,NULL,'2017-12-23 19:30:00',1,26,24,9),(52,NULL,NULL,'2017-12-30 18:30:00',1,25,32,9),(53,NULL,NULL,'2017-12-28 15:30:00',1,39,29,9),(54,NULL,NULL,'2017-12-05 15:30:00',1,33,22,9),(55,NULL,NULL,'2017-12-23 19:00:00',1,33,28,9),(56,NULL,NULL,'2017-12-28 19:00:00',1,19,26,9);
+INSERT INTO `matches` VALUES (1,2,1,'2016-06-10 17:00:00',2,1,2,1),(2,0,1,'2016-06-10 17:00:00',2,3,4,1),(3,2,1,'2016-06-11 17:00:00',2,5,6,1),(4,1,1,'2016-06-11 19:00:00',2,7,8,1),(5,0,1,'2016-06-12 17:00:00',2,9,10,1),(6,1,0,'2016-06-12 19:00:00',2,11,12,1),(7,2,0,'2016-06-12 21:00:00',2,13,14,1),(8,1,0,'2016-06-13 17:00:00',2,15,16,1),(9,1,1,'2016-06-13 19:00:00',2,17,18,1),(10,0,2,'2016-06-13 21:00:00',2,19,20,1),(11,0,2,'2016-06-14 17:00:00',2,21,22,1),(12,1,1,'2016-06-14 19:00:00',2,23,24,1),(13,1,2,'2016-06-15 17:00:00',2,8,6,1),(14,1,1,'2016-06-15 19:00:00',2,2,4,1),(15,2,0,'2016-06-15 21:00:00',2,1,3,1),(16,2,1,'2016-06-16 17:00:00',2,7,5,1),(17,0,2,'2016-06-16 19:00:00',2,14,12,1),(18,0,0,'2016-06-16 21:00:00',2,13,11,1),(19,1,0,'2016-06-17 17:00:00',2,20,18,1),(20,2,2,'2016-06-17 19:00:00',2,16,10,1),(21,3,0,'2016-06-17 21:00:00',2,15,9,1),(22,3,0,'2016-06-18 17:00:00',2,19,17,1),(23,1,1,'2016-06-18 19:00:00',2,24,22,1),(24,0,0,'2016-06-18 21:00:00',2,23,21,1),(25,0,1,'2016-06-19 17:00:00',2,2,3,1),(26,0,0,'2016-06-19 19:00:00',2,4,1,1),(27,0,3,'2016-06-20 17:00:00',2,8,5,1),(28,0,0,'2016-06-20 19:00:00',2,6,7,1),(29,0,1,'2016-06-21 17:00:00',2,14,11,1),(30,0,1,'2016-06-21 19:00:00',2,12,13,1),(31,0,2,'2016-06-21 21:00:00',2,16,9,1),(32,2,1,'2016-06-21 23:00:00',2,10,15,1),(33,2,1,'2016-06-22 17:00:00',2,24,21,1),(34,3,3,'2016-06-22 19:00:00',2,22,23,1),(35,0,1,'2016-06-22 21:00:00',2,20,17,1),(36,0,1,'2016-06-22 23:00:00',2,18,19,1),(37,243439,1,'2018-12-12 00:00:00',1,3,4,2),(38,243439,1,'2018-12-12 00:00:00',1,3,4,2),(39,243439,1,'2018-12-12 00:00:00',1,3,4,2),(40,1,1,'2018-12-12 00:00:00',1,4,5,9),(41,2,0,'2018-12-12 00:00:00',1,4,5,9),(42,2,3,'2018-12-12 00:00:00',1,4,5,9),(43,1,0,'2018-12-12 00:00:00',1,4,5,9),(44,NULL,NULL,'2018-12-12 00:00:00',1,10,12,10),(45,2,2,'2018-12-12 00:00:00',1,4,5,9),(46,1,0,'2018-12-12 00:00:00',1,4,5,9),(47,2,7,'2018-12-12 00:00:00',1,4,5,9),(48,243439,1,'2018-12-12 00:00:00',1,3,4,2),(49,NULL,NULL,'2017-12-23 17:00:00',1,22,15,9),(50,NULL,NULL,'2017-12-24 18:30:00',1,13,17,9),(51,NULL,NULL,'2017-12-23 19:30:00',1,26,24,9),(52,NULL,NULL,'2017-12-30 18:30:00',1,25,32,9),(53,NULL,NULL,'2017-12-28 15:30:00',1,39,29,9),(54,NULL,NULL,'2017-12-05 15:30:00',1,33,22,9),(55,NULL,NULL,'2017-12-23 19:00:00',1,33,28,9),(56,NULL,NULL,'2017-12-28 19:00:00',1,19,26,9),(57,NULL,NULL,'2018-03-23 17:20:00',2,6,12,23),(58,NULL,NULL,'2018-03-17 20:00:00',2,24,12,23),(59,NULL,NULL,'2018-03-29 20:00:00',2,16,24,23),(60,NULL,NULL,'2018-03-24 21:00:00',2,6,12,23),(61,NULL,NULL,'2018-03-31 20:00:00',2,24,12,23),(62,NULL,NULL,'2018-03-24 19:00:00',2,11,26,23),(63,NULL,NULL,'2018-03-30 21:00:00',2,27,21,23),(64,NULL,NULL,'2018-03-24 19:30:00',2,17,14,23),(65,NULL,NULL,'2018-03-24 21:00:00',2,16,24,23),(66,NULL,NULL,'2018-03-24 21:00:00',2,12,16,23),(67,NULL,NULL,'2018-03-22 21:00:00',2,12,16,23),(68,NULL,NULL,'2018-03-24 22:00:00',2,17,14,23);
 /*!40000 ALTER TABLE `matches` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -250,6 +200,7 @@ CREATE TABLE `playoff_groups` (
 
 LOCK TABLES `playoff_groups` WRITE;
 /*!40000 ALTER TABLE `playoff_groups` DISABLE KEYS */;
+INSERT INTO `playoff_groups` VALUES (21,0);
 /*!40000 ALTER TABLE `playoff_groups` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -278,7 +229,7 @@ CREATE TABLE `registration_desc` (
 
 LOCK TABLES `registration_desc` WRITE;
 /*!40000 ALTER TABLE `registration_desc` DISABLE KEYS */;
-INSERT INTO `registration_desc` VALUES (1,1),(7,1),(9,1),(10,1),(11,1),(12,1),(15,1),(1,2),(1,3),(4,3),(1,4),(1,5),(1,6),(1,7),(1,8),(6,8),(7,8),(9,8),(1,9),(1,10),(2,11),(3,11),(4,11);
+INSERT INTO `registration_desc` VALUES (1,1),(7,1),(9,1),(10,1),(11,1),(12,1),(15,1),(23,1),(1,2),(1,3),(4,3),(1,4),(1,5),(1,6),(1,7),(1,8),(6,8),(7,8),(9,8),(1,9),(1,10),(2,11),(3,11),(4,11);
 /*!40000 ALTER TABLE `registration_desc` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -305,6 +256,7 @@ CREATE TABLE `regular_groups` (
 
 LOCK TABLES `regular_groups` WRITE;
 /*!40000 ALTER TABLE `regular_groups` DISABLE KEYS */;
+INSERT INTO `regular_groups` VALUES (17,4,2),(18,4,2),(19,4,2),(20,4,2),(22,4,2),(23,4,2),(24,4,2),(25,4,2);
 /*!40000 ALTER TABLE `regular_groups` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -358,6 +310,7 @@ CREATE TABLE `teams_in_groups` (
 
 LOCK TABLES `teams_in_groups` WRITE;
 /*!40000 ALTER TABLE `teams_in_groups` DISABLE KEYS */;
+INSERT INTO `teams_in_groups` VALUES (17,6),(20,11),(17,16),(17,24),(24,8),(24,18),(24,10),(24,15),(17,12),(21,17),(21,14),(23,14),(20,26),(20,27),(20,21),(18,22),(18,30),(18,25),(18,1),(23,2),(23,29),(23,23),(19,3),(19,31),(19,19),(19,17),(25,4),(25,5),(25,37),(25,32);
 /*!40000 ALTER TABLE `teams_in_groups` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -369,9 +322,9 @@ DROP TABLE IF EXISTS `tournament_states`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tournament_states` (
-  `tournament_state_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `tournament_state` varchar(50) NOT NULL,
-  PRIMARY KEY (`tournament_state_id`),
+  PRIMARY KEY (`id`),
   UNIQUE KEY `tornament_state` (`tournament_state`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -403,10 +356,11 @@ CREATE TABLE `tournaments` (
   UNIQUE KEY `tournament_name` (`tournament_name`),
   KEY `TOURNAMENTS_fk0` (`team_organizer_id`),
   KEY `TOURNAMENTS_fk1` (`tournament_state_id`),
+  CONSTRAINT `FKb1td4cbbt1pfgm8bd3skyfs3f` FOREIGN KEY (`tournament_state_id`) REFERENCES `tournament_states` (`id`),
   CONSTRAINT `FKosef54py3vv9cn5v6dl7h0dlw` FOREIGN KEY (`team_organizer_id`) REFERENCES `teams` (`id`),
   CONSTRAINT `TOURNAMENTS_fk0` FOREIGN KEY (`team_organizer_id`) REFERENCES `teams` (`id`),
-  CONSTRAINT `TOURNAMENTS_fk1` FOREIGN KEY (`tournament_state_id`) REFERENCES `tournament_states` (id)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+  CONSTRAINT `TOURNAMENTS_fk1` FOREIGN KEY (`tournament_state_id`) REFERENCES `tournament_states` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -415,7 +369,7 @@ CREATE TABLE `tournaments` (
 
 LOCK TABLES `tournaments` WRITE;
 /*!40000 ALTER TABLE `tournaments` DISABLE KEYS */;
-INSERT INTO `tournaments` VALUES (1,'Чемпионат Европы 2016',1,'2016-06-10',2),(2,'updated964000',2,'2018-06-10',2),(3,'808373',2,'2018-06-10',2),(4,'857167',2,'2018-06-10',2),(5,'529727',2,'2018-06-10',2),(6,'964626',2,'2018-06-10',2),(7,'Тестовый турнир12',39,'2020-08-12',2),(8,'Турнирчик',31,'2019-12-12',2),(9,'Тестовый турнир13',32,'2018-10-10',1),(10,'New tournament 15',38,'2020-08-12',1),(11,'New Tournament 16',17,'2020-10-10',1),(12,'тур12',22,'2020-08-12',2),(13,'729468',2,'2017-11-29',2),(14,'401983',2,'2017-11-30',2),(15,'Турнир в Японии',26,'2018-12-10',2),(16,'Турнир в Японии 2',21,'2018-12-10',2),(17,'Турнир в Японии 3',21,'2018-12-12',2),(18,'Турнир в Японии 4',21,'2018-12-10',2),(19,'Турнир в Японии 5',21,'2018-12-12',2),(20,'Турнир в Японии 7',21,'2018-12-12',2),(21,'Новый турнир 20',20,'2017-12-10',1),(22,'Турнир Минск',38,'2017-12-22',2);
+INSERT INTO `tournaments` VALUES (1,'Чемпионат Европы 2016',1,'2016-06-10',2),(2,'updated964000',2,'2018-06-10',2),(3,'808373',2,'2018-06-10',2),(4,'857167',2,'2018-06-10',2),(5,'529727',2,'2018-06-10',2),(6,'964626',2,'2018-06-10',2),(7,'Тестовый турнир12',39,'2020-08-12',2),(8,'Турнирчик',31,'2019-12-12',2),(9,'Тестовый турнир13',32,'2018-10-10',1),(10,'New tournament 15',38,'2020-08-12',1),(11,'New Tournament 16',17,'2020-10-10',1),(12,'тур12',22,'2020-08-12',2),(13,'729468',2,'2017-11-29',2),(14,'401983',2,'2017-11-30',2),(15,'Турнир в Японии',26,'2018-12-10',2),(16,'Турнир в Японии 2',21,'2018-12-10',2),(17,'Турнир в Японии 3',21,'2018-12-12',2),(18,'Турнир в Японии 4',21,'2018-12-10',2),(19,'Турнир в Японии 5',21,'2018-12-12',2),(20,'Турнир в Японии 7',21,'2018-12-12',2),(21,'Новый турнир 20',20,'2017-12-10',2),(22,'Турнир Минск',38,'2017-12-22',2),(23,'JD2 tournament',15,'2018-03-16',1);
 /*!40000 ALTER TABLE `tournaments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -427,9 +381,9 @@ DROP TABLE IF EXISTS `user_states`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_states` (
-  `user_state_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_state` varchar(50) NOT NULL,
-  PRIMARY KEY (`user_state_id`),
+  PRIMARY KEY (`id`),
   UNIQUE KEY `user_state_name_uindex` (`user_state`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -440,7 +394,7 @@ CREATE TABLE `user_states` (
 
 LOCK TABLES `user_states` WRITE;
 /*!40000 ALTER TABLE `user_states` DISABLE KEYS */;
-INSERT INTO `user_states` VALUES (1,'Администратор'),(2,'Заблокирован'),(3,'Зарегистрирован'),(4,'Ожидание регистрации');
+INSERT INTO `user_states` VALUES (4,'ADMIN'),(3,'BLOCKED USER'),(2,'POWER_USER'),(1,'USER');
 /*!40000 ALTER TABLE `user_states` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -463,8 +417,9 @@ CREATE TABLE `users` (
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `users_login_uindex` (`login`),
   KEY `user_stets_fk1_idx` (`user_state_id`),
-  CONSTRAINT `user_stets_fk1` FOREIGN KEY (`user_state_id`) REFERENCES `user_states` (id)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
+  CONSTRAINT `FKmmi11gs4jb9rlm3dbqx37qs8x` FOREIGN KEY (`user_state_id`) REFERENCES `user_states` (`id`),
+  CONSTRAINT `user_stets_fk1` FOREIGN KEY (`user_state_id`) REFERENCES `user_states` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -473,7 +428,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Андрей','Рижницын','ra@tut.by',2,'rizhnitsyn','11111'),(2,'Сергей','Гусаков','sg@tut.by',2,'gusakov',''),(3,'Роман','Жук','rzh@tut.by',2,'zhuk',''),(4,'Никита','Щербич','nsch@tut.by',2,'scherbich',''),(5,'Виталий','Назарян','vn@tut.by',2,'nazaryn',''),(6,'Гайк','Бегларян','gb@tut.by',2,'asdsd',''),(7,'Руслан','Акиловский','ar@tut.by',2,'asdsdsdsd',''),(8,'Андрей','Иванов','ai@tut.by',2,'asdasdasdsad',''),(9,'Камал','Бикулов','kb@tut.by',2,'asdasdsdsdsdsd',''),(10,'Изабелла','Аванессова','izab@tut.by',2,'zxczxczxc',''),(11,'updated415002','Ivanov','test@gmail.com',2,'zxcxc',''),(12,'Ivan','129618','test37447@gmail.com',2,'vbxcvb',''),(13,'Ivan','851874','test78828@gmail.com',3,'cvbcv',''),(14,'Тестик','Номер1','выаыва',3,'mnmy',''),(15,'Иван ','Иван ','iv@bn.by',2,'nbvn',''),(16,'Иваныч ','Иваныч ','ivb@bnb.by',3,'hjytrj',''),(17,'Петя','Петя','ivbb@bnb.by',2,'ergr',''),(18,'иван','Ткачев','ert@tut.by',2,'dcvbed',''),(19,'иван','Ткачевич','ertm@tut.by',1,'cvbg',''),(20,'Ivan','180264','test4180@gmail.com',1,'fgjhr',''),(21,'Андрей','Коньков','kon@tut.by',1,'konkov','11111'),(22,'Иван','Петро','petro@tut.by',3,'petro','11111'),(23,'Олег','Петрович','oleg@tut.by',2,'oleg','11111'),(24,'Кирилл ','Вольски','vol@tut.by',2,'volskij','11111'),(25,'Андрей','Копылов','kopi@tut.by',2,'kopilov','11111'),(26,'Андре','Мелешкевич','mele@tut.by',1,'melesh','11111'),(27,'Глеб','Маеев','makeev@tut.by',2,'ьфлуум','11111'),(28,'sdfdsf','sdfsdfdf','@tut.nby',3,'sdfsdfsdfsdf','11111'),(29,'sdfsdf','sdfsdf','sdfsdf',3,'xcv','sfsdf'),(30,'huhuh','hgfhfh','gihuhuh',3,'vefvervrvb','11111'),(31,'huhuhwerw','hgfhfhwere','gihuhuhwer',3,'dytvjbgywer','11111ere'),(32,'sdfsdf','gawghsvb','sdfhjwrtjjdf',3,'verwvqrv','asfe4tjtj'),(33,'asdasd','asdfaasdad','sfsdfsdfsdf',3,'vgxcbbtebn','asdasdasdasd'),(34,'tyu','tyu','tyu',3,'xcvcv','tyu'),(35,'fgjfgjh','fjfgj','fgjhfgj',3,'fjfgj','af242e2abfda7079d2d56c8987013cd2'),(36,'shshs','shshsh','shshshsh',3,'btetne4tnzxv','2087d87063b08c54aa31012ed012bacb'),(37,'sdfsdfsdf','sdfsdfsdfsdf','asdasd',3,'test','b59c67bf196a4758191e42f76670ceba'),(38,'test1','kasjdaskdj','dasd',3,'test3','b0baee9d279d34fa1dfd71aadb908c3f'),(39,'admin','admin','admin@tut.by',4,'admin','b0baee9d279d34fa1dfd71aadb908c3f'),(40,'asdsd','sadasd','ra@dffdf.com',1,'cvdcwecwe','d29aaa0b9cd402b4bfe2395a805f9ada'),(41,'Ivanchello','Petterson','asdasd123123@tut.by',2,'asdksadksdf','dasdjfidjfid');
+INSERT INTO `users` VALUES (1,'Андрей','Рижницын','ra@tut.by',4,'rizhnitsyn','$2a$10$OsWIrbsZIYo0yv6tZzv8CubsNYVtlyoe/OZaGFxG0OTk8jE14zfU2'),(2,'Сергей','Гусаков','sg@tut.by',2,'gusakov',''),(3,'Роман','Жук','rzh@tut.by',2,'zhuk',''),(4,'Никита','Щербич','nsch@tut.by',2,'scherbich',''),(5,'Виталий','Назарян','vn@tut.by',2,'nazaryn',''),(6,'Гайк','Бегларян','gb@tut.by',2,'asdsd',''),(7,'Руслан','Акиловский','ar@tut.by',2,'asdsdsdsd',''),(8,'Андрей','Иванов','ai@tut.by',2,'asdasdasdsad',''),(9,'Камал','Бикулов','kb@tut.by',2,'asdasdsdsdsdsd',''),(10,'Изабелла','Аванессова','izab@tut.by',2,'zxczxczxc',''),(11,'updated415002','Ivanov','test@gmail.com',2,'zxcxc',''),(12,'Ivan','129618','test37447@gmail.com',2,'vbxcvb',''),(13,'Ivan','851874','test78828@gmail.com',3,'cvbcv',''),(14,'Тестик','Номер1','выаыва',3,'mnmy',''),(15,'Иван ','Иван ','iv@bn.by',2,'nbvn',''),(16,'Иваныч ','Иваныч ','ivb@bnb.by',3,'hjytrj',''),(17,'Петя','Петя','ivbb@bnb.by',2,'ergr',''),(18,'иван','Ткачев','ert@tut.by',2,'dcvbed',''),(19,'иван','Ткачевич','ertm@tut.by',1,'cvbg',''),(20,'Ivan','180264','test4180@gmail.com',1,'fgjhr',''),(21,'Андрей','Коньков','kon@tut.by',1,'konkov','11111'),(22,'Иван','Петро','petro@tut.by',3,'petro','11111'),(23,'Олег','Петрович','oleg@tut.by',1,'oleg','11111'),(24,'Кирилл ','Вольски','vol@tut.by',2,'volskij','11111'),(25,'Андрей','Копылов','kopi@tut.by',2,'kopilov','11111'),(26,'Андре','Мелешкевич','mele@tut.by',1,'melesh','11111'),(27,'Глеб','Маеев','makeev@tut.by',2,'ьфлуум','11111'),(28,'sdfdsf','sdfsdfdf','@tut.nby',3,'sdfsdfsdfsdf','11111'),(29,'sdfsdf','sdfsdf','sdfsdf',3,'xcv','sfsdf'),(30,'huhuh','hgfhfh','gihuhuh',3,'vefvervrvb','11111'),(31,'huhuhwerw','hgfhfhwere','gihuhuhwer',3,'dytvjbgywer','11111ere'),(32,'sdfsdf','gawghsvb','sdfhjwrtjjdf',3,'verwvqrv','asfe4tjtj'),(33,'asdasd','asdfaasdad','sfsdfsdfsdf',3,'vgxcbbtebn','asdasdasdasd'),(34,'tyu','tyu','tyu',3,'xcvcv','tyu'),(35,'fgjfgjh','fjfgj','fgjhfgj',3,'fjfgj','af242e2abfda7079d2d56c8987013cd2'),(36,'shshs','shshsh','shshshsh',3,'btetne4tnzxv','2087d87063b08c54aa31012ed012bacb'),(37,'sdfsdfsdf','sdfsdfsdfsdf','asdasd',3,'test','b59c67bf196a4758191e42f76670ceba'),(38,'test1','kasjdaskdj','dasd',3,'test3','b0baee9d279d34fa1dfd71aadb908c3f'),(39,'admin','admin','admin@tut.by',4,'admin','b0baee9d279d34fa1dfd71aadb908c3f'),(40,'asdsd','sadasd','ra@dffdf.com',1,'cvdcwecwe','d29aaa0b9cd402b4bfe2395a805f9ada'),(41,'Ivanchello','Petterson','asdasd123123@tut.by',2,'asdksadksdf','dasdjfidjfid'),(42,'User','User','user@gmail.com',2,'user','11111'),(43,'Андрей','Рижницын','enotius@gmail.com',1,'asdasdasd','123112341'),(44,'User45','иванович','qweasd@qweasd.by',1,'qweasd','$2a$10$T.SeF3y7LNRqUGaAlw/EMud67dZobkFkzRIa4lS6cKB8yrVYdLtOm');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -486,4 +441,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-17 23:53:54
+-- Dump completed on 2018-03-14 23:49:45
