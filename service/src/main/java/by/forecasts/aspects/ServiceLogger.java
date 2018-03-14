@@ -16,17 +16,19 @@ public class ServiceLogger {
     @Pointcut("execution(* by.forecasts.service.implementation.*.*(..))")
     public void serviceMethod() {}
 
+    @Pointcut("@annotation(by.forecasts.aspects.Loggable)")
+    public void loggableMethod() {}
 
-    @Around("serviceMethod()")
+
+    @Around("serviceMethod() && loggableMethod()")
     public Object logWebServiceCall(ProceedingJoinPoint thisJoinPoint) throws Throwable {
         String methodName = thisJoinPoint.getSignature().getName();
         Object[] methodArgs = thisJoinPoint.getArgs();
 
         LOG.info("Call method " + methodName + " with args " + Arrays.toString(methodArgs));
-
         Object result = thisJoinPoint.proceed();
-
         LOG.info("Method " + methodName + " returns " + result);
+
         return result;
     }
 

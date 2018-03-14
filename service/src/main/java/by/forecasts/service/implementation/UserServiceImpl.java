@@ -1,5 +1,6 @@
 package by.forecasts.service.implementation;
 
+import by.forecasts.aspects.Loggable;
 import by.forecasts.dto.UserDetailDto;
 import by.forecasts.entities.User;
 import by.forecasts.repositories.UserRepository;
@@ -41,6 +42,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Loggable
     public UserDetailDto loadUserByUsername(String login) throws UsernameNotFoundException {
         User loggedUser = userRepository.findByLogin(login);
         if (loggedUser == null) {
