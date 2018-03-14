@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Tournament list</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" href="/resources/css/style.css">
+</head>
+<body>
+<div class="wrapper">
+    <div th:replace="header::header"></div>
+
+    <div class="middle">
+        <div class="container">
+            <main class="content">
+
+                <form th:action="@{/user}" th:method="post" th:object="${currentUser}">
+                    <h2 class="form-title">Данные пользователя</h2>
+                    <p>Имя: <span class="span-class" th:text="*{firstName}" th:value="*{firstName}" th:field="*{userState}"></span></p>
+                    <p>Фамилия: <span class="span-class" th:text="*{secondName}" th:value="*{secondName}" th:field="*{secondName}"></span></p>
+                    <p>Email: <span class="span-class" th:text="*{email}" th:value="*{email}" th:field="*{email}"></span></p>
+                    <p>Пользователь: <span class="span-class" th:text="*{userState.userState}"></span></p>
+
+                    <!--<p sec:authorize="hasAuthority('ADMIN')" th:if="*{id != ${#authentication.principal.id}}">-->
+                        <select class="form-field" name="userState">
+                           <option th:each="userState: ${userStates}"
+                                   th:text="${userState.userState}"
+                                   th:field="*{userState.id}"
+                                   th:value="${userState.id}"></option>
+                        </select>
+                        <button class="btn-class" type="submit">Сменить статус пользователя</button>
+                    <!--</p>-->
+
+                    <!--<c:if test="${sessionScope.loggedUser.userId == requestScope.user.id}">-->
+                        <!--<button class="btn-class" type="submit" name="idPassword" value="${requestScope.user.id}">Сменить пароль</button></p>-->
+                    <!--</c:if>-->
+
+                </form>
+
+            </main><!-- .content -->
+        </div><!-- .container-->
+
+        <div th:replace="side_menu::menu"></div>
+    </div><!-- .middle-->
+</div><!-- .wrapper -->
+
+<!--<div sec:authorize="hasAuthority('ADMIN')">-->
+    <!--This content is only shown to administrators. РАБОТАЕТ!!!!-->
+<!--</div>-->
+
+<!--<sec:authorize access="hasRole('ROLE_ADMIN')">-->
+    <!--тут то что видит только ROLE_ADMIN. РАБОТАЕТ!!!!-->
+<!--</sec:authorize>-->
+
+<div th:replace="footer::footer"></div>
+</body>
+</html>

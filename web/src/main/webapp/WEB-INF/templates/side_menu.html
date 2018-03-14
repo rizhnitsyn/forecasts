@@ -19,14 +19,12 @@
             <li><a th:href="@{/tournamentAllMatches}">Мои прогнозы</a></li>
             <li><a th:href="@{/tournamentStatistic}">Результаты турниров</a></li>
             <li><a th:href="@{/home}">Правила игры</a></li>
-            <li><a th:href="@{/user+'?'+id= + ${loggedUser.userId}}">Личный кабинет</a></li>
+            <li sec:authorize="isAuthenticated()"><a th:href="@{/user(id=${#authentication.principal.id})}">Личный кабинет</a></li>
             <li><a th:href="@{/saveUser}">Зарегистрироваться</a></li>
             <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Войти</a></li>
             <li sec:authorize="isAuthenticated()">
                 <form id="myform" th:method="post" th:action="@{/logout}">
-                    <input type="hidden" name="name"/>
-                    <a th:text="${'Выйти('+#authentication.name+')'}"
-                       onclick="document.getElementById('myform').submit();">Выйти</a>
+                    <a th:text="${'Выйти('+#authentication.name+')'}" onclick="document.getElementById('myform').submit();">Выйти</a>
                 </form>
             </li>
         </ul>

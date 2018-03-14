@@ -3,6 +3,7 @@ package by.forecasts.service.implementation;
 import by.forecasts.aspects.Loggable;
 import by.forecasts.dto.UserDetailDto;
 import by.forecasts.entities.User;
+import by.forecasts.entities.UserState;
 import by.forecasts.repositories.UserRepository;
 import by.forecasts.repositories.UserStateRepository;
 import by.forecasts.service.UserService;
@@ -39,6 +40,16 @@ public class UserServiceImpl implements UserService {
     public void saveUser(User user) {
         user.setUserState(userStateRepository.getOne(1L));
         userRepository.save(user);
+    }
+
+    @Override
+    public User findOne(Long id) {
+        return userRepository.findOne(id);
+    }
+
+    @Override
+    public List<UserState> findAllUserStates() {
+        return userStateRepository.findAll();
     }
 
     @Override

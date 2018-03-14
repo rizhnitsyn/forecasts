@@ -12,4 +12,7 @@ public interface UserService extends UserDetailsService {
 
     void saveUser(User user);
 
+    User findOne(Long id);
+
+    List<UserState> findAllUserStates();
 }
