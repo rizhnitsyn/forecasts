@@ -9,6 +9,8 @@ import by.forecasts.repositories.RegularGroupRepository;
 import by.forecasts.repositories.TeamRepository;
 import by.forecasts.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +19,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@CacheConfig(cacheNames = "teams")
 public class TeamServiceImpl implements TeamService {
 
     private final TeamRepository teamRepository;
@@ -31,6 +34,7 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
+    @Cacheable
     public List<Team> findAll() {
         return teamRepository.findAll();
     }
@@ -57,6 +61,7 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
+    @Cacheable
     public List<Team> findAllTeamsByGroupId(Long groupId) {
         return teamRepository.findAllByGroupsId(groupId);
     }

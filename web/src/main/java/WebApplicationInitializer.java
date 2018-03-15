@@ -1,4 +1,5 @@
 import by.forecasts.config.AspectConfig;
+import by.forecasts.config.CacheConfig;
 import by.forecasts.config.ServiceConfig;
 import config.InternationalizationConfig;
 import config.SecurityConfig;
@@ -9,7 +10,8 @@ public class WebApplicationInitializer extends AbstractAnnotationConfigDispatche
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[] {ServiceConfig.class, AspectConfig.class, SecurityConfig.class, InternationalizationConfig.class};
+        return new Class[] {ServiceConfig.class, AspectConfig.class, SecurityConfig.class,
+                InternationalizationConfig.class, CacheConfig.class};
     }
 
     @Override
