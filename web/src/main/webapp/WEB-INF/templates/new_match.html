@@ -30,6 +30,7 @@
                         </select>
                         <p>Время начала матча</p>
                         <input class="form-field" type="datetime-local" th:field="*{matchDateTimeString}">
+                        <span class="span-class_red" th:each="err : ${#fields.errors('matchDateTimeString')}" th:text="#{${err}}"></span>
                         <br>
                         <input type="hidden" name="name" th:field="*{groupId}" th:value="${newMatch.groupId}"/>
                         <button class="btn-class" type="submit">Сохранить матч</button>

@@ -10,12 +10,14 @@ import by.forecasts.service.MatchService;
 import by.forecasts.service.TeamService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -57,13 +59,22 @@ public class MatchController {
     }
 
     @PostMapping("/matches/create")
-    public String saveMatchToCalendar(@ModelAttribute("newMatch") MatchShortViewDto match, Model model,
+    public String saveMatchToCalendar(@ModelAttribute("newMatch") @Valid MatchShortViewDto match, Errors errors, Model model,
                                       @ModelAttribute("tournament") TournamentShortViewDto tournamentDto) {
-        Tournament tournament = new Tournament();
-        tournament.setId(tournamentDto.getId());
-        match.setTournament(tournament);
-        model.addAttribute("errorMsg", matchService.save(match).getError());
-        return "redirect: /matches/calendar?grId=" + match.getGroupId();
+        if (errors.getErrorCount() > 0) {
+            model.addAttribute("newMatch", match);
+            model.addAttribute("teams", teamService.findAllTeamsByGroupId(match.getGroupId()));
+            return "new_match";
+        } else {
+            Tournament tournament = new Tournament();
+            tournament.setId(tournamentDto.getId());
+            match.setTournament(tournament);
+            model.addAttribute("errorMsg", matchService.save(match).getError());
+            return "redirect: /matches/calendar?grId=" + match.getGroupId();
+        }
+
+
+
     }
 
 }
