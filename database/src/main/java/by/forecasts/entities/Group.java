@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +17,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,15 +31,19 @@ import java.util.Set;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Group extends BaseEntity {
 
-    public Group(int matchesCountBetweenTeams, String groupName, Tournament tournament) {
+    public Group(Integer matchesCountBetweenTeams, String groupName, Tournament tournament) {
         this.matchesCountBetweenTeams = matchesCountBetweenTeams;
         this.groupName = groupName;
         this.tournament = tournament;
     }
 
+    @NotNull(message = "errors.field.empty")
+    @Min(value = 1, message = "errors.field.min1")
     @Column(name = "match_count_between_teams", nullable = false)
-    private int matchesCountBetweenTeams;
+    private Integer matchesCountBetweenTeams;
 
+
+    @NotEmpty(message = "errors.field.empty")
     @Column(name = "group_name", nullable = false)
     private String groupName;
 

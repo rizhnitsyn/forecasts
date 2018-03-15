@@ -17,14 +17,18 @@
                         <h2 class="form-title">Добавляем новый турнир</h2>
                         <p>Наименование турнира</p>
                         <input class="form-field" id="name" name="name" th:field="*{name}">
+                        <span class="span-class_red" th:each="err : ${#fields.errors('name')}" th:text="#{${err}}"></span>
                         <p>Страна организатор</p>
                         <select class="form-field" id="organizer" th:field="*{team.id}">
                             <option th:each="team:${teams}"
                                     th:text="${team.teamName}"
                                     th:value="${team.id}"></option>
                         </select>
+                        <span class="span-class_red" th:each="err : ${#fields.errors('team')}" th:text="#{${err}}"></span>
                         <p>Дата начала турнира</p>
                         <input class="form-field" type="date" id="startDate" name="startDate" th:field="*{startDateString}">
+                        <span class="span-class_red" th:each="err : ${#fields.errors('startDateString')}" th:text="#{${err}}"></span>
+
                         <br>
                         <button class="btn-class" type="submit">Сохранить турнир</button>
                     </form>

@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -58,7 +59,7 @@ public class User extends BaseEntity {
     private String login;
 
     @NotEmpty(message = "errors.field.empty")
-    @Min(value = 5, message = "errors.field.min")
+    @Size(min=6, message = "errors.field.size")
     @Column(name = "password", nullable = false)
     private String password;
 

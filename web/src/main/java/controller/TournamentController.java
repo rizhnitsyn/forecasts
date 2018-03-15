@@ -9,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -55,9 +57,15 @@ public class TournamentController {
     }
 
     @PostMapping("/tournament/create")
-    public String saveNewTournamentBt(TournamentShortViewDto tournament) {
-        Tournament saved = tournamentService.save(tournament);
-        return "redirect: /tournament?id=" + saved.getId();
+    public String saveNewTournamentBt(@ModelAttribute("newTournament") @Valid TournamentShortViewDto tournament, Errors errors, Model model) {
+        if (errors.getErrorCount() > 0) {
+            model.addAttribute("newTournament", tournament);
+            model.addAttribute("teams", teamService.findAll());
+            return "new_tournament";
+        } else {
+            Tournament saved = tournamentService.save(tournament);
+            return "redirect: /tournament?id=" + saved.getId();
+        }
     }
 
     @PostMapping("/tournament/reg")

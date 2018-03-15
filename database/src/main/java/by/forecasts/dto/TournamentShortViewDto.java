@@ -8,7 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Getter
@@ -18,9 +20,15 @@ import java.time.LocalDate;
 public class TournamentShortViewDto {
 
     private Long id;
+
+    @NotEmpty(message = "errors.field.empty")
     private String name;
     private LocalDate startDate;
+
+    @NotEmpty(message = "errors.field.empty")
     private String startDateString;
+
+    @NotNull(message = "errors.field.empty")
     private Team team;
     private TournamentState state;
     private Boolean registered;

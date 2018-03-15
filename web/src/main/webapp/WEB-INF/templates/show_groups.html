@@ -27,9 +27,10 @@
                 <br>
                 <form th:action="@{/tournament/groups}" th:method="post">
                     <p>Для создания новой группы выберите тип группы и нажмите "Создать"</p>
+                    <br>
                     <p>Тип новой группы:
                         <label for="regular">
-                            <input type="radio" name="groupTypeId" id="regular" th:value="1">
+                            <input type="radio" name="groupTypeId" id="regular" th:value="1" th:checked="true">
                             <span>Регулярная</span>
                         </label>
                         <label for="playoff">

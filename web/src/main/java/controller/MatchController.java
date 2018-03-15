@@ -57,7 +57,7 @@ public class MatchController {
     }
 
     @PostMapping("/matches/create")
-    public String saveMatchToCalendar(MatchShortViewDto match, Model model,
+    public String saveMatchToCalendar(@ModelAttribute("newMatch") MatchShortViewDto match, Model model,
                                       @ModelAttribute("tournament") TournamentShortViewDto tournamentDto) {
         Tournament tournament = new Tournament();
         tournament.setId(tournamentDto.getId());
