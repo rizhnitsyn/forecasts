@@ -10,7 +10,7 @@ public interface UserService extends UserDetailsService {
 
     List<User> findAll();
 
-    void saveUser(User user);
+    User saveUser(User user);
 
     User findOne(Long id);
 

@@ -18,7 +18,7 @@
                     <p>Имя: <span class="span-class" th:text="${currentUser.firstName}"></span></p>
                     <p>Фамилия: <span class="span-class" th:text="${currentUser.secondName}"></span></p>
                     <p>Email: <span class="span-class" th:text="${currentUser.email}"></span></p>
-                    <p>Пользователь: <span class="span-class" th:text="${currentUser.userState.userState}"></span></p>
+                    <p>Состояние: <span class="span-class" th:text="${currentUser.userState.userState}"></span></p>
 
                     <form th:action="@{/user/edit}" th:method="post">
                         <p sec:authorize="hasAuthority('ADMIN')" th:if="${currentUser.id!=#authentication.principal.id}">

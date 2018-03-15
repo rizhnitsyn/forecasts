@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,12 +36,16 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
+    @NotEmpty(message = "errors.field.empty")
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
+    @NotEmpty(message = "errors.field.empty")
     @Column(name = "second_name", nullable = false)
     private String secondName;
 
+    @Email(message = "errors.field.email")
+    @NotEmpty(message = "errors.field.empty")
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
@@ -46,9 +53,12 @@ public class User extends BaseEntity {
     @JoinColumn(name = "user_state_id", nullable = false)
     private UserState userState;
 
+    @NotEmpty(message = "errors.field.empty")
     @Column(name = "login", nullable = false, unique = true)
     private String login;
 
+    @NotEmpty(message = "errors.field.empty")
+    @Min(value = 5, message = "errors.field.min")
     @Column(name = "password", nullable = false)
     private String password;
 

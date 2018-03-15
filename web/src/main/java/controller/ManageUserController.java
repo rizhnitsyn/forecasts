@@ -7,10 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
+import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @SessionAttributes("currentUser")
@@ -34,7 +40,7 @@ public class ManageUserController {
     }
 
     @PostMapping("/user/edit")
-    public String editUser(UserState newState, @SessionAttribute("currentUser") User currentUser) {
+    public String saveUserState(UserState newState, @SessionAttribute("currentUser") User currentUser) {
         currentUser.setUserState(newState);
         userService.updateUser(currentUser);
         return "redirect: /user?id=" + currentUser.getId();
@@ -46,22 +52,27 @@ public class ManageUserController {
     }
 
     @PostMapping("/user/changePass")
-    public String saveNewPass(String newPass, @SessionAttribute("currentUser") User currentUser) {
+    public String saveNewPassword(String newPass, @SessionAttribute("currentUser") User currentUser) {
         currentUser.setPassword(passwordEncoder.encode(newPass));
         userService.updateUser(currentUser);
         return "redirect: /user?id=" + currentUser.getId();
     }
 
     @GetMapping("/saveUser")
-    public String regUser(Model model) {
+    public String showRegistrationForm(Model model) {
         model.addAttribute("newUser", new User());
         return "new_user";
     }
 
     @PostMapping("/saveUser")
-    public String regUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userService.saveUser(user);
-        return "/home";
+    public String saveUser(@ModelAttribute("newUser") @Valid  User user, Errors errors, Model model) {
+        if (errors.getErrorCount() > 0) {
+            model.addAttribute("newUser", user);
+            return "new_user";
+        } else {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userService.saveUser(user);
+            return "login";
+        }
     }
 }
