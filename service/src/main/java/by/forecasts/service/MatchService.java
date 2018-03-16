@@ -1,5 +1,6 @@
 package by.forecasts.service;
 
+import by.forecasts.dto.MatchHardViewDto;
 import by.forecasts.dto.MatchShortViewDto;
 import by.forecasts.entities.Match;
 
@@ -17,5 +18,5 @@ public interface MatchService {
 
     List<Match> findMatchesAvailableForForecasts(Long tournamentId, Long userId);
 
-    Match findById(Long matchId);
+    MatchHardViewDto findById(Long matchId);
 }

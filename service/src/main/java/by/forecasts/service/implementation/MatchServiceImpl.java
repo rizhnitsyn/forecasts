@@ -1,5 +1,6 @@
 package by.forecasts.service.implementation;
 
+import by.forecasts.dto.MatchHardViewDto;
 import by.forecasts.dto.MatchShortViewDto;
 import by.forecasts.entities.Group;
 import by.forecasts.entities.Match;
@@ -26,6 +27,9 @@ public class MatchServiceImpl implements MatchService {
     private final MatchStateRepository matchStateRepository;
     private final GroupRepository groupRepository;
     private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm", Locale.UK);
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm", Locale.UK);
+
+
 
 
     @Autowired
@@ -87,11 +91,28 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
-    public Match findById(Long matchId) {
-        Match match = matchRepository.findOne(matchId);
+    public MatchHardViewDto findById(Long matchId) {
+        Match foundMatch = matchRepository.findOne(matchId);
+        if (foundMatch == null) {
+            return null;
+        }
+
+        MatchHardViewDto matchViewDto = new MatchHardViewDto(foundMatch);
+
+        //добавить группу и тип группы!!!
+        matchViewDto.setForecastsCount(foundMatch.getForecasts().size());
+        matchViewDto.setStrMatchDateTime(foundMatch.getMatchDateTime().format(DATE_TIME_FORMATTER));
 
 
+//        matchViewDto.setFirstTeamWinCount(firstTeamWinCount(foundMatch));
+//        matchViewDto.setSecondTeamWinCount(secondTeamWinCount(foundMatch));
+//        matchViewDto.setDrawCount(drawCount(foundMatch));
+//        matchViewDto.setGuessedResultsCount(guessedResultsCount(foundMatch));
+//        matchViewDto.setGuessedWinnersCount(guessedWinnersCount(foundMatch));
+//        matchViewDto.setGuessedDiffInResultsCount(guessedDiffInResultsCount(foundMatch));
+//        matchViewDto.setCurrentUserPoints(calculateUserPoints(foundMatch, userId));
 
-        return match;
+
+        return matchViewDto;
     }
 }

@@ -1,6 +1,9 @@
 package by.forecasts.dto;
 
 import by.forecasts.entities.Forecast;
+import by.forecasts.entities.Match;
+import by.forecasts.entities.MatchScore;
+import by.forecasts.entities.MatchState;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,11 +18,9 @@ import java.time.LocalDateTime;
 public class MatchHardViewDto {
 
     private Long id;
-    private Integer firstTeamResult;
-    private Integer secondTeamResult;
+    private MatchScore matchScore;
     private LocalDateTime matchDateTime;
-    private String matchState;
-    private String matchType;
+    private MatchState matchState;
     private String firstTeam;
     private String secondTeam;
     private String tournamentName;
@@ -34,4 +35,15 @@ public class MatchHardViewDto {
     private int currentUserPoints;
     private String strMatchDateTime;
     private Long tournamentId;
+
+    public MatchHardViewDto(Match match) {
+        this.id = match.getId();
+        this.matchScore = match.getMatchFinalResult();
+        this.matchDateTime = match.getMatchDateTime();
+        this.firstTeam = match.getFirstTeam().getTeamName();
+        this.secondTeam = match.getSecondTeam().getTeamName();
+        this.tournamentName = match.getTournament().getName();
+        this.tournamentId = match.getTournament().getId();
+        this.matchState = match.getMatchState();
+    }
 }

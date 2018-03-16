@@ -1,6 +1,6 @@
 package controller;
 
-import by.forecasts.entities.Match;
+import by.forecasts.dto.MatchHardViewDto;
 import by.forecasts.service.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +19,7 @@ public class UpdateForecastsAndMatchesController {
 
     @GetMapping("/match")
     public String showMatch(Long matchId, Model model) {
-        Match match = matchService.findById(matchId);
+        MatchHardViewDto match = matchService.findById(matchId);
         model.addAttribute("match", match);
         return "show_match";
     }
