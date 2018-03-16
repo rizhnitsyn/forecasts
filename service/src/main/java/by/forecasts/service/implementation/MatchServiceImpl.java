@@ -18,6 +18,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 @Transactional
 @Service
@@ -104,15 +105,72 @@ public class MatchServiceImpl implements MatchService {
         matchViewDto.setStrMatchDateTime(foundMatch.getMatchDateTime().format(DATE_TIME_FORMATTER));
 
 
-//        matchViewDto.setFirstTeamWinCount(firstTeamWinCount(foundMatch));
-//        matchViewDto.setSecondTeamWinCount(secondTeamWinCount(foundMatch));
-//        matchViewDto.setDrawCount(drawCount(foundMatch));
-//        matchViewDto.setGuessedResultsCount(guessedResultsCount(foundMatch));
-//        matchViewDto.setGuessedWinnersCount(guessedWinnersCount(foundMatch));
-//        matchViewDto.setGuessedDiffInResultsCount(guessedDiffInResultsCount(foundMatch));
+        matchViewDto.setFirstTeamWinCount(firstTeamWinCount(foundMatch));
+        matchViewDto.setSecondTeamWinCount(secondTeamWinCount(foundMatch));
+        matchViewDto.setDrawCount(drawCount(foundMatch));
+        matchViewDto.setGuessedResultsCount(guessedResultsCount(foundMatch));
+        matchViewDto.setGuessedWinnersCount(guessedWinnersCount(foundMatch));
+        matchViewDto.setGuessedDiffInResultsCount(guessedDiffInResultsCount(foundMatch));
 //        matchViewDto.setCurrentUserPoints(calculateUserPoints(foundMatch, userId));
 
 
         return matchViewDto;
+    }
+
+    private int firstTeamWinCount(Match foundMatch) {
+        return (int) foundMatch.getForecasts().stream()
+                .filter(forecast -> (forecast.getMatchForecast().getFirstResult() > forecast.getMatchForecast().getSecondResult()))
+                .count();
+    }
+
+    private int secondTeamWinCount(Match foundMatch) {
+        return (int) foundMatch.getForecasts().stream()
+                .filter(forecast -> (forecast.getMatchForecast().getFirstResult() < forecast.getMatchForecast().getSecondResult()))
+                .count();
+    }
+
+    private int drawCount(Match foundMatch) {
+        return (int) foundMatch.getForecasts().stream()
+                .filter(forecast -> (Objects.equals(forecast.getMatchForecast().getFirstResult(), forecast.getMatchForecast().getSecondResult())))
+                .count();
+    }
+
+    private int guessedResultsCount(Match foundMatch) {
+        return foundMatch.getMatchFinalResult() == null
+                ? 0
+                : (int)foundMatch.getForecasts().stream()
+                    .filter(forecast ->
+                            Objects.equals(forecast.getMatchForecast().getFirstResult(), foundMatch.getMatchFinalResult().getFirstResult())
+                                &&
+                            Objects.equals(forecast.getMatchForecast().getSecondResult(), foundMatch.getMatchFinalResult().getSecondResult()))
+                    .count();
+    }
+
+    private int guessedWinnersCount(Match foundMatch) {
+        return foundMatch.getMatchFinalResult() == null
+                ? 0
+                : (int)foundMatch.getForecasts().stream()
+                    .filter(forecast ->
+                            (Integer.compare(forecast.getMatchForecast().getFirstResult(), forecast.getMatchForecast().getSecondResult()) ==
+                             Integer.compare(foundMatch.getMatchFinalResult().getFirstResult(), foundMatch.getMatchFinalResult().getSecondResult()))
+                                &&
+                            (!Objects.equals(forecast.getMatchForecast().getFirstResult(), foundMatch.getMatchFinalResult().getFirstResult()) ||
+                            !Objects.equals(forecast.getMatchForecast().getSecondResult(), foundMatch.getMatchFinalResult().getSecondResult())))
+                    .count();
+    }
+
+    private int guessedDiffInResultsCount(Match foundMatch) {
+        return foundMatch.getMatchFinalResult() == null
+                ? 0
+                : (int) foundMatch.getForecasts().stream()
+                .filter(forecast ->
+                        (((forecast.getMatchForecast().getFirstResult() - forecast.getMatchForecast().getSecondResult()) ==
+                         (foundMatch.getMatchFinalResult().getFirstResult() - foundMatch.getMatchFinalResult().getSecondResult()))
+                            &&
+                        (foundMatch.getMatchFinalResult().getFirstResult() - foundMatch.getMatchFinalResult().getSecondResult()) != 0)
+                                  &&
+                            (!Objects.equals(forecast.getMatchForecast().getFirstResult(), foundMatch.getMatchFinalResult().getFirstResult()) ||
+                            !Objects.equals(forecast.getMatchForecast().getSecondResult(), foundMatch.getMatchFinalResult().getSecondResult())))
+                .count();
     }
 }
