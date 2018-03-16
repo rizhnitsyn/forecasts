@@ -25,7 +25,7 @@ public class MatchHardViewDto {
     private String secondTeam;
     private String tournamentName;
     private int forecastsCount;
-    private Forecast currentUserForecast;
+    private MatchScore currentUserForecast;
     private int firstTeamWinCount;
     private int secondTeamWinCount;
     private int drawCount;

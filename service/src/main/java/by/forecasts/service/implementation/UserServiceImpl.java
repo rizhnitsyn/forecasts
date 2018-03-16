@@ -2,6 +2,9 @@ package by.forecasts.service.implementation;
 
 import by.forecasts.aspects.Loggable;
 import by.forecasts.dto.UserDetailDto;
+import by.forecasts.entities.Forecast;
+import by.forecasts.entities.Match;
+import by.forecasts.entities.MatchScore;
 import by.forecasts.entities.User;
 import by.forecasts.entities.UserState;
 import by.forecasts.repositories.UserRepository;
@@ -18,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Transactional
@@ -80,4 +84,6 @@ public class UserServiceImpl implements UserService {
         userDetailDto.setId(loggedUser.getId());
         return userDetailDto;
     }
+
+
 }

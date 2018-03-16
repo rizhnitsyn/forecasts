@@ -18,5 +18,5 @@ public interface MatchService {
 
     List<Match> findMatchesAvailableForForecasts(Long tournamentId, Long userId);
 
-    MatchHardViewDto findById(Long matchId);
+    MatchHardViewDto findById(Long matchId, Long userId);
 }

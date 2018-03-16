@@ -49,6 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
+                .antMatchers("/resources/**")
                 .antMatchers("/js/**")
                 .antMatchers("/css/**")
                 .antMatchers("/jpg/**");
@@ -60,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(encodingFilter(ENCODING), CsrfFilter.class);
         http
                 .authorizeRequests()
-                    .antMatchers("/home", "/saveUser").permitAll()
+                    .antMatchers("/home", "/saveUser", "/css").permitAll()
                     .antMatchers("/login").permitAll()
                     .antMatchers("/userList").access("hasAuthority('ADMIN')")
                 .anyRequest().authenticated()
