@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Tournament list</title>
-    <link th:href="@{/resources/css/style.css}" rel="stylesheet" type="text/css" href="/resources/css/style.css">
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" href="/resources/css/style.css">
 </head>
 <body>
 <div class="wrapper">
@@ -16,7 +16,7 @@
                 <div class="widget-list4" th:if="${!matches.isEmpty()}">
                     <h3 class="form-title">Выберите матч для прогноза</h3>
                         <p th:each="match: ${matches}">
-                            <a th:href="@{/match(matchId=${match.id})}" th:text="${match.firstTeam.teamName+' '+match.secondTeam.teamName}"></a>
+                            <a th:href="@{/match(matchId=${match.id})}" th:text="${match.firstTeam.teamName+' - '+match.secondTeam.teamName}"></a>
                             <span class="span-class-list" th:text="${match.matchDateTime}"> </span>
                         </p>
                 </div>

@@ -49,7 +49,7 @@ public class InternationalizationConfig extends WebMvcConfigurerAdapter {
                 "/css/**",
                 "/jpg/**",
                 "/js/**")
-                .addResourceLocations("classpath:/css/",
+                .addResourceLocations("/resources/css/",
                         "/resources/jpg/",
                         "/resources/js/");
     }
