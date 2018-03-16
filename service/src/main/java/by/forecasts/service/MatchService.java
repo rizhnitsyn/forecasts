@@ -9,7 +9,13 @@ public interface MatchService {
 
     List<Match> findAllByGroupId(Long groupId);
 
+    Long findCountOfMatchesAvailableForForecasts(Long tournamentId, Long userId);
+
     List<Match> findAllByTournamentIdAndGroupId(Long tournamentId, Long groupId);
 
     MatchShortViewDto save(MatchShortViewDto match);
+
+    List<Match> findMatchesAvailableForForecasts(Long tournamentId, Long userId);
+
+    Match findById(Long matchId);
 }

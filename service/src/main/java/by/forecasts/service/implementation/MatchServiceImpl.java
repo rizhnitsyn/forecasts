@@ -41,26 +41,20 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
+    public Long findCountOfMatchesAvailableForForecasts(Long tournamentId, Long userId) {
+        return matchRepository.findCountOfMatchesAvailableForForecast(tournamentId, userId);
+    }
+
+    @Override
     public List<Match> findAllByTournamentIdAndGroupId(Long tournamentId, Long groupId) {
         return matchRepository.findAllByTournamentIdAndFirstTeamGroupsId(tournamentId, groupId);
     }
 
     @Override
     public MatchShortViewDto save(MatchShortViewDto match) {
-        MatchState state = matchStateRepository.findOne(2L);
-        LocalDateTime startDate = LocalDateTime.parse(match.getMatchDateTimeString(), DATE_TIME_FORMAT);
-        match.setMatchDateTime(startDate);
-        match.setMatchState(state);
-
-        List<Long> teamList = Arrays.asList(match.getFirstTeam().getId(), match.getSecondTeam().getId());
-        Long matchesCount = matchRepository.countAllByTournamentIdAndFirstTeamGroupsIdAndFirstTeamIdInAndSecondTeamIdIn(
-                match.getTournament().getId(),
-                match.getGroupId(),
-                teamList,
-                teamList);
-
+        setDtoFields(match);
         Group group = groupRepository.findOne(match.getGroupId());
-        if (matchesCount >= group.getMatchesCountBetweenTeams()) {
+        if (getMatchesCountInCalendar(match) >= group.getMatchesCountBetweenTeams()) {
             match.setError("Между этими командами не может быть более " + group.getMatchesCountBetweenTeams() + " матчей. "
                     + "Внесите правильный матч!");
         } else {
@@ -68,6 +62,36 @@ public class MatchServiceImpl implements MatchService {
             matchRepository.save(newMatch);
             match.setError("");
         }
+        return match;
+    }
+
+    private Long getMatchesCountInCalendar(MatchShortViewDto match) {
+        List<Long> teamList = Arrays.asList(match.getFirstTeam().getId(), match.getSecondTeam().getId());
+        return matchRepository.countAllByTournamentIdAndFirstTeamGroupsIdAndFirstTeamIdInAndSecondTeamIdIn(
+                match.getTournament().getId(),
+                match.getGroupId(),
+                teamList,
+                teamList);
+    }
+
+    private void setDtoFields(MatchShortViewDto match) {
+        MatchState state = matchStateRepository.findOne(2L);
+        LocalDateTime startDate = LocalDateTime.parse(match.getMatchDateTimeString(), DATE_TIME_FORMAT);
+        match.setMatchDateTime(startDate);
+        match.setMatchState(state);
+    }
+
+    @Override
+    public List<Match> findMatchesAvailableForForecasts(Long tournamentId, Long userId) {
+        return matchRepository.findMatchesAvailableForForecast(tournamentId, userId);
+    }
+
+    @Override
+    public Match findById(Long matchId) {
+        Match match = matchRepository.findOne(matchId);
+
+
+
         return match;
     }
 }

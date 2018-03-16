@@ -2,12 +2,14 @@ package controller;
 
 import by.forecasts.dto.MatchShortViewDto;
 import by.forecasts.dto.TournamentShortViewDto;
+import by.forecasts.dto.UserDetailDto;
 import by.forecasts.entities.Group;
 import by.forecasts.entities.Match;
 import by.forecasts.entities.Tournament;
 import by.forecasts.service.GroupService;
 import by.forecasts.service.MatchService;
 import by.forecasts.service.TeamService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -32,6 +34,13 @@ public class MatchController {
         this.matchService = matchService;
         this.groupService = groupService;
         this.teamService = teamService;
+    }
+
+    @GetMapping("/forecastMatches")
+    public String showMatchesAvailableForForecasts(Long trId, Model model, @AuthenticationPrincipal UserDetailDto user) {
+        List<Match> matches = matchService.findMatchesAvailableForForecasts(trId, user.getId());
+        model.addAttribute("matches", matches);
+        return "show_matches_for_forecasts";
     }
 
     @ModelAttribute("errorMsg")

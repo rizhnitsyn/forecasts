@@ -17,6 +17,8 @@ public interface TournamentService {
 
     List<Tournament> getTournamentsFilterByUser(Long userId);
 
+    List<TournamentShortViewDto> getActiveTournamentsFilterByUser(Long userId);
+
     List<TournamentShortViewDto> getTournamentsFilterByState(Long stateId, Long userId);
 
     void registerOnTournament(Long tournamentId, Long userId);

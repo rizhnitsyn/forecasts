@@ -32,12 +32,20 @@ public class TournamentShortViewDto {
     private Team team;
     private TournamentState state;
     private Boolean registered;
+    private Long matchesCount;
+
+    public TournamentShortViewDto(Long id, String name, String startDateString) {
+        this.id = id;
+        this.name = name;
+        this.startDateString = startDateString;
+    }
 
     public TournamentShortViewDto(Long id, String name, LocalDate startDate, Team team, TournamentState state, Boolean registered) {
         this.id = id;
         this.name = name;
         this.startDate = startDate;
         this.team = team;
+
         this.state = state;
         this.registered = registered;
     }
