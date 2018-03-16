@@ -54,6 +54,7 @@ public class ForecastsController {
             forecastFilter.setPageNo(pageId == null ? 0 : pageId.intValue());
             Page<Forecast> forecastPage = forecastService.getUserForecasts(forecastFilter);
             int totalPages = forecastPage.getTotalPages();
+
             forecastFilter.setPagesCount(totalPages == 0 ? 0 : totalPages - 1);
             model.addAttribute("forecasts", forecastPage.getContent());
         }

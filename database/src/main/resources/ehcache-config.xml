@@ -9,9 +9,9 @@
     <persistence strategy="localTempSwap"/>
   </defaultCache>
 
-  <cache name="teams"
+  <cache name="dictionaries"
          maxElementsInMemory="200"
          eternal="false"
-         timeToIdleSeconds="60"
+         timeToIdleSeconds="30"
          timeToLiveSeconds="300"/>
 </ehcache>

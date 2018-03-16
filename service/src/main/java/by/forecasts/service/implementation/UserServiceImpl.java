@@ -8,6 +8,8 @@ import by.forecasts.repositories.UserRepository;
 import by.forecasts.repositories.UserStateRepository;
 import by.forecasts.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,10 +21,12 @@ import java.util.List;
 
 @Service
 @Transactional
+
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserStateRepository userStateRepository;
+    private static final int RECORDS_ON_PAGE = 20;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, UserStateRepository userStateRepository) {
@@ -54,6 +58,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(User user) {
         userRepository.save(user);
+    }
+
+    @Override
+    public Page<User> findAllPageOrdered(Long pageId) {
+        PageRequest pageRequest = new PageRequest(pageId.intValue(), RECORDS_ON_PAGE);
+        return userRepository.findAllByOrderByIdDesc(pageRequest);
     }
 
     @Override

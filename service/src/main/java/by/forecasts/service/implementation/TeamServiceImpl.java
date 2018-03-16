@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-@CacheConfig(cacheNames = "teams")
+@CacheConfig(cacheNames = "dictionaries")
 public class TeamServiceImpl implements TeamService {
 
     private final TeamRepository teamRepository;

@@ -72,9 +72,5 @@ public class MatchController {
             model.addAttribute("errorMsg", matchService.save(match).getError());
             return "redirect: /matches/calendar?grId=" + match.getGroupId();
         }
-
-
-
     }
-
 }

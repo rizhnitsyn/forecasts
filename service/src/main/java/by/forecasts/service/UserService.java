@@ -2,6 +2,7 @@ package by.forecasts.service;
 
 import by.forecasts.entities.User;
 import by.forecasts.entities.UserState;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface UserService extends UserDetailsService {
     List<UserState> findAllUserStates();
 
     void updateUser(User user);
+
+    Page<User> findAllPageOrdered(Long pageId);
 }

@@ -15,8 +15,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
+import javax.persistence.Version;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -50,6 +51,9 @@ public class User extends BaseEntity {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
+    @Version
+    private LocalDateTime version;
+
     @ManyToOne
     @JoinColumn(name = "user_state_id", nullable = false)
     private UserState userState;
@@ -59,7 +63,7 @@ public class User extends BaseEntity {
     private String login;
 
     @NotEmpty(message = "errors.field.empty")
-    @Size(min=6, message = "errors.field.size")
+    @Size(min = 6, message = "errors.field.size")
     @Column(name = "password", nullable = false)
     private String password;
 

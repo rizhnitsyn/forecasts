@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Tournament list</title>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet" type="text/css" href="/resources/css/style.css">
+</head>
+<body>
+<div class="wrapper">
+    <div th:replace="header::header"></div>
+
+    <div class="middle">
+        <div class="container">
+            <main class="content">
+                <h2 class="form-title">Список пользователей</h2>
+                <ul class="widget-list4">
+                    <li th:each="user: ${userPage.content}">
+                        <a th:href="@{/user(id=${user.id})}" th:text="${user.firstName+' '+user.secondName}"></a>
+                        <span class="span-class_red" th:if="${user.userState.id==1}" th:text="${user.userState.userState}"></span>
+                        <span class="span-class_green" th:if="${user.userState.id==2}" th:text="${user.userState.userState}"></span>
+                        <span class="span-class_red" th:if="${user.userState.id==3}" th:text="${user.userState.userState}"></span>
+                        <span class="span-class_green" th:if="${user.userState.id==4}" th:text="${user.userState.userState}"></span>
+                    <li>
+                </ul>
+                <div th:if="${!userPage.content.isEmpty()}">
+                   <span th:each="page:${#numbers.sequence(0, totalPages)}">
+                   <a th:href="@{/userList(pageId=${page})}"
+                      th:text="${page+1}">page</a>
+                   </span>
+                </div>
+            </main><!-- .content -->
+        </div><!-- .container-->
+
+        <div th:replace="side_menu::menu"></div>
+    </div><!-- .middle-->
+</div><!-- .wrapper -->
+
+<div th:replace="footer::footer"></div>
+</body>
+</html>
