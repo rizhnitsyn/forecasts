@@ -9,8 +9,8 @@
     <persistence strategy="localTempSwap"/>
   </defaultCache>
 
-  <cache name="dictionaries"
-         maxElementsInMemory="200"
+  <cache name="teams"
+         maxElementsInMemory="500"
          eternal="false"
          timeToIdleSeconds="30"
          timeToLiveSeconds="300"/>

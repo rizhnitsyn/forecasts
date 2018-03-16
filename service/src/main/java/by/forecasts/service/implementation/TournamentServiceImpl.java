@@ -16,12 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @Transactional
@@ -32,8 +30,7 @@ public class TournamentServiceImpl implements TournamentService {
     private final TeamRepository teamRepository;
     private final UserRepository userRepository;
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.UK);
-    private static final String DATE_FORMAT_DISPLAY = "dd.MM.yyyy";
-    private static final DateTimeFormatter dateDisplayFormat = DateTimeFormatter.ofPattern(DATE_FORMAT_DISPLAY, Locale.UK);
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy", Locale.UK);
 
     @Autowired
     public TournamentServiceImpl(TournamentRepository tournamentRepository, TournamentStateRepository tournamentStateRepository, TeamRepository teamRepository, UserRepository userRepository) {
@@ -89,7 +86,7 @@ public class TournamentServiceImpl implements TournamentService {
     public List<TournamentShortViewDto> getActiveTournamentsFilterByUser(Long userId) {
         List<Tournament> tournaments = tournamentRepository.getAllByUsersIdAndTournamentStateId(userId, 1L);
         return tournaments.stream()
-                .map(tr -> new TournamentShortViewDto(tr.getId(), tr.getName(), tr.getStartDate().format(dateDisplayFormat) ))
+                .map(tr -> new TournamentShortViewDto(tr.getId(), tr.getName(), tr.getStartDate().format(DATE_TIME_FORMATTER)))
                 .collect(Collectors.toList());
     }
 

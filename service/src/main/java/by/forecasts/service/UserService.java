@@ -1,6 +1,5 @@
 package by.forecasts.service;
 
-import by.forecasts.entities.MatchScore;
 import by.forecasts.entities.User;
 import by.forecasts.entities.UserState;
 import org.springframework.data.domain.Page;

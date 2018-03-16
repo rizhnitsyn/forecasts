@@ -11,7 +11,6 @@ import by.forecasts.repositories.GroupRepository;
 import by.forecasts.repositories.MatchRepository;
 import by.forecasts.repositories.MatchStateRepository;
 import by.forecasts.service.MatchService;
-import by.forecasts.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,8 +29,14 @@ public class MatchServiceImpl implements MatchService {
     private final MatchRepository matchRepository;
     private final MatchStateRepository matchStateRepository;
     private final GroupRepository groupRepository;
-    private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm", Locale.UK);
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm", Locale.UK);
+    private final DateTimeFormatter dateTimeFormatterIn = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm", Locale.UK);
+    private final DateTimeFormatter dateTimeFormatterOut = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm", Locale.UK);
+
+    private final int sixPoints = 6;
+    private final int fourPoints = 4;
+    private final int threePoint = 3;
+    private final int onePoint = 1;
+    private final int zeroPoint = 0;
 
     @Autowired
     public MatchServiceImpl(MatchRepository matchRepository, MatchStateRepository matchStateRepository, GroupRepository groupRepository) {
@@ -81,7 +86,7 @@ public class MatchServiceImpl implements MatchService {
 
     private void setDtoFields(MatchShortViewDto match) {
         MatchState state = matchStateRepository.findOne(2L);
-        LocalDateTime startDate = LocalDateTime.parse(match.getMatchDateTimeString(), DATE_TIME_FORMAT);
+        LocalDateTime startDate = LocalDateTime.parse(match.getMatchDateTimeString(), dateTimeFormatterIn);
         match.setMatchDateTime(startDate);
         match.setMatchState(state);
     }
@@ -102,7 +107,7 @@ public class MatchServiceImpl implements MatchService {
 
         //добавить группу и тип группы!!!
         matchViewDto.setForecastsCount(foundMatch.getForecasts().size());
-        matchViewDto.setStrMatchDateTime(foundMatch.getMatchDateTime().format(DATE_TIME_FORMATTER));
+        matchViewDto.setStrMatchDateTime(foundMatch.getMatchDateTime().format(dateTimeFormatterOut));
         matchViewDto.setFirstTeamWinCount(firstTeamWinCount(foundMatch));
         matchViewDto.setSecondTeamWinCount(secondTeamWinCount(foundMatch));
         matchViewDto.setDrawCount(drawCount(foundMatch));
@@ -140,9 +145,8 @@ public class MatchServiceImpl implements MatchService {
     }
 
     private int guessedResultsCount(Match foundMatch) {
-        return foundMatch.getMatchFinalResult() == null
-                ? 0
-                : (int)foundMatch.getForecasts().stream()
+        return foundMatch.getMatchFinalResult() == null ? 0
+                : (int) foundMatch.getForecasts().stream()
                     .filter(forecast ->
                             forecast.getMatchForecast().getFirstResult().intValue() == foundMatch.getMatchFinalResult().getFirstResult().intValue()
                                 &&
@@ -154,7 +158,7 @@ public class MatchServiceImpl implements MatchService {
         if (foundMatch.getMatchFinalResult() == null) {
             return 0;
         }
-        return (int)foundMatch.getForecasts().stream()
+        return (int) foundMatch.getForecasts().stream()
                     .filter(forecast -> {
                         Integer forecastFirstResult = forecast.getMatchForecast().getFirstResult();
                         Integer forecastSecondResult = forecast.getMatchForecast().getSecondResult();
@@ -207,7 +211,7 @@ public class MatchServiceImpl implements MatchService {
 
     private int calculateUserPointsPerMatch(MatchScore matchScore, MatchScore userForecast) {
         if (matchScore == null) {
-            return 0;
+            return zeroPoint;
         }
         Integer matchSecondResult = matchScore.getSecondResult();
         Integer matchFirstResult = matchScore.getFirstResult();
@@ -215,15 +219,15 @@ public class MatchServiceImpl implements MatchService {
         Integer forecastSecondResult = userForecast.getSecondResult();
 
         if (Objects.equals(matchFirstResult, forecastFirstResult) && Objects.equals(matchSecondResult, forecastSecondResult)) {
-            return 6;
+            return sixPoints;
         } else if (forecastFirstResult - forecastSecondResult == matchFirstResult - matchSecondResult && matchFirstResult - matchSecondResult != 0) {
-            return 4;
-        } else if(forecastFirstResult - forecastSecondResult == matchFirstResult - matchSecondResult && matchFirstResult - matchSecondResult == 0) {
-            return 3;
+            return fourPoints;
+        } else if (forecastFirstResult - forecastSecondResult == matchFirstResult - matchSecondResult && matchFirstResult - matchSecondResult == 0) {
+            return threePoint;
         } else if (Integer.compare(forecastFirstResult, forecastSecondResult) == Integer.compare(matchFirstResult, matchSecondResult)) {
-            return 1;
+            return onePoint;
         } else {
-            return 0;
+            return zeroPoint;
         }
     }
 }

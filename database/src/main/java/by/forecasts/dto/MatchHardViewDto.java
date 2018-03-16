@@ -1,6 +1,5 @@
 package by.forecasts.dto;
 
-import by.forecasts.entities.Forecast;
 import by.forecasts.entities.Match;
 import by.forecasts.entities.MatchScore;
 import by.forecasts.entities.MatchState;
