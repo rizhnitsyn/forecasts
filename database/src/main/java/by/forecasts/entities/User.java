@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
@@ -72,4 +73,9 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<Forecast> forecasts = new HashSet<>();
+
+    @Transient
+    public void addForecast(Forecast forecast) {
+        forecasts.add(forecast);
+    }
 }

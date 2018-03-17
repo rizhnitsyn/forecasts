@@ -81,4 +81,8 @@ public class Match extends BaseEntity {
 
     @OneToMany(mappedBy = "match")
     private Set<Forecast> forecasts  = new HashSet<>();
+
+    public void addForecast(Forecast forecast) {
+        forecasts.add(forecast);
+    }
 }
