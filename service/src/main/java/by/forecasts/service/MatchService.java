@@ -24,4 +24,6 @@ public interface MatchService {
     void addMatchScore(Long matchId, MatchScore matchScore);
 
     List<MatchShortViewDto> findAllByTournamentId(Long tournamentId, Long userId);
+
+    int calculateUserPointsPerMatch(MatchScore matchScore, MatchScore userForecast);
 }

@@ -24,13 +24,13 @@ import java.util.List;
 
 @Controller
 @SessionAttributes({"tournament", "errorMsg"})
-public class MatchController {
+public class MatchCalendarController {
 
     private final MatchService matchService;
     private final GroupService groupService;
     private final TeamService teamService;
 
-    public MatchController(MatchService matchService, GroupService groupService, TeamService teamService) {
+    public MatchCalendarController(MatchService matchService, GroupService groupService, TeamService teamService) {
         this.matchService = matchService;
         this.groupService = groupService;
         this.teamService = teamService;

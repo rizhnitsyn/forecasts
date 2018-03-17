@@ -6,6 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 public interface ForecastRepository extends JpaRepository<Forecast, Long> {
 
     Page<Forecast> findAllByUserIdAndMatchTournamentIdAndMatchMatchStateId(Long userId, Long tournamentId, Long matchStateId, Pageable pageable);
@@ -13,4 +15,6 @@ public interface ForecastRepository extends JpaRepository<Forecast, Long> {
     Long countAllByUserIdAndMatchTournamentIdAndMatchMatchStateId(Long userId, Long tournamentId, Long matchStateId);
 
     Forecast findOneByUserIdAndMatchId(Long userId, Long matchId);
+
+    List<Forecast> findAllByUserIdAndMatchTournamentId(Long userId, Long tournamentId);
 }

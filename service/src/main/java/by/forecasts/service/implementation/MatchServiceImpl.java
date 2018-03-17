@@ -253,7 +253,8 @@ public class MatchServiceImpl implements MatchService {
         return calculateUserPointsPerMatch(foundMatch.getMatchFinalResult(), userForecast);
     }
 
-    private int calculateUserPointsPerMatch(MatchScore matchScore, MatchScore userForecast) {
+    @Override
+    public int calculateUserPointsPerMatch(MatchScore matchScore, MatchScore userForecast) {
         if (matchScore == null) {
             return zeroPoint;
         }

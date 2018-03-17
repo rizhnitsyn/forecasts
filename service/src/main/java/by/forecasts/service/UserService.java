@@ -1,5 +1,6 @@
 package by.forecasts.service;
 
+import by.forecasts.dto.UserWithResultsDto;
 import by.forecasts.entities.User;
 import by.forecasts.entities.UserState;
 import org.springframework.data.domain.Page;
@@ -20,4 +21,6 @@ public interface UserService extends UserDetailsService {
     void updateUser(User user);
 
     Page<User> findAllPageOrdered(Long pageId);
+
+    List<UserWithResultsDto> getUsersWithStatistic(Long tournamentId);
 }

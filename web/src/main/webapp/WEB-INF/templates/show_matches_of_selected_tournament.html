@@ -25,7 +25,7 @@
                         <th>Дата матча</th>
                     </tr>
                     <tr class="widget-list3" th:each="match: ${matches}">
-                        <td><a th:href="@{/match(id=${match.id})}" th:text="${match.firstTeam.teamName+' - '+match.secondTeam.teamName}"></a></td>
+                        <td><a th:href="@{/match(matchId=${match.id})}" th:text="${match.firstTeam.teamName+' - '+match.secondTeam.teamName}"></a></td>
                         <td>
                             <span th:if="${match.matchScore!=null}" th:text="${match.matchScore.firstResult+' - '+match.matchScore.secondResult}"></span>
                             <span class="span-class_red" th:if="${match.matchScore==null}" th:text="'ожидается'"></span>

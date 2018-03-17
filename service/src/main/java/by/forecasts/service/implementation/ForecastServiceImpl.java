@@ -15,6 +15,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class ForecastServiceImpl implements ForecastService {
@@ -56,5 +58,10 @@ public class ForecastServiceImpl implements ForecastService {
         } else {
             forecast.setMatchForecast(score);
         }
+    }
+
+    @Override
+    public List<Forecast> findAllByUserIdAndTournamentId(Long userId, Long tournamentsId) {
+        return forecastRepository.findAllByUserIdAndMatchTournamentId(userId, tournamentsId);
     }
 }

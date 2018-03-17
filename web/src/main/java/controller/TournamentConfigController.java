@@ -21,13 +21,13 @@ import java.util.List;
 
 @Controller
 @SessionAttributes("tournament")
-public class TournamentController {
+public class TournamentConfigController {
 
     private final TournamentService tournamentService;
     private final TeamService teamService;
 
     @Autowired
-    public TournamentController(TournamentService tournamentService, TeamService teamService) {
+    public TournamentConfigController(TournamentService tournamentService, TeamService teamService) {
         this.tournamentService = tournamentService;
         this.teamService = teamService;
     }

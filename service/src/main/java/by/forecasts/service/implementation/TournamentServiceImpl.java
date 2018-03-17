@@ -27,16 +27,12 @@ public class TournamentServiceImpl implements TournamentService {
 
     private final TournamentRepository tournamentRepository;
     private final TournamentStateRepository tournamentStateRepository;
-    private final TeamRepository teamRepository;
     private final UserRepository userRepository;
-    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.UK);
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy", Locale.UK);
 
     @Autowired
-    public TournamentServiceImpl(TournamentRepository tournamentRepository, TournamentStateRepository tournamentStateRepository, TeamRepository teamRepository, UserRepository userRepository) {
+    public TournamentServiceImpl(TournamentRepository tournamentRepository, TournamentStateRepository tournamentStateRepository, UserRepository userRepository) {
         this.tournamentRepository = tournamentRepository;
         this.tournamentStateRepository = tournamentStateRepository;
-        this.teamRepository = teamRepository;
         this.userRepository = userRepository;
     }
 
