@@ -9,7 +9,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -23,10 +25,9 @@ public class TournamentShortViewDto {
 
     @NotEmpty(message = "errors.field.empty")
     private String name;
-    private LocalDate startDate;
 
-    @NotEmpty(message = "errors.field.empty")
-    private String startDateString;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate startDate;
 
     @NotNull(message = "errors.field.empty")
     private Team team;
@@ -34,10 +35,10 @@ public class TournamentShortViewDto {
     private Boolean registered;
     private Long matchesCount;
 
-    public TournamentShortViewDto(Long id, String name, String startDateString) {
+    public TournamentShortViewDto(Long id, String name, LocalDate startDate) {
         this.id = id;
         this.name = name;
-        this.startDateString = startDateString;
+        this.startDate = startDate;
     }
 
     public TournamentShortViewDto(Long id, String name, LocalDate startDate, Team team, TournamentState state, Boolean registered) {

@@ -52,12 +52,12 @@ public class TournamentController {
     @GetMapping("/tournament/create")
     public String createNewTournament(Model model) {
         model.addAttribute("teams", teamService.findAll());
-        model.addAttribute("newTournament", new TournamentShortViewDto());
+        model.addAttribute("newTournament", new Tournament());
         return "new_tournament";
     }
 
     @PostMapping("/tournament/create")
-    public String saveNewTournamentBt(@ModelAttribute("newTournament") @Valid TournamentShortViewDto tournament, Errors errors, Model model) {
+    public String saveNewTournamentBt(@ModelAttribute("newTournament") @Valid Tournament tournament, Errors errors, Model model) {
         if (errors.getErrorCount() > 0) {
             model.addAttribute("newTournament", tournament);
             model.addAttribute("teams", teamService.findAll());

@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,13 +36,16 @@ public class Tournament extends BaseEntity {
         this.tournamentState = tournamentState;
     }
 
+    @NotEmpty(message = "errors.field.empty")
     @Column(name = "tournament_name", nullable = false, unique = true)
     private String name;
 
+    @NotNull(message = "errors.field.empty")
     @ManyToOne
     @JoinColumn(name = "team_organizer_id", nullable = false)
     private Team organizer;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "tournament_start_date", nullable = false)
     private LocalDate startDate;
 

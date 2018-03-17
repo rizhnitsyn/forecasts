@@ -8,8 +8,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
+@SessionAttributes("match")
 public class UpdateForecastsAndMatchesController {
 
     private final MatchService matchService;
@@ -25,4 +27,13 @@ public class UpdateForecastsAndMatchesController {
         model.addAttribute("match", match);
         return "show_match";
     }
+
+    @GetMapping("/match/addForecast")
+    public String addForecast(Long matchId, @AuthenticationPrincipal UserDetailDto user) {
+
+        MatchHardViewDto match = matchService.findById(matchId, user.getId());
+        return "save-forecast";
+    }
+
+
 }

@@ -29,7 +29,6 @@ public class MatchServiceImpl implements MatchService {
     private final MatchRepository matchRepository;
     private final MatchStateRepository matchStateRepository;
     private final GroupRepository groupRepository;
-    private final DateTimeFormatter dateTimeFormatterIn = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm", Locale.UK);
     private final DateTimeFormatter dateTimeFormatterOut = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm", Locale.UK);
 
     private final int sixPoints = 6;
@@ -62,12 +61,15 @@ public class MatchServiceImpl implements MatchService {
 
     @Override
     public MatchShortViewDto save(MatchShortViewDto match) {
-        setDtoFields(match);
         Group group = groupRepository.findOne(match.getGroupId());
         if (getMatchesCountInCalendar(match) >= group.getMatchesCountBetweenTeams()) {
             match.setError("Между этими командами не может быть более " + group.getMatchesCountBetweenTeams() + " матчей. "
                     + "Внесите правильный матч!");
+        } else if (Objects.equals(match.getFirstTeam().getId(), match.getSecondTeam().getId())) {
+            match.setError("Команда не может играть сама с собой! Внесите правильный матч!");
         } else {
+            MatchState state = matchStateRepository.findOne(2L);
+            match.setMatchState(state);
             Match newMatch = new Match(match);
             matchRepository.save(newMatch);
             match.setError("");
@@ -84,13 +86,6 @@ public class MatchServiceImpl implements MatchService {
                 teamList);
     }
 
-    private void setDtoFields(MatchShortViewDto match) {
-        MatchState state = matchStateRepository.findOne(2L);
-        LocalDateTime startDate = LocalDateTime.parse(match.getMatchDateTimeString(), dateTimeFormatterIn);
-        match.setMatchDateTime(startDate);
-        match.setMatchState(state);
-    }
-
     @Override
     public List<Match> findMatchesAvailableForForecasts(Long tournamentId, Long userId) {
         return matchRepository.findMatchesAvailableForForecast(tournamentId, userId);
@@ -102,28 +97,34 @@ public class MatchServiceImpl implements MatchService {
         if (foundMatch == null) {
             return null;
         }
-
         MatchHardViewDto matchViewDto = new MatchHardViewDto(foundMatch);
+        setShortViewDtoFields(matchViewDto, foundMatch, userId);
+        return matchViewDto;
+    }
 
+    private void setShortViewDtoFields(MatchHardViewDto matchDto, Match foundMatch, Long userId) {
         //добавить группу и тип группы!!!
-        matchViewDto.setForecastsCount(foundMatch.getForecasts().size());
-        matchViewDto.setStrMatchDateTime(foundMatch.getMatchDateTime().format(dateTimeFormatterOut));
-        matchViewDto.setFirstTeamWinCount(firstTeamWinCount(foundMatch));
-        matchViewDto.setSecondTeamWinCount(secondTeamWinCount(foundMatch));
-        matchViewDto.setDrawCount(drawCount(foundMatch));
-        matchViewDto.setGuessedResultsCount(guessedResultsCount(foundMatch));
-        matchViewDto.setGuessedWinnersCount(guessedWinnersCount(foundMatch));
-        matchViewDto.setGuessedDiffInResultsCount(guessedDiffInResultsCount(foundMatch));
-        matchViewDto.setCurrentUserPoints(calculateUserPoints(foundMatch, userId));
+        matchDto.setForecastsCount(foundMatch.getForecasts().size());
+        matchDto.setStrMatchDateTime(foundMatch.getMatchDateTime().format(dateTimeFormatterOut));
+        matchDto.setFirstTeamWinCount(firstTeamWinCount(foundMatch));
+        matchDto.setSecondTeamWinCount(secondTeamWinCount(foundMatch));
+        matchDto.setDrawCount(drawCount(foundMatch));
+        matchDto.setGuessedResultsCount(guessedResultsCount(foundMatch));
+        matchDto.setGuessedWinnersCount(guessedWinnersCount(foundMatch));
+        matchDto.setGuessedDiffInResultsCount(guessedDiffInResultsCount(foundMatch));
+        matchDto.setCurrentUserPoints(calculateUserPoints(foundMatch, userId));
 
         foundMatch.getForecasts().stream()
                 .filter(forecast -> forecast.getUser().getId().equals(userId))
                 .map(Forecast::getMatchForecast)
                 .findFirst()
-                .ifPresent(matchViewDto::setCurrentUserForecast);
+                .ifPresent(matchDto::setCurrentUserForecast);
 
+        matchDto.setIsActiveForForecasts(canDoForecast(foundMatch));
+    }
 
-        return matchViewDto;
+    private boolean canDoForecast(Match foundMatch) {
+        return foundMatch.getMatchDateTime().compareTo(LocalDateTime.now()) > 0;
     }
 
     private int firstTeamWinCount(Match foundMatch) {

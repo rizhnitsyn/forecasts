@@ -34,6 +34,7 @@ public class MatchHardViewDto {
     private int currentUserPoints;
     private String strMatchDateTime;
     private Long tournamentId;
+    private boolean IsActiveForForecasts;
 
     public MatchHardViewDto(Match match) {
         this.id = match.getId();

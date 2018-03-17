@@ -13,7 +13,7 @@ public interface TournamentService {
 
     List<Tournament> findAll();
 
-    Tournament save(TournamentShortViewDto tournament);
+    Tournament save(Tournament tournament);
 
     List<Tournament> getTournamentsFilterByUser(Long userId);
 

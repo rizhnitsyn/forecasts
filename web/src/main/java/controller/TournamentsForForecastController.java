@@ -29,8 +29,8 @@ public class TournamentsForForecastController {
     public String showListOfTournamentsForForecast(@AuthenticationPrincipal UserDetailDto user, Model model) {
         List<TournamentShortViewDto> tournaments = tournamentService.getActiveTournamentsFilterByUser(user.getId()).stream()
                 .peek(tournament -> {
-                    Long count = matchService.findCountOfMatchesAvailableForForecasts(tournament.getId(), user.getId());
-                    tournament.setMatchesCount(count);
+                      Long count = matchService.findCountOfMatchesAvailableForForecasts(tournament.getId(), user.getId());
+                      tournament.setMatchesCount(count);
                 })
                 .collect(Collectors.toList());
         model.addAttribute("tournaments", tournaments);

@@ -14,7 +14,7 @@
         <div class="container">
             <main class="content">
 
-                <form th:action="@{/match}" th:method="post" th:object="${match}">
+                <div th:object="${match}">
                     <h3 class="form-title" th:text="'Турнир:'+ *{strMatchDateTime}"></h3>
                     <p>Начало матча: <span class="span-class" th:text="*{strMatchDateTime+', '+matchState.matchState}"></span></p>
                     <!--<p>Тип матча: <span class="span-class">${requestScope.match.matchType}</span></p>-->
@@ -39,28 +39,20 @@
                     <p>Угадан исход матча, количество: <span class="span-class" th:text="*{guessedWinnersCount}"></span></p>
                     <p>Угадана разница счета, количество: <span class="span-class" th:text="*{guessedDiffInResultsCount}"></span></p>
                     <p>Получено очков в этом матче: <span class="span-class" th:text="*{currentUserPoints}"></span></p>
-                    <!--<c:if test="${requestScope.isActive}">-->
-                        <!--<button class="btn-class" type="submit" name="idForecast" value="${requestScope.match.id}">Сделать прогноз на матч</button>-->
-                    <!--</c:if>-->
-                    <!--<c:if test="${sessionScope.loggedUser.userStateId == 4}">-->
-                        <!--<button class="btn-class" type="submit" name="idMatch" value="${requestScope.match.id}">Внести счет матча</button>-->
-                    <!--</c:if>-->
-                </form>
+                </div>
 
+                <form th:action="@{/match/addForecast(matchId=${match.id})}" th:method="post" th:if="${match.isActiveForForecasts}">
+                    <button class="btn-class" type="submit">Сделать прогноз на матч</button>
+                </form>
+                <form th:action="@{/match/addScore(matchId=${match.id})}" th:method="post" sec:authorize="hasAuthority('ADMIN')">
+                    <button class="btn-class" type="submit">Внести счет матча</button>
+                </form>
             </main><!-- .content -->
         </div><!-- .container-->
 
         <div th:replace="side_menu::menu"></div>
     </div><!-- .middle-->
 </div><!-- .wrapper -->
-
-<!--<div sec:authorize="hasAuthority('ADMIN')">-->
-    <!--This content is only shown to administrators. РАБОТАЕТ!!!!-->
-<!--</div>-->
-
-<!--<sec:authorize access="hasRole('ROLE_ADMIN')">-->
-    <!--тут то что видит только ROLE_ADMIN. РАБОТАЕТ!!!!-->
-<!--</sec:authorize>-->
 
 <div th:replace="footer::footer"></div>
 </body>

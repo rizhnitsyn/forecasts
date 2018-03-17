@@ -8,7 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 
@@ -19,10 +21,11 @@ import java.time.LocalDateTime;
 public class MatchShortViewDto {
 
     private Long id;
-    private LocalDateTime matchDateTime;
 
-    @NotEmpty(message = "errors.field.empty")
-    @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}")
+    @NotNull(message = "errors.field.empty")
+//    @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private LocalDateTime matchDateTime;
     private String matchDateTimeString;
     private Team firstTeam;
     private Team secondTeam;

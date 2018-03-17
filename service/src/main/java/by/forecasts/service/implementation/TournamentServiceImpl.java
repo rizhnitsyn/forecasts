@@ -65,16 +65,10 @@ public class TournamentServiceImpl implements TournamentService {
     }
 
     @Override
-    public Tournament save(TournamentShortViewDto tournament) {
+    public Tournament save(Tournament tournament) {
         TournamentState state = tournamentStateRepository.findOne(1L);
-        Team team = teamRepository.findOne(tournament.getTeam().getId());
-        LocalDate startDate = LocalDate.parse(tournament.getStartDateString(), DATE_FORMAT);
-        Tournament newTournament = new Tournament(
-                tournament.getName(),
-                team,
-                startDate,
-                state);
-        return tournamentRepository.save(newTournament);
+        tournament.setTournamentState(state);
+        return tournamentRepository.save(tournament);
     }
 
     @Override
@@ -86,7 +80,7 @@ public class TournamentServiceImpl implements TournamentService {
     public List<TournamentShortViewDto> getActiveTournamentsFilterByUser(Long userId) {
         List<Tournament> tournaments = tournamentRepository.getAllByUsersIdAndTournamentStateId(userId, 1L);
         return tournaments.stream()
-                .map(tr -> new TournamentShortViewDto(tr.getId(), tr.getName(), tr.getStartDate().format(DATE_TIME_FORMATTER)))
+                .map(tr -> new TournamentShortViewDto(tr.getId(), tr.getName(), tr.getStartDate()))
                 .collect(Collectors.toList());
     }
 
