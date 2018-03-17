@@ -112,7 +112,7 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
-    public List<MatchShortViewDto> findAllByTournamentId(Long tournamentId, Long userId) {
+    public List<MatchShortViewDto> findAllByTournamentIdUserId(Long tournamentId, Long userId) {
         List<Match> matches = matchRepository.findAllByTournamentId(tournamentId);
         if (matches == null) {
             return null;

@@ -29,7 +29,7 @@ public class MatchResultsController {
     public String showAllMatchesOfTournament(Long tournamentId, @AuthenticationPrincipal UserDetailDto user, Model model) {
         model.addAttribute("user", user);
         model.addAttribute("tournament", tournamentService.findOne(tournamentId));
-        model.addAttribute("matches", matchService.findAllByTournamentId(tournamentId, user.getId()));
+        model.addAttribute("matches", matchService.findAllByTournamentIdUserId(tournamentId, user.getId()));
         return "show_matches_of_selected_tournament";
     }
 }

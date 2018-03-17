@@ -103,6 +103,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserWithResultsDto> getUsersWithStatistic(Long tournamentId) {
         List<User> usersOfTournament = userRepository.findAllByTournamentsId(tournamentId);
+        if (usersOfTournament == null) {
+            return null;
+        }
 
         return usersOfTournament.stream()
                 .map(this::createDto)
@@ -138,6 +141,7 @@ public class UserServiceImpl implements UserService {
 
     private int calculateTotalPointsOfUser(UserWithResultsDto user) {
         return user.getForecasts().stream()
+                .filter(forecast -> forecast.getMatch().getMatchFinalResult() != null)
                 .map(forecast -> matchService.calculateUserPointsPerMatch(forecast.getMatch().getMatchFinalResult(), forecast.getMatchForecast()))
                 .mapToInt(points -> points)
                 .sum();
@@ -145,15 +149,17 @@ public class UserServiceImpl implements UserService {
 
     private int guessedResultsCount(UserWithResultsDto user) {
         return (int) user.getForecasts().stream()
+                .filter(forecast -> forecast.getMatch().getMatchFinalResult() != null)
                 .filter(forecast ->
-                        forecast.getMatchForecast().getFirstResult().intValue() == forecast.getMatch().getMatchFinalResult().getFirstResult().intValue()
-                                &&
-                        forecast.getMatchForecast().getSecondResult().intValue() == forecast.getMatch().getMatchFinalResult().getSecondResult().intValue())
-                .count();
+                            forecast.getMatchForecast().getFirstResult().intValue() == forecast.getMatch().getMatchFinalResult().getFirstResult().intValue()
+                               &&
+                            forecast.getMatchForecast().getSecondResult().intValue() == forecast.getMatch().getMatchFinalResult().getSecondResult().intValue())
+                 .count();
     }
 
     private int guessedWinnersCount(UserWithResultsDto user) {
         return (int) user.getForecasts().stream()
+                .filter(forecast -> forecast.getMatch().getMatchFinalResult() != null)
                 .filter(forecast -> {
                     Integer forecastFirstResult = forecast.getMatchForecast().getFirstResult();
                     Integer forecastSecondResult = forecast.getMatchForecast().getSecondResult();
@@ -172,6 +178,7 @@ public class UserServiceImpl implements UserService {
 
     private int guessedDiffInResultsCount(UserWithResultsDto user) {
         return (int) user.getForecasts().stream()
+                .filter(forecast -> forecast.getMatch().getMatchFinalResult() != null)
                 .filter(forecast -> {
                     Integer forecastFirstResult = forecast.getMatchForecast().getFirstResult();
                     Integer forecastSecondResult = forecast.getMatchForecast().getSecondResult();
@@ -189,6 +196,7 @@ public class UserServiceImpl implements UserService {
 
     private int guessedDrawCount(UserWithResultsDto user) {
         return (int) user.getForecasts().stream()
+                .filter(forecast -> forecast.getMatch().getMatchFinalResult() != null)
                 .filter(forecast -> {
                     Integer forecastFirstResult = forecast.getMatchForecast().getFirstResult();
                     Integer forecastSecondResult = forecast.getMatchForecast().getSecondResult();

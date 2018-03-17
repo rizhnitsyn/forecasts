@@ -4,6 +4,7 @@ import by.forecasts.entities.Forecast;
 import by.forecasts.entities.Tournament;
 import by.forecasts.entities.User;
 import by.forecasts.service.ForecastService;
+import by.forecasts.service.MatchService;
 import by.forecasts.service.TournamentService;
 import by.forecasts.service.UserService;
 import by.forecasts.dto.ForecastFilter;
@@ -25,12 +26,22 @@ public class ForecastsController {
     private final TournamentService tournamentService;
     private final UserService userService;
     private final ForecastService forecastService;
+    private final MatchService matchService;
 
     @Autowired
-    public ForecastsController(TournamentService tournamentService, UserService userService, ForecastService forecastService) {
+    public ForecastsController(TournamentService tournamentService, UserService userService, ForecastService forecastService, MatchService matchService) {
         this.tournamentService = tournamentService;
         this.userService = userService;
         this.forecastService = forecastService;
+        this.matchService = matchService;
+    }
+
+    @GetMapping("/allUserForecasts")
+    public String showUserForecasts(Long userId, Long tournamentId, Model model) {
+        model.addAttribute("user", userService.findOne(userId));
+        model.addAttribute("tournament", tournamentService.findOne(tournamentId));
+        model.addAttribute("matches", matchService.findAllByTournamentIdUserId(tournamentId, userId));
+        return "show_forecasts_of_user";
     }
 
     @ModelAttribute("forecastFilter")
