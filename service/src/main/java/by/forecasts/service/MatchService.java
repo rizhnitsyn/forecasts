@@ -22,4 +22,6 @@ public interface MatchService {
     MatchHardViewDto findById(Long matchId, Long userId);
 
     void addMatchScore(Long matchId, MatchScore matchScore);
+
+    List<MatchShortViewDto> findAllByTournamentId(Long tournamentId, Long userId);
 }

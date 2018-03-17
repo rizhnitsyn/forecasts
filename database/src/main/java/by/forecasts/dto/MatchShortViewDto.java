@@ -1,5 +1,7 @@
 package by.forecasts.dto;
 
+import by.forecasts.entities.Forecast;
+import by.forecasts.entities.MatchScore;
 import by.forecasts.entities.MatchState;
 import by.forecasts.entities.Team;
 import by.forecasts.entities.Tournament;
@@ -33,4 +35,7 @@ public class MatchShortViewDto {
     private Tournament tournament;
     private Long groupId;
     private String error;
+    private Forecast currentUserForecast;
+    private int userPoints;
+    private MatchScore matchScore;
 }

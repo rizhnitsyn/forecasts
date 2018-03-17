@@ -73,7 +73,7 @@ public class TournamentServiceImpl implements TournamentService {
 
     @Override
     public List<Tournament> getTournamentsFilterByUser(Long userId) {
-        return null;
+        return tournamentRepository.getAllByUsersId(userId);
     }
 
     @Override

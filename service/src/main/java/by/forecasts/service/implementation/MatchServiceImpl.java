@@ -18,9 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -30,6 +32,7 @@ public class MatchServiceImpl implements MatchService {
     private final MatchStateRepository matchStateRepository;
     private final GroupRepository groupRepository;
     private final DateTimeFormatter dateTimeFormatterOut = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm", Locale.UK);
+
 
     private final int sixPoints = 6;
     private final int fourPoints = 4;
@@ -98,7 +101,7 @@ public class MatchServiceImpl implements MatchService {
             return null;
         }
         MatchHardViewDto matchViewDto = new MatchHardViewDto(foundMatch);
-        setShortViewDtoFields(matchViewDto, foundMatch, userId);
+        setHardViewDtoFields(matchViewDto, foundMatch, userId);
         return matchViewDto;
     }
 
@@ -108,7 +111,41 @@ public class MatchServiceImpl implements MatchService {
         match.setMatchFinalResult(matchScore);
     }
 
-    private void setShortViewDtoFields(MatchHardViewDto matchDto, Match foundMatch, Long userId) {
+    @Override
+    public List<MatchShortViewDto> findAllByTournamentId(Long tournamentId, Long userId) {
+        List<Match> matches = matchRepository.findAllByTournamentId(tournamentId);
+        if (matches == null) {
+            return null;
+        }
+        return  matches.stream()
+                .map(match -> {
+                    MatchShortViewDto dto = new MatchShortViewDto();
+                    setDtoFields(dto, match, userId);
+                    return dto;
+                })
+                .sorted(Comparator.comparing(MatchShortViewDto::getMatchDateTime).reversed())
+                .collect(Collectors.toList());
+    }
+
+    private void setDtoFields(MatchShortViewDto dto, Match match, Long userId) {
+        dto.setId(match.getId());
+        dto.setMatchDateTime(match.getMatchDateTime());
+        dto.setTournament(match.getTournament());
+        dto.setMatchState(match.getMatchState());
+        dto.setFirstTeam(match.getFirstTeam());
+        dto.setSecondTeam(match.getSecondTeam());
+        dto.setMatchScore(match.getMatchFinalResult());
+        dto.setMatchDateTimeString(match.getMatchDateTime().format(dateTimeFormatterOut));
+
+        Forecast userForecast = match.getForecasts().stream()
+                .filter(forecast -> Objects.equals(forecast.getUser().getId(), userId))
+                .findFirst().orElse(null);
+
+        dto.setCurrentUserForecast(userForecast);
+        dto.setUserPoints(calculateUserPoints(match, userId));
+    }
+
+    private void setHardViewDtoFields(MatchHardViewDto matchDto, Match foundMatch, Long userId) {
         //добавить группу и тип группы!!!
         matchDto.setForecastsCount(foundMatch.getForecasts().size());
         matchDto.setStrMatchDateTime(foundMatch.getMatchDateTime().format(dateTimeFormatterOut));

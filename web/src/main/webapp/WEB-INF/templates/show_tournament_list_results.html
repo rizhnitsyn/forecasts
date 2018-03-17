@@ -13,21 +13,27 @@
     <div class="middle">
         <div class="container">
             <main class="content">
-
+                <h2 class="form-title">Выберите турнир для просмотра результатов матчей:</h2>
+                <ul class="widget-list2">
+                        <li th:each="tournament: ${tournaments}">
+                            <a th:href="@{/tournament/allMatches(tournamentId=${tournament.id})}"
+                               th:text="${tournament.name}"></a>
+                            <p> Старт турнира: [[${tournament.startDate}]],
+                                <span class="span-class_green"
+                                      th:if="${tournament.tournamentState.id==1}"
+                                      th:text="${tournament.tournamentState.tournamentState}"></span>
+                                <span class="span-class_red"
+                                      th:if="${tournament.tournamentState.id==2}"
+                                      th:text="${tournament.tournamentState.tournamentState}"></span>
+                            </p>
+                        </li>
+                </ul>
             </main><!-- .content -->
         </div><!-- .container-->
 
         <div th:replace="side_menu::menu"></div>
     </div><!-- .middle-->
 </div><!-- .wrapper -->
-
-<!--<div sec:authorize="hasAuthority('ADMIN')">-->
-    <!--This content is only shown to administrators. РАБОТАЕТ!!!!-->
-<!--</div>-->
-
-<!--<sec:authorize access="hasRole('ROLE_ADMIN')">-->
-    <!--тут то что видит только ROLE_ADMIN. РАБОТАЕТ!!!!-->
-<!--</sec:authorize>-->
 
 <div th:replace="footer::footer"></div>
 </body>

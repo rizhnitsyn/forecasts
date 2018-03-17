@@ -77,6 +77,8 @@ public class UserServiceImpl implements UserService {
         SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(loggedUser.getUserState().getUserState());
         userRoles.add(simpleGrantedAuthority);
         UserDetailDto userDetailDto = new UserDetailDto(loggedUser.getLogin(), loggedUser.getPassword(), userRoles);
+        userDetailDto.setFirstName(loggedUser.getFirstName());
+        userDetailDto.setSecondName(loggedUser.getSecondName());
         userDetailDto.setId(loggedUser.getId());
         return userDetailDto;
     }
