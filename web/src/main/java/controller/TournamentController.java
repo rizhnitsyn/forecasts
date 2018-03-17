@@ -2,6 +2,7 @@ package controller;
 
 import by.forecasts.dto.TournamentShortViewDto;
 import by.forecasts.dto.UserDetailDto;
+import by.forecasts.entities.Team;
 import by.forecasts.entities.Tournament;
 import by.forecasts.service.TeamService;
 import by.forecasts.service.TournamentService;

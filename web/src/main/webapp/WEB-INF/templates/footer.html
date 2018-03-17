@@ -15,16 +15,16 @@
             <span sec:authentication="name"></span>
         </span>
         <span class="footer-class2">
-            <a th:if="${#httpServletRequest.queryString==null}"
-               th:href="@{${#httpServletRequest.requestURI}(language='ru_RU')}">RU</a>
-            <a th:if="${#httpServletRequest.queryString!=null}"
-               th:with="baseURL=(${#httpServletRequest.requestURI}+'?'+${#httpServletRequest.queryString})"
-               th:href="@{${baseURL}(language='ru_RU')}">RU</a>
-            <a th:if="${#httpServletRequest.queryString==null}"
-               th:href="@{${#httpServletRequest.requestURI}(language='en_US')}">EN</a>
-            <a th:if="${#httpServletRequest.queryString!=null}"
-               th:with="baseURL=(${#httpServletRequest.requestURI}+'?'+${#httpServletRequest.queryString})"
-               th:href="@{${baseURL}(language='en_US')}">EN</a>
+            <!--<a th:if="${#httpServletRequest.queryString==null}"-->
+               <a th:href="@{${#httpServletRequest.requestURI}(language='ru_RU')}">RU</a>
+            <!--<a th:if="${#httpServletRequest.queryString!=null}"-->
+               <!--th:with="baseURL=(${#httpServletRequest.requestURI}+'?'+${#httpServletRequest.queryString})"-->
+               <!--th:href="@{${baseURL}(language='ru_RU')}">RU</a>-->
+            <!--<a th:if="${#httpServletRequest.queryString==null}"-->
+              <a th:href="@{${#httpServletRequest.requestURI}(language='en_US')}">EN</a>
+            <!--<a th:if="${#httpServletRequest.queryString!=null}"-->
+               <!--th:with="baseURL=(${#httpServletRequest.requestURI}+'?'+${#httpServletRequest.queryString})"-->
+               <!--th:href="@{${baseURL}(language='en_US')}">EN</a>-->
         </span>
     </div>
 </footer><!-- .footer -->

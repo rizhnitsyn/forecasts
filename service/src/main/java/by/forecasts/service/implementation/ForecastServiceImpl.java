@@ -47,9 +47,14 @@ public class ForecastServiceImpl implements ForecastService {
 
     @Override
     public void saveForecast(MatchScore score, Long matchId, Long userId) {
-        Match match = matchRepository.findOne(matchId);
-        User user = userRepository.findOne(userId);
-        Forecast forecast = new Forecast(score, user, match);
-        forecastRepository.save(forecast);
+        Forecast forecast = forecastRepository.findOneByUserIdAndMatchId(userId, matchId);
+        if (forecast == null) {
+            Match match = matchRepository.findOne(matchId);
+            User user = userRepository.findOne(userId);
+            forecast = new Forecast(score, user, match);
+            forecastRepository.save(forecast);
+        } else {
+            forecast.setMatchForecast(score);
+        }
     }
 }

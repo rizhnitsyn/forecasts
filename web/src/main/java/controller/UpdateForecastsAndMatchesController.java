@@ -2,20 +2,21 @@ package controller;
 
 import by.forecasts.dto.MatchHardViewDto;
 import by.forecasts.dto.UserDetailDto;
-import by.forecasts.entities.Forecast;
-import by.forecasts.entities.Match;
 import by.forecasts.entities.MatchScore;
-import by.forecasts.entities.User;
+import by.forecasts.entities.Tournament;
 import by.forecasts.service.ForecastService;
 import by.forecasts.service.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
+import javax.validation.Valid;
 
 @Controller
 @SessionAttributes("match")
@@ -40,29 +41,35 @@ public class UpdateForecastsAndMatchesController {
     @PostMapping("/match/addForecast")
     public String addForecast(@ModelAttribute("match") MatchHardViewDto match, Model model) {
         model.addAttribute("score", new MatchScore());
-        return "save_forecast";
+        return "new_forecast";
+    }
+
+    @PostMapping("/match/addScore")
+    public String addMatchScore(@ModelAttribute("match") MatchHardViewDto match, Model model) {
+        model.addAttribute("score", new MatchScore());
+        return "new_match_score";
     }
 
     @PostMapping("/match/saveForecast")
-    public String saveForecast(@ModelAttribute("score")  MatchScore score,
+    public String saveForecast(@ModelAttribute("score") @Valid  MatchScore score, Errors errors,
                                @ModelAttribute("match") MatchHardViewDto match,
-                               @AuthenticationPrincipal UserDetailDto user,
-                               Model model) {
-        forecastService.saveForecast(score, match.getId(), user.getId());
-
-        return "redirect: /match?matchId=" + match.getId();
+                               @AuthenticationPrincipal UserDetailDto user) {
+        if (errors.getErrorCount() > 0) {
+            return "new_forecast";
+        } else {
+            forecastService.saveForecast(score, match.getId(), user.getId());
+            return "redirect: /match?matchId=" + match.getId();
+        }
     }
 
-    @PostMapping("/match/saveForecast")
-    public String saveMatchScore(@ModelAttribute("score")  MatchScore score,
-                               @ModelAttribute("match") MatchHardViewDto match,
-                               @AuthenticationPrincipal UserDetailDto user,
-                               Model model) {
-        forecastService.saveForecast(score, match.getId(), user.getId());
-
-        return "redirect: /match?matchId=" + match.getId();
+    @PostMapping("/match/saveMatchScore")
+    public String saveMatchScore(@ModelAttribute("score") @Valid MatchScore score, Errors errors,
+                                 @ModelAttribute("match") MatchHardViewDto match) {
+        if (errors.getErrorCount() > 0) {
+            return "new_match_score";
+        } else {
+            matchService.addMatchScore(match.getId(), score);
+            return "redirect: /match?matchId=" + match.getId();
+        }
     }
-
-
-
 }

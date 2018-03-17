@@ -11,4 +11,6 @@ public interface ForecastRepository extends JpaRepository<Forecast, Long> {
     Page<Forecast> findAllByUserIdAndMatchTournamentIdAndMatchMatchStateId(Long userId, Long tournamentId, Long matchStateId, Pageable pageable);
 
     Long countAllByUserIdAndMatchTournamentIdAndMatchMatchStateId(Long userId, Long tournamentId, Long matchStateId);
+
+    Forecast findOneByUserIdAndMatchId(Long userId, Long matchId);
 }

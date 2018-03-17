@@ -21,9 +21,12 @@
                     <p>Счет:</p>
                 </div>
 
-                <form th:action="@{/match/saveForecast}" th:method="post" th:object="${score}">
+                <form th:action="@{/match/saveMatchScore}" th:method="post" th:object="${score}">
                     <input class="form-field" name="first" th:field="*{firstResult}"> -
                     <input class="form-field" name="second" th:field="*{secondResult}"><br>
+                    <span class="span-class_red" th:each="err : ${#fields.errors('firstResult')}" th:text="#{${err}}"></span>
+                    <span class="span-class_red" th:each="err : ${#fields.errors('secondResult')}" th:text="#{${err}}"></span>
+                    <br>
                     <button class="btn-class" type="submit" >Сохранить счет</button>
                 </form>
 

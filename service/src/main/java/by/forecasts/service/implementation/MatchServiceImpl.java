@@ -102,6 +102,12 @@ public class MatchServiceImpl implements MatchService {
         return matchViewDto;
     }
 
+    @Override
+    public void addMatchScore(Long matchId, MatchScore matchScore) {
+        Match match = matchRepository.findOne(matchId);
+        match.setMatchFinalResult(matchScore);
+    }
+
     private void setShortViewDtoFields(MatchHardViewDto matchDto, Match foundMatch, Long userId) {
         //добавить группу и тип группы!!!
         matchDto.setForecastsCount(foundMatch.getForecasts().size());

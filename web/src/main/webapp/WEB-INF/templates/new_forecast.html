@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Tournament list</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" href="/resources/css/style.css">
+</head>
+<body>
+<div class="wrapper">
+    <div th:replace="header::header"></div>
+
+    <div class="middle">
+        <div class="container">
+            <main class="content">
+                <div th:object="${match}">
+                    <h2 class="form-title" th:text="*{tournamentName}"></h2>
+                    <p>Начало матча: <span class="span-class" th:text="*{matchDateTime}"></span></p>
+                    <!--<p>Тип матча: <span class="span-class" th:text="*{m}">${requestScope.match.matchType}</span></p>-->
+                    <p>Команды: <span class="span-class" th:text="*{firstTeam+' - '+secondTeam}"></span></p>
+                    <p>Счет:</p>
+                </div>
+
+                <form th:action="@{/match/saveForecast}" th:method="post" th:object="${score}">
+                    <input class="form-field" name="first" th:field="*{firstResult}"> -
+                    <input class="form-field" name="second" th:field="*{secondResult}"><br>
+                    <span class="span-class_red" th:each="err : ${#fields.errors('firstResult')}" th:text="#{${err}}"></span>
+                    <span class="span-class_red" th:each="err : ${#fields.errors('secondResult')}" th:text="#{${err}}"></span>
+                    <br>
+                    <button class="btn-class" type="submit" >Сохранить прогноз</button>
+                </form>
+
+            </main><!-- .content -->
+        </div><!-- .container-->
+
+        <div th:replace="side_menu::menu"></div>
+    </div><!-- .middle-->
+</div><!-- .wrapper -->
+
+<div th:replace="footer::footer"></div>
+</body>
+</html>
