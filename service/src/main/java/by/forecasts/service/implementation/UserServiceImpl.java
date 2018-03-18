@@ -4,7 +4,6 @@ import by.forecasts.aspects.Loggable;
 import by.forecasts.dto.UserDetailDto;
 import by.forecasts.dto.UserWithResultsDto;
 import by.forecasts.entities.Forecast;
-import by.forecasts.entities.Match;
 import by.forecasts.entities.User;
 import by.forecasts.entities.UserState;
 import by.forecasts.repositories.ForecastRepository;
@@ -24,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,11 +35,11 @@ public class UserServiceImpl implements UserService {
     private final ForecastRepository forecastRepository;
     private final MatchService matchService;
     private static final int RECORDS_ON_PAGE = 20;
-    private final int sixPoints = 6;
-    private final int fourPoints = 4;
-    private final int threePoint = 3;
-    private final int onePoint = 1;
-    private final int zeroPoint = 0;
+//    private final int sixPoints = 6;
+//    private final int fourPoints = 4;
+//    private final int threePoint = 3;
+//    private final int onePoint = 1;
+//    private final int zeroPoint = 0;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, UserStateRepository userStateRepository, ForecastRepository forecastRepository, MatchService matchService) {
@@ -203,9 +201,9 @@ public class UserServiceImpl implements UserService {
                     Integer matchFirstResult = forecast.getMatch().getMatchFinalResult().getFirstResult();
                     Integer matchSecondResult = forecast.getMatch().getMatchFinalResult().getSecondResult();
 
-                    return forecastFirstResult.equals(forecastSecondResult) &&
-                           matchFirstResult.equals(matchSecondResult) &&
-                           !(forecastFirstResult.equals(matchFirstResult));
+                    return forecastFirstResult.equals(forecastSecondResult)
+                           && matchFirstResult.equals(matchSecondResult)
+                           && !(forecastFirstResult.equals(matchFirstResult));
                 })
                 .count();
     }

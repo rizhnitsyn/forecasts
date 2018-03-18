@@ -13,7 +13,7 @@
         <h3 class="widget-title" th:text="#{menu.categories}"></h3>
         <ul class="widget-list">
             <li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/tournamentList}" th:text="#{menu.tournament.config}"></a></li>
-            <li><a th:href="@{/tournamentList}" th:text="#{menu.regOnTournament}"></a></li>
+            <li><a th:href="@{/tournamentRegList}" th:text="#{menu.regOnTournament}"></a></li>
             <li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/userList}" th:text="#{menu.userList}"></a></li>
             <li><a th:href="@{/forecastTournaments}" th:text="#{menu.createForecast}"></a></li>
             <li><a th:href="@{/tournament/myList}" th:text="#{menu.match.myResults}"></a></li>

@@ -15,7 +15,7 @@
             <main class="content">
 
                 <div th:object="${match}">
-                    <h3 class="form-title" th:text="'Турнир:'+ *{strMatchDateTime}"></h3>
+                    <h3 class="form-title" th:text="'Турнир:'+ *{tournamentName}"></h3>
                     <p>Начало матча: <span class="span-class" th:text="*{strMatchDateTime+', '+matchState.matchState}"></span></p>
                     <!--<p>Тип матча: <span class="span-class">${requestScope.match.matchType}</span></p>-->
                     <p>Команды: <span class="span-class" th:text="*{firstTeam+' - '+secondTeam}"></span></p>
@@ -41,7 +41,9 @@
                     <p>Получено очков в этом матче: <span class="span-class" th:text="*{currentUserPoints}"></span></p>
                 </div>
 
-                <form th:action="@{/match/addForecast(matchId=${match.id})}" th:method="post" th:if="${match.isActiveForForecasts}">
+                <form th:action="@{/match/addForecast(matchId=${match.id})}"
+                      th:method="post" 
+                      th:if="${match.activeForForecasts}" >
                     <button class="btn-class" type="submit">Сделать прогноз на матч</button>
                 </form>
                 <form th:action="@{/match/addScore(matchId=${match.id})}" th:method="post" sec:authorize="hasAuthority('ADMIN')">

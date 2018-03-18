@@ -21,7 +21,7 @@ public class MatchResultsController {
 
     @GetMapping("/tournament/myList")
     public String showListOfTournaments(@AuthenticationPrincipal UserDetailDto user, Model model) {
-        model.addAttribute("tournaments",tournamentService.getTournamentsFilterByUser(user.getId()));
+        model.addAttribute("tournaments", tournamentService.getTournamentsFilterByUser(user.getId()));
         return "show_tournament_list_results";
     }
 

@@ -163,11 +163,12 @@ public class MatchServiceImpl implements MatchService {
                 .findFirst()
                 .ifPresent(matchDto::setCurrentUserForecast);
 
-        matchDto.setIsActiveForForecasts(canDoForecast(foundMatch));
+        matchDto.setActiveForForecasts(canDoForecast(foundMatch));
     }
 
     private boolean canDoForecast(Match foundMatch) {
-        return foundMatch.getMatchDateTime().compareTo(LocalDateTime.now()) > 0;
+        return foundMatch.getMatchDateTime().compareTo(LocalDateTime.now()) > 0
+                && foundMatch.getMatchState().getId() == 2L;
     }
 
     private int firstTeamWinCount(Match foundMatch) {

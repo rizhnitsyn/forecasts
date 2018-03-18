@@ -1,11 +1,9 @@
 package by.forecasts.service.implementation;
 
 import by.forecasts.dto.TournamentShortViewDto;
-import by.forecasts.entities.Team;
 import by.forecasts.entities.Tournament;
 import by.forecasts.entities.TournamentState;
 import by.forecasts.entities.User;
-import by.forecasts.repositories.TeamRepository;
 import by.forecasts.repositories.TournamentRepository;
 import by.forecasts.repositories.TournamentStateRepository;
 import by.forecasts.repositories.UserRepository;
@@ -14,11 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service

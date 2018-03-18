@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Tournament list</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" href="/resources/css/style.css">
+</head>
+<body>
+<div class="wrapper">
+    <div th:replace="header::header"></div>
+
+    <div class="middle">
+        <div class="container">
+            <main class="content">
+                <h2 class="form-title">Список турниров доступных для регистрации</h2>
+                <ul class="widget-list2">
+                    <li th:each="tournament:${tournaments}">
+                        <span th:if="${!tournament.registered}">
+                            <a th:href="@{/tournamentReg(id=${tournament.id})}"
+                               th:text="${tournament.name}"></a>
+                            <p> Старт турнира: [[${tournament.startDate}]],
+                                <span class="span-class_red" th:if="${!tournament.registered}">нет регистрации</span>
+                            </p>
+                        </span>
+                    </li>
+                </ul>
+            </main><!-- .content -->
+        </div><!-- .container-->
+
+        <div th:replace="side_menu::menu"></div>
+    </div><!-- .middle-->
+</div><!-- .wrapper -->
+
+<div th:replace="footer::footer"></div>
+</body>
+</html>

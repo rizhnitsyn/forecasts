@@ -13,7 +13,7 @@ public interface ForecastService {
 
     Long getCountOfUserForecasts(Long tournamentId, Long userId, Long matchStateId);
 
-    void saveForecast(MatchScore score,Long matchId,Long userId);
+    void saveForecast(MatchScore score, Long matchId, Long userId);
 
     List<Forecast> findAllByUserIdAndTournamentId(Long userId, Long tournamentsId);
 }

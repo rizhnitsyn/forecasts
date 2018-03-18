@@ -61,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(encodingFilter(ENCODING), CsrfFilter.class);
         http
                 .authorizeRequests()
-                    .antMatchers("/home", "/saveUser", "/css").permitAll()
+                    .antMatchers("/home", "/saveUser").permitAll()
                     .antMatchers("/login").permitAll()
                     .antMatchers("/userList").access("hasAuthority('ADMIN')")
                 .anyRequest().authenticated()

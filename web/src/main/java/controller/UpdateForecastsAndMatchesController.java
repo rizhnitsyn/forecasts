@@ -3,7 +3,6 @@ package controller;
 import by.forecasts.dto.MatchHardViewDto;
 import by.forecasts.dto.UserDetailDto;
 import by.forecasts.entities.MatchScore;
-import by.forecasts.entities.Tournament;
 import by.forecasts.service.ForecastService;
 import by.forecasts.service.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
