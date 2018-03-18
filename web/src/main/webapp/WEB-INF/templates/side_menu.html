@@ -18,7 +18,7 @@
             <li><a th:href="@{/forecastTournaments}" th:text="#{menu.createForecast}"></a></li>
             <li><a th:href="@{/tournament/myList}" th:text="#{menu.match.myResults}"></a></li>
             <li><a th:href="@{/tournament/standings}" th:text="#{menu.myTournaments}"></a></li>
-            <li><a th:href="@{/teamStats}" th:text="#{menu.teamStats}"></a></li>
+            <li><a th:href="@{/team}" th:text="#{menu.teamStats}"></a></li>
             <li><a th:href="@{/tournamentStats}" th:text="#{menu.tournamentStats}"></a></li>
             <li><a th:href="@{/home}" th:text="#{menu.rules}"></a></li>
             <li sec:authorize="isAuthenticated()"><a th:href="@{/user(id=${#authentication.principal.id})}" th:text="#{menu.privateAccount}"></a></li>

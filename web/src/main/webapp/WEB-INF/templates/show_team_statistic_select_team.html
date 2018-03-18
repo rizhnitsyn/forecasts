@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Tournament list</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" href="/resources/css/style.css">
+</head>
+<body>
+<div class="wrapper">
+    <div th:replace="header::header"></div>
+
+    <div class="middle">
+        <div class="container">
+            <main class="content">
+                <p>Поиск статистики по команде:</p>
+                <form th:action="@{/team}" method="post">
+                    <p>Выберите команду:</p>
+                    <select class="form-field" id="teamId" name="teamId">
+                        <option th:each="team: ${teams}"
+                                th:text="${team.teamName}"
+                                th:value="${team.id}">
+                        </option>
+                    </select>
+                    <p><button class="btn-class" type="submit">Применить фильтр</button></p>
+                </form>
+
+                <ul class="widget-list2" th:if="${!tournaments.isEmpty()}">
+                    <p>Команда учавствовала в следующих турнирах: </p>
+                    <li th:each="tournament: ${tournaments}">
+                       <a th:href="@{/team/teamStatistics(tournamentId=${tournament.id})}"
+                          th:text="${tournament.name}"></a>
+                       <p> Старт турнира: [[${tournament.startDate}]]</p>
+                    </li>
+                </ul>
+
+            </main><!-- .content -->
+        </div><!-- .container-->
+
+        <div th:replace="side_menu::menu"></div>
+    </div><!-- .middle-->
+</div><!-- .wrapper -->
+
+<div th:replace="footer::footer"></div>
+</body>
+</html>

@@ -10,4 +10,6 @@ public interface GroupRepository extends JpaRepository<Group, Long> {
     List<Group> getAllByTournamentIdOrderById(Long id);
 
     Group findOneByTournamentIdAndTeamsInGroupIdIn(Long tournamentId, List<Long> list);
+
+    List<Group> findAllByTeamsInGroupId(Long teamId);
 }

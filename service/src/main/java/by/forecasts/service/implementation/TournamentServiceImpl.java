@@ -1,9 +1,11 @@
 package by.forecasts.service.implementation;
 
 import by.forecasts.dto.TournamentShortViewDto;
+import by.forecasts.entities.Group;
 import by.forecasts.entities.Tournament;
 import by.forecasts.entities.TournamentState;
 import by.forecasts.entities.User;
+import by.forecasts.repositories.GroupRepository;
 import by.forecasts.repositories.TournamentRepository;
 import by.forecasts.repositories.TournamentStateRepository;
 import by.forecasts.repositories.UserRepository;
@@ -23,12 +25,14 @@ public class TournamentServiceImpl implements TournamentService {
     private final TournamentRepository tournamentRepository;
     private final TournamentStateRepository tournamentStateRepository;
     private final UserRepository userRepository;
+    private final GroupRepository groupRepository;
 
     @Autowired
-    public TournamentServiceImpl(TournamentRepository tournamentRepository, TournamentStateRepository tournamentStateRepository, UserRepository userRepository) {
+    public TournamentServiceImpl(TournamentRepository tournamentRepository, TournamentStateRepository tournamentStateRepository, UserRepository userRepository, GroupRepository groupRepository) {
         this.tournamentRepository = tournamentRepository;
         this.tournamentStateRepository = tournamentStateRepository;
         this.userRepository = userRepository;
+        this.groupRepository = groupRepository;
     }
 
     @Override
@@ -85,6 +89,16 @@ public class TournamentServiceImpl implements TournamentService {
                         .map(user -> true)
                         .findFirst().orElse(false)))
                 .sorted(Comparator.comparing(TournamentShortViewDto::getStartDate).reversed())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TournamentShortViewDto> getTournamentsByTeamParticipant(Long teamId) {
+        List<Group> groups = groupRepository.findAllByTeamsInGroupId(teamId);
+        return groups.stream()
+                .map(Group::getTournament)
+                .distinct()
+                .map(tr -> new TournamentShortViewDto(tr.getId(), tr.getName(), tr.getStartDate()))
                 .collect(Collectors.toList());
     }
 
