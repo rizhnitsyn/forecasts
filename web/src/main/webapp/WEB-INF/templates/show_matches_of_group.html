@@ -21,13 +21,13 @@
                         <th>Дата матча</th>
                     </tr>
                     <tr class="widget-list3" th:each="match: ${matches}">
-                        <td><a th:href="@{/}" th:text="${match.firstTeam.teamName+' - '+match.secondTeam.teamName}"></a></td>
+                        <td th:text="${match.firstTeam.teamName+' - '+match.secondTeam.teamName}"></td>
                         <td th:text="${#temporals.format(match.matchDateTime,'dd.MM.yyyy HH:mm')}"></td>
                     </tr>
                 </table>
 
                 <br>
-                <div class="form-title" id="displayed-data" th:text="${errorsMsg}"></div>
+                <div class="form-title" id="displayed-data" th:text="${errorMsg}"></div>
 
                 <br/>
                 <form th:action="@{/matches/calendar(grId=${group.id})}" th:method="post">

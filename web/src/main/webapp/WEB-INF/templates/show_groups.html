@@ -21,6 +21,8 @@
                     <li th:each="group:${groups}">
                         <a th:href="@{/group(grId=${group.id})}"
                            th:text="${group.groupName}"></a>
+                        <span class="span-class-list" th:if="${group.teamsInGroup.size()<5}"
+                              th:text="${group.teamsInGroup}"></span>
                     </li>
                 </ul>
                 <br>
@@ -43,6 +45,10 @@
 
             </main><!-- .content -->
         </div><!-- .container-->
+
+        <!--th:text="(${group.teamsInGroup.size()}<=4)-->
+        <!--? ${group.groupName}-->
+        <!--: ${group.groupName+' '+group.teamsInGroup}"></a>-->
 
         <div th:replace="side_menu::menu"></div>
     </div><!-- .middle-->

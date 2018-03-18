@@ -165,6 +165,14 @@ public class MatchServiceImpl implements MatchService {
                 .filter(forecast -> Objects.equals(forecast.getUser().getId(), userId))
                 .findFirst().orElse(null);
 
+//        List<Long> ids = Arrays.asList(match.getFirstTeam().getId(), match.getSecondTeam().getId());
+//        Group group = groupRepository.findOneByTournamentIdAndTeamsInGroupIdIn(match.getTournament().getId(), ids);
+////        Group teamGroup = match.getFirstTeam().getGroups().stream()
+////                .filter(group -> group.getTournament() == match.getTournament())
+////                .findFirst().orElse(null);
+//
+//        dto.setGroupName(group == null ? "" : group.getGroupName());
+
         dto.setCurrentUserForecast(userForecast);
         dto.setUserPoints(calculateUserPoints(match, userId));
     }

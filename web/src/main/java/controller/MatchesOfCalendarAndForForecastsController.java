@@ -50,7 +50,7 @@ public class MatchesOfCalendarAndForForecastsController {
         return "show_matches_for_forecasts";
     }
 
-    @ModelAttribute("errorsMsg")
+    @ModelAttribute("errorMsg")
     public String errorMsg() {
         return "";
     }

@@ -3,6 +3,7 @@ package by.forecasts.service;
 import by.forecasts.entities.Team;
 
 import java.util.List;
+import java.util.Set;
 
 public interface TeamService {
 
@@ -10,7 +11,7 @@ public interface TeamService {
 
     List<Team> findAllRegularTeamsNotInUseInTournament(Long tournamentId);
 
-    List<Team> findAllPlayoffTeamsNotInUseInTournament(Long tournamentId);
+    Set<Team> findAllPlayoffTeamsNotInUseInTournament(Long tournamentId);
 
     List<Team> findAllTeamsByGroupId(Long groupId);
 

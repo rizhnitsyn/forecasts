@@ -21,12 +21,17 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name = "teams")
-@ToString(callSuper = true, exclude = {"visitorMatches", "homeMatches", "groups"})
+//@ToString(callSuper = true, exclude = {"visitorMatches", "homeMatches", "groups"})
 public class Team extends BaseEntity {
 
     public Team(String teamName) {
         super();
         this.teamName = teamName;
+    }
+
+    @Override
+    public String toString() {
+        return this.teamName;
     }
 
     @Column(name = "team_name", nullable = false, unique = true)

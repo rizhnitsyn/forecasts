@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -50,14 +51,8 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public List<Team> findAllPlayoffTeamsNotInUseInTournament(Long tournamentId) {
-        List<PlayoffGroup> groupList = playoffGroupRepository.findAllByTournamentId(tournamentId);
-        List<Long> groupIdList = groupList.stream()
-                .map(BaseEntity::getId)
-                .collect(Collectors.toList());
-        List<Team> exceptList = teamRepository.findAllByGroupsIdIn(groupIdList);
-        return getExceptList(exceptList);
-
+    public Set<Team> findAllPlayoffTeamsNotInUseInTournament(Long tournamentId) {
+          return teamRepository.findAllByGroupsTournamentIdOrderByTeamName(tournamentId);
     }
 
     @Override
