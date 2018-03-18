@@ -4,6 +4,7 @@ import by.forecasts.dto.MatchHardViewDto;
 import by.forecasts.dto.MatchShortViewDto;
 import by.forecasts.entities.Match;
 import by.forecasts.entities.MatchScore;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -24,6 +25,8 @@ public interface MatchService {
     void addMatchScore(Long matchId, MatchScore matchScore);
 
     List<MatchShortViewDto> findAllByTournamentIdUserId(Long tournamentId, Long userId);
+
+    List<MatchShortViewDto> findAllByTournamentIdUserIdPageable(Long tournamentId, Long userId, Long pageId);
 
     int calculateUserPointsPerMatch(MatchScore matchScore, MatchScore userForecast);
 }

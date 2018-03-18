@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface GroupRepository extends JpaRepository<Group, Long> {
 
-    List<Group> getAllByTournamentId(Long id);
+    List<Group> getAllByTournamentIdOrderByGroupName(Long id);
 }

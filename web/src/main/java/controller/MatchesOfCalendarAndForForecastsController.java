@@ -9,6 +9,7 @@ import by.forecasts.entities.Tournament;
 import by.forecasts.service.GroupService;
 import by.forecasts.service.MatchService;
 import by.forecasts.service.TeamService;
+import by.forecasts.service.TournamentService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,41 +21,50 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @SessionAttributes({"tournament", "errorMsg"})
-public class MatchCalendarController {
+public class MatchesOfCalendarAndForForecastsController {
 
     private final MatchService matchService;
     private final GroupService groupService;
     private final TeamService teamService;
+    private final TournamentService tournamentService;
 
-    public MatchCalendarController(MatchService matchService, GroupService groupService, TeamService teamService) {
+    public MatchesOfCalendarAndForForecastsController(MatchService matchService, GroupService groupService, TeamService teamService, TournamentService tournamentService) {
         this.matchService = matchService;
         this.groupService = groupService;
         this.teamService = teamService;
+        this.tournamentService = tournamentService;
     }
 
     @GetMapping("/forecastMatches")
     public String showMatchesAvailableForForecasts(Long trId, Model model, @AuthenticationPrincipal UserDetailDto user) {
+        TournamentShortViewDto tournament = tournamentService.findOne(trId);
+        model.addAttribute("tournament", tournament);
         List<Match> matches = matchService.findMatchesAvailableForForecasts(trId, user.getId());
         model.addAttribute("matches", matches);
         return "show_matches_for_forecasts";
     }
 
-    @ModelAttribute("errorMsg")
+    @ModelAttribute("errorsMsg")
     public String errorMsg() {
         return "";
     }
 
     @GetMapping("/matches/calendar")
-    public String showMatchesOfGroup(Long grId, Model model, @SessionAttribute("tournament") TournamentShortViewDto tournamentDto) {
+    public String showMatchesOfGroup(Long grId, Model model, Long err, @SessionAttribute("tournament") TournamentShortViewDto tournamentDto) {
         Group group = groupService.findOne(grId);
         List<Match> matches = matchService.findAllByTournamentIdAndGroupId(tournamentDto.getId(), grId);
         model.addAttribute("tournament", tournamentDto);
         model.addAttribute("matches", matches);
         model.addAttribute("group", group);
+        if (err == null) {
+            model.addAttribute("errorMsg", "");
+        }
         return "show_matches_of_group";
     }
 
@@ -79,7 +89,7 @@ public class MatchCalendarController {
             tournament.setId(tournamentDto.getId());
             match.setTournament(tournament);
             model.addAttribute("errorMsg", matchService.save(match).getError());
-            return "redirect: /matches/calendar?grId=" + match.getGroupId();
+            return "redirect: /matches/calendar?grId=" + match.getGroupId() + "&err=1";
         }
     }
 }

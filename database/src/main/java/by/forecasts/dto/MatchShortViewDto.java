@@ -36,4 +36,5 @@ public class MatchShortViewDto {
     private Forecast currentUserForecast;
     private int userPoints;
     private MatchScore matchScore;
+    private int PageCount;
 }

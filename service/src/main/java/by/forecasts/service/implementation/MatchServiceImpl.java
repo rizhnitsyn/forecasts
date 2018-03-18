@@ -12,6 +12,8 @@ import by.forecasts.repositories.MatchRepository;
 import by.forecasts.repositories.MatchStateRepository;
 import by.forecasts.service.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +34,7 @@ public class MatchServiceImpl implements MatchService {
     private final MatchStateRepository matchStateRepository;
     private final GroupRepository groupRepository;
     private final DateTimeFormatter dateTimeFormatterOut = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm", Locale.UK);
+    private final int recordsOnPage = 10;
 
 
     private final int sixPoints = 6;
@@ -59,7 +62,8 @@ public class MatchServiceImpl implements MatchService {
 
     @Override
     public List<Match> findAllByTournamentIdAndGroupId(Long tournamentId, Long groupId) {
-        return matchRepository.findAllByTournamentIdAndFirstTeamGroupsId(tournamentId, groupId);
+        return matchRepository
+                .findAllByTournamentIdAndFirstTeamGroupsIdAndSecondTeamGroupsIdOrderByMatchDateTime(tournamentId, groupId, groupId);
     }
 
     @Override
@@ -121,6 +125,26 @@ public class MatchServiceImpl implements MatchService {
                 .map(match -> {
                     MatchShortViewDto dto = new MatchShortViewDto();
                     setDtoFields(dto, match, userId);
+                    return dto;
+                })
+                .sorted(Comparator.comparing(MatchShortViewDto::getMatchDateTime).reversed())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<MatchShortViewDto> findAllByTournamentIdUserIdPageable(Long tournamentId, Long userId, Long pageId) {
+        PageRequest pageRequest = new PageRequest(pageId.intValue(), recordsOnPage);
+        Page<Match> matchPage = matchRepository.findAllByTournamentIdOrderByIdDesc(tournamentId, pageRequest);
+        List<Match> matches = matchPage.getContent();
+        int pageCount = matchPage.getTotalPages();
+        if (matches == null) {
+            return null;
+        }
+        return matches.stream()
+                .map(match -> {
+                    MatchShortViewDto dto = new MatchShortViewDto();
+                    setDtoFields(dto, match, userId);
+                    dto.setPageCount(pageCount);
                     return dto;
                 })
                 .sorted(Comparator.comparing(MatchShortViewDto::getMatchDateTime).reversed())

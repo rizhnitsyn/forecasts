@@ -39,6 +39,12 @@
                         <td th:text="${match.matchDateTimeString}"></td>
                     </tr>
                 </table>
+                <div th:if="${!matches.isEmpty()}">
+                   <span th:each="page:${#numbers.sequence(0, totalPages)}">
+                   <a th:href="@{/allUserForecasts(userId=${user.id},pageId=${page})}"
+                      th:text="${page+1}">page</a>
+                   </span>
+                </div>
             </main><!-- .content -->
         </div><!-- .container-->
 

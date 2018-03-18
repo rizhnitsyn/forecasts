@@ -26,7 +26,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public List<Group> getAllGroupsByTournamentID(Long id) {
-        return groupRepository.getAllByTournamentId(id);
+        return groupRepository.getAllByTournamentIdOrderByGroupName(id);
     }
 
     @Override

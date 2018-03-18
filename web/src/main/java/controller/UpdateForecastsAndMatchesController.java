@@ -1,6 +1,7 @@
 package controller;
 
 import by.forecasts.dto.MatchHardViewDto;
+import by.forecasts.dto.TournamentShortViewDto;
 import by.forecasts.dto.UserDetailDto;
 import by.forecasts.entities.MatchScore;
 import by.forecasts.service.ForecastService;
@@ -13,6 +14,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.validation.Valid;
@@ -52,12 +54,13 @@ public class UpdateForecastsAndMatchesController {
     @PostMapping("/match/saveForecast")
     public String saveForecast(@ModelAttribute("score") @Valid  MatchScore score, Errors errors,
                                @ModelAttribute("match") MatchHardViewDto match,
+                               @SessionAttribute("tournament") TournamentShortViewDto tournament,
                                @AuthenticationPrincipal UserDetailDto user) {
         if (errors.getErrorCount() > 0) {
             return "new_forecast";
         } else {
             forecastService.saveForecast(score, match.getId(), user.getId());
-            return "redirect: /match?matchId=" + match.getId();
+            return "redirect: /forecastMatches?trId=" + tournament.getId();
         }
     }
 

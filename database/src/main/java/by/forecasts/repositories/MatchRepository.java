@@ -1,6 +1,8 @@
 package by.forecasts.repositories;
 
 import by.forecasts.entities.Match;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -18,11 +20,13 @@ public interface MatchRepository extends JpaRepository<Match, Long> {
 
     List<Match> findAllByTournamentId(Long tournamentId);
 
+    Page<Match> findAllByTournamentIdOrderByIdDesc(Long tournamentId, Pageable pageable);
+
     List<Match> findAllByTournamentIdAndForecastsUserId(Long tournamentId, Long userId);
 
     List<Match> findAllByTournamentGroupsId(Long groupId);
 
-    List<Match> findAllByTournamentIdAndFirstTeamGroupsId(Long tournamentId, Long groupId);
+    List<Match> findAllByTournamentIdAndFirstTeamGroupsIdAndSecondTeamGroupsIdOrderByMatchDateTime(Long tournamentId, Long firstGroupId, Long secondGroupId);
 
     Long countAllByTournamentIdAndFirstTeamGroupsIdAndFirstTeamIdInAndSecondTeamIdIn(Long tournamentId, Long groupId, List<Long> firstTeamId, List<Long> secondTeamId);
 }

@@ -1,5 +1,7 @@
 package controller;
 
+import by.forecasts.dto.MatchShortViewDto;
+import by.forecasts.dto.TournamentShortViewDto;
 import by.forecasts.entities.Forecast;
 import by.forecasts.entities.Tournament;
 import by.forecasts.entities.User;
@@ -15,13 +17,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.List;
 
 @Controller
-@SessionAttributes("forecastFilter")
-public class ForecastsController {
+@SessionAttributes({"forecastFilter"})
+public class UserForecastsController {
 
     private final TournamentService tournamentService;
     private final UserService userService;
@@ -29,7 +32,7 @@ public class ForecastsController {
     private final MatchService matchService;
 
     @Autowired
-    public ForecastsController(TournamentService tournamentService, UserService userService, ForecastService forecastService, MatchService matchService) {
+    public UserForecastsController(TournamentService tournamentService, UserService userService, ForecastService forecastService, MatchService matchService) {
         this.tournamentService = tournamentService;
         this.userService = userService;
         this.forecastService = forecastService;
@@ -37,11 +40,25 @@ public class ForecastsController {
     }
 
     @GetMapping("/allUserForecasts")
-    public String showUserForecasts(Long userId, Long tournamentId, Model model) {
+    public String showUserForecasts(Long userId, @SessionAttribute("tournament") TournamentShortViewDto tournament,
+                                    Long pageId, Model model) {
         model.addAttribute("user", userService.findOne(userId));
-        model.addAttribute("tournament", tournamentService.findOne(tournamentId));
-        model.addAttribute("matches", matchService.findAllByTournamentIdUserId(tournamentId, userId));
+        model.addAttribute("tournament", tournament);
+
+        List<MatchShortViewDto> matchPage =
+                matchService.findAllByTournamentIdUserIdPageable(tournament.getId(), userId, pageId == null ? 0 : pageId);
+        Integer pagesCount = matchPage.stream()
+                .map(MatchShortViewDto::getPageCount)
+                .findFirst().orElse(0);
+
+        model.addAttribute("matches", matchPage);
+        model.addAttribute("totalPages", pagesCount - 1);
         return "show_forecasts_of_user";
+    }
+
+    @PostMapping("/allUserForecasts")
+    public String showUserListPageablePost(Long userId, Long pageId) {
+        return "redirect: /allUserForecasts?userId=" + userId + "&pageId=" +pageId;
     }
 
     @ModelAttribute("forecastFilter")

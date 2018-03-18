@@ -27,7 +27,7 @@ public class UserListController {
         return "show_user_list";
     }
 
-    @PostMapping("userList")
+    @PostMapping("/userList")
     public String showUserListPageablePost(Long pageId) {
         return "redirect:/userList?pageId=" + pageId;
     }

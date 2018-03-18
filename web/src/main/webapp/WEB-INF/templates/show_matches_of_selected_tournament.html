@@ -40,11 +40,13 @@
                     </tr>
                 </table>
 
-                <!--<form action="${pageContext.request.contextPath}/allMatches" method="post">-->
-                    <!--<c:if test="${requestScope.tournament.stateId == 1 and sessionScope.loggedUser.userStateId == 4}">-->
-                        <!--<br/><button class="btn-class" type="submit" name="idTournament" value="${requestScope.tournament.id}">Добавить новый матч </button>-->
-                    <!--</c:if>-->
-                <!--</form>-->
+                <div th:if="${!matches.isEmpty()}">
+                   <span th:each="page:${#numbers.sequence(0, totalPages)}">
+                   <a th:href="@{/tournament/allMatches(tournamentId=${tournament.id},pageId=${page})}"
+                      th:text="${page+1}">page</a>
+                   </span>
+                </div>
+
             </main><!-- .content -->
         </div><!-- .container-->
 
