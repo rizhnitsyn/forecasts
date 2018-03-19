@@ -13,16 +13,16 @@
         <h3 class="widget-title" th:text="#{menu.categories}"></h3>
         <ul class="widget-list">
             <li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/tournamentList}" th:text="#{menu.tournament.config}"></a></li>
-            <li><a th:href="@{/tournamentRegList}" th:text="#{menu.regOnTournament}"></a></li>
+            <li sec:authorize="hasAnyAuthority('ADMIN', 'POWER_USER')"><a th:href="@{/tournamentRegList}" th:text="#{menu.regOnTournament}"></a></li>
             <li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/userList}" th:text="#{menu.userList}"></a></li>
-            <li><a th:href="@{/forecastTournaments}" th:text="#{menu.createForecast}"></a></li>
-            <li><a th:href="@{/tournament/myList}" th:text="#{menu.match.myResults}"></a></li>
-            <li><a th:href="@{/tournament/standings}" th:text="#{menu.myTournaments}"></a></li>
+            <li sec:authorize="hasAnyAuthority('ADMIN', 'POWER_USER')"><a th:href="@{/forecastTournaments}" th:text="#{menu.createForecast}"></a></li>
+            <li sec:authorize="hasAnyAuthority('ADMIN', 'POWER_USER')"><a th:href="@{/tournament/myList}" th:text="#{menu.match.myResults}"></a></li>
+            <li sec:authorize="hasAnyAuthority('ADMIN', 'POWER_USER')"><a th:href="@{/tournament/standings}" th:text="#{menu.myTournaments}"></a></li>
             <li><a th:href="@{/team}" th:text="#{menu.teamStats}"></a></li>
             <li><a th:href="@{/tournamentStats}" th:text="#{menu.tournamentStats}"></a></li>
             <li><a th:href="@{/home}" th:text="#{menu.rules}"></a></li>
             <li sec:authorize="isAuthenticated()"><a th:href="@{/user(id=${#authentication.principal.id})}" th:text="#{menu.privateAccount}"></a></li>
-            <li><a th:href="@{/saveUser}" th:text="#{menu.regInSystem}"></a></li>
+            <li sec:authorize="!isAuthenticated()"><a th:href="@{/saveUser}" th:text="#{menu.regInSystem}"></a></li>
             <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}" th:text="#{menu.loginUser}"></a></li>
             <li sec:authorize="isAuthenticated()">
                 <form id="myform" th:method="post" th:action="@{/logout}">

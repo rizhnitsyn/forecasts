@@ -312,7 +312,8 @@ public class MatchServiceImpl implements MatchService {
 
     @Override
     public List<MatchShortViewDto> findMatchesOfSelectedTeam(Long teamId, Long tournamentId) {
-        List<Match> matches = matchRepository.findAllByTournamentIdAndFirstTeamIdOrSecondTeamId(tournamentId, teamId, teamId);
+        List<Match> matches =
+                matchRepository.findAllByTournamentIdAndFirstTeamIdOrTournamentIdAndSecondTeamId(tournamentId, teamId,tournamentId, teamId);
         return matches.stream()
                 .map(match -> {
                     MatchShortViewDto dto = new MatchShortViewDto();
@@ -344,7 +345,7 @@ public class MatchServiceImpl implements MatchService {
         if (!match.getFirstTeam().getId().equals(teamId)) {
             if (match.getMatchFinalResult().getFirstResult() < match.getMatchFinalResult().getSecondResult()) {
                 return 1;
-            } else if (match.getMatchFinalResult().getFirstResult() == match.getMatchFinalResult().getSecondResult()) {
+            } else if (match.getMatchFinalResult().getFirstResult().intValue() == match.getMatchFinalResult().getSecondResult().intValue()) {
                 return 2;
             } else {
                 return 3;

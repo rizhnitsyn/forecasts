@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@SessionAttributes("team")
+@SessionAttributes("sessionTeam")
 public class TeamStatisticsController {
 
     private final TeamService teamService;
@@ -41,18 +41,23 @@ public class TeamStatisticsController {
     }
 
     @PostMapping("/team")
+    public String getListOfTournaments(Long teamId) {
+        return "redirect: /team/trList?teamId=" + teamId;
+    }
+
+    @GetMapping("/team/trList")
     public String applyTeamFilter(Long teamId, Model model) {
         if (teamId != null) {
             model.addAttribute("tournaments", tournamentService.getTournamentsByTeamParticipant(teamId));
+            model.addAttribute("sessionTeam", teamService.findOne(teamId));
         }
         model.addAttribute("teams", teamService.findAll());
-        model.addAttribute("team", teamService.findOne(teamId));
-        return "show_team_statistic_select_team";
+        return "show_team_statistic_tr_list";
     }
 
     @GetMapping("/team/teamStatistics")
-    public String showTeamStatistics(Long tournamentId, Model model, @ModelAttribute("team") Team team) {
-        List<MatchShortViewDto> matches = matchService.findMatchesOfSelectedTeam(team.getId(), tournamentId);
+    public String showTeamStatistics(Long tournamentId, Model model, @ModelAttribute("sessionTeam") Team sessionTeam) {
+        List<MatchShortViewDto> matches = matchService.findMatchesOfSelectedTeam(sessionTeam.getId(), tournamentId);
         model.addAttribute("matches", matches);
         model.addAttribute("tournament", tournamentService.findOne(tournamentId));
         return "show_team_statistics";

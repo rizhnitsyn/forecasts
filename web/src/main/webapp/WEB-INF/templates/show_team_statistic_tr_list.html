@@ -13,17 +13,16 @@
     <div class="middle">
         <div class="container">
             <main class="content">
-                <h2 class="form-title">Поиск статистики по команде:</h2>
-                <form th:action="@{/team}" method="post">
-                    <p>Выберите команду:</p>
-                    <select class="form-field" id="teamId" name="teamId">
-                        <option th:each="team: ${teams}"
-                                th:text="${team.teamName}"
-                                th:value="${team.id}">
-                        </option>
-                    </select>
-                    <p><button class="btn-class" type="submit">Найти</button></p>
-                </form>
+                <h2 class="form-title">Команда учавствовала в следующих турнирах: </h2>
+
+                <ul class="widget-list2" th:if="${!tournaments.isEmpty()}">
+                    <li th:each="tournament: ${tournaments}">
+                       <a th:href="@{/team/teamStatistics(tournamentId=${tournament.id})}"
+                          th:text="${tournament.name}"></a>
+                       <p> Старт турнира: [[${tournament.startDate}]]</p>
+                    </li>
+                </ul>
+
             </main><!-- .content -->
         </div><!-- .container-->
 

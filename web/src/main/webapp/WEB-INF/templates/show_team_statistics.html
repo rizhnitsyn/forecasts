@@ -13,7 +13,7 @@
     <div class="middle">
         <div class="container">
             <main class="content">
-                <h2 class="form-title">Статистика команды [[${team.teamName}]] в чемпионате [[${tournament.name}]]</h2>
+                <h2 class="form-title">Статистика команды [[${sessionTeam.teamName}]] в чемпионате [[${tournament.name}]]</h2>
 
                 <table class="simple-little-table" th:if="${!matches.isEmpty()}">
                     <tr>
@@ -24,14 +24,19 @@
                         <th>Итог</th>
                     </tr>
                     <tr class="widget-list3" th:each="match: ${matches}">
-                        <td><a th:href="@{/match(matchId=${match.id})}" th:text="${match.firstTeam.teamName+' - '+match.secondTeam.teamName}"></a></td>
-                        <td>Группа</td>
+                        <td th:text="${match.firstTeam.teamName+' - '+match.secondTeam.teamName}"></td>
+                        <td th:text="${match.groupName}"></td>
                         <td th:text="${#temporals.format(match.matchDateTime,'dd.MM.yyyy HH:mm')}"></td>
                         <td>
-                            <span th:if="${match.matchFinalResult!=null}" th:text="${match.matchFinalResult.firstResult+' - '+match.matchFinalResult.secondResult}"></span>
-                            <span class="span-class_red" th:if="${match.matchFinalResult==null}" th:text="'ожидается'"></span>
+                            <span class="span-class_red" th:if="${match.matchScore==null}" th:text="'ожидается'"></span>
+                            <span th:if="${match.matchScore!=null}" th:text="${match.matchScore.firstResult+' - '+match.matchScore.secondResult}"></span>
                         </td>
-                        <td>Итог</td>
+                        <td>
+                            <span class="span-class_green" th:if="${match.matchResultInt==1}" th:text="'победа'"></span>
+                            <span class="span-class_red" th:if="${match.matchResultInt==3}" th:text="'поражение'"></span>
+                            <span class="span-class_yellow" th:if="${match.matchResultInt==2}" th:text="'ничья'"></span>
+                            <span th:if="${match.matchResultInt==0}" th:text="''"></span>
+                        </td>
                     </tr>
                 </table>
 

@@ -61,9 +61,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(encodingFilter(ENCODING), CsrfFilter.class);
         http
                 .authorizeRequests()
-                    .antMatchers("/home", "/saveUser").permitAll()
-                    .antMatchers("/login").permitAll()
-                    .antMatchers("/userList").access("hasAuthority('ADMIN')")
+                    .antMatchers("/home", "/saveUser", "/login").permitAll()
+                    .antMatchers("/tournamentList/**", "/forecastTournaments/**","/tournaments/**").access("hasAnyAuthority('ADMIN', 'POWER_USER')")
+                    .antMatchers("/userList/**","/group/**", "/tournamentList/**").access("hasAuthority('ADMIN')")
+                    .antMatchers("/team/**").access("hasAnyAuthority('ADMIN', 'USER', 'POWER_USER')")
                 .anyRequest().authenticated()
                 .and()
                     .formLogin()

@@ -18,7 +18,7 @@ public interface MatchRepository extends JpaRepository<Match, Long> {
             + "and m.id not in (select f.match.id from Forecast f where f.user.id = ?2)")
     Long findCountOfMatchesAvailableForForecast(Long tournamentId, Long userId);
 
-    List<Match> findAllByTournamentIdAndFirstTeamIdOrSecondTeamId(Long tournamentId, Long firstTeamId, Long secondTeamId);
+    List<Match> findAllByTournamentIdAndFirstTeamIdOrTournamentIdAndSecondTeamId(Long fTrId, Long firstTeamId,Long sTrId, Long secondTeamId);
 
     List<Match> findAllByTournamentId(Long tournamentId);
 

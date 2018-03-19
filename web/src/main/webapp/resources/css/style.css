@@ -95,6 +95,14 @@ p {
     /*font-weight : bold;*/
 }
 
+.span-class_yellow {
+    margin-bottom:4px;
+    color: #f3c84c;
+    text-shadow: #fdf2e4 0 1px 0;
+    font-size: 11px;
+    /*font-weight : bold;*/
+}
+
 .span-class-list {
     margin-bottom:4px;
     color: #000000;
