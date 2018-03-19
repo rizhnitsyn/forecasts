@@ -1,13 +1,11 @@
-package by.forecasts.service;
+package by.forecasts.service.service;
 
-import by.forecasts.dto.ForecastFilter;
+import by.forecasts.utils.ForecastFilter;
 import by.forecasts.entities.Forecast;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.data.domain.Page;
-
-import java.util.List;
 
 public class ForecastServiceTest extends BaseServiceTest {
 

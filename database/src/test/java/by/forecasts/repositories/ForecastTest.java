@@ -1,9 +1,10 @@
-package by.forecasts.repository;
+package by.forecasts.repositories;
 
 import by.forecasts.entities.Forecast;
 import by.forecasts.entities.Match;
 import by.forecasts.entities.MatchScore;
 import by.forecasts.entities.MatchState;
+import by.forecasts.entities.RegularGroup;
 import by.forecasts.entities.Team;
 import by.forecasts.entities.Tournament;
 import by.forecasts.entities.TournamentState;
@@ -43,8 +44,13 @@ public class ForecastTest extends BaseTest {
 
         MatchState matchState = new MatchState("active match");
         matchStateRepository.save(matchState);
+        RegularGroup regularGroup1 = new RegularGroup(4, 2, 2,
+                "group 2", tournament1);
+        regularGroupRepository.save(regularGroup1);
         Match match1 = new Match(LocalDateTime.now(), matchState, team1, team2, tournament1);
         Match match2 = new Match(LocalDateTime.now(), matchState, team2, team1, tournament1);
+        match1.setGroup(regularGroup1);
+        match2.setGroup(regularGroup1);
         matchRepository.save(match1);
         matchRepository.save(match2);
 
@@ -78,8 +84,13 @@ public class ForecastTest extends BaseTest {
 
         MatchState matchState = new MatchState("active match");
         matchStateRepository.save(matchState);
+        RegularGroup regularGroup1 = new RegularGroup(4, 2, 2,
+                "group 2", tournament1);
+        regularGroupRepository.save(regularGroup1);
         Match match1 = new Match(LocalDateTime.now(), matchState, team1, team2, tournament1);
         Match match2 = new Match(LocalDateTime.now(), matchState, team2, team1, tournament1);
+        match1.setGroup(regularGroup1);
+        match2.setGroup(regularGroup1);
         matchRepository.save(match1);
         matchRepository.save(match2);
 

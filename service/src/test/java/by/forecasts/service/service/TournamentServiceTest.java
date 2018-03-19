@@ -1,8 +1,7 @@
-package by.forecasts.service;
+package by.forecasts.service.service;
 
 import by.forecasts.dto.TournamentShortViewDto;
 import by.forecasts.entities.Tournament;
-import by.forecasts.entities.User;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 

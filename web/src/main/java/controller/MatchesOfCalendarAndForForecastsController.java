@@ -2,7 +2,7 @@ package controller;
 
 import by.forecasts.dto.MatchShortViewDto;
 import by.forecasts.dto.TournamentShortViewDto;
-import by.forecasts.dto.UserDetailDto;
+import by.forecasts.utils.UserDetailDto;
 import by.forecasts.entities.Group;
 import by.forecasts.entities.Match;
 import by.forecasts.entities.Tournament;
@@ -21,9 +21,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @SessionAttributes({"tournament", "errorMsg"})

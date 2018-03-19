@@ -1,6 +1,14 @@
-package by.forecasts.service;
+package by.forecasts.service.service;
 
 
+import by.forecasts.service.ForecastService;
+import by.forecasts.service.GroupService;
+import by.forecasts.service.MatchService;
+import by.forecasts.service.PlayoffGroupService;
+import by.forecasts.service.RegularGroupService;
+import by.forecasts.service.TeamService;
+import by.forecasts.service.TournamentService;
+import by.forecasts.service.UserService;
 import by.forecasts.service.config.TestServiceConfig;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

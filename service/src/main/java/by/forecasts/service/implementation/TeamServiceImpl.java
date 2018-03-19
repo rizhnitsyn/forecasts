@@ -1,7 +1,6 @@
 package by.forecasts.service.implementation;
 
 import by.forecasts.entities.BaseEntity;
-import by.forecasts.entities.PlayoffGroup;
 import by.forecasts.entities.RegularGroup;
 import by.forecasts.entities.Team;
 import by.forecasts.repositories.PlayoffGroupRepository;

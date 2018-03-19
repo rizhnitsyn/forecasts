@@ -1,6 +1,6 @@
 package controller;
 
-import by.forecasts.dto.UserDetailDto;
+import by.forecasts.utils.UserDetailDto;
 import by.forecasts.service.TournamentService;
 import by.forecasts.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller

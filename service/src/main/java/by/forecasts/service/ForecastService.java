@@ -1,6 +1,6 @@
 package by.forecasts.service;
 
-import by.forecasts.dto.ForecastFilter;
+import by.forecasts.utils.ForecastFilter;
 import by.forecasts.entities.Forecast;
 import by.forecasts.entities.MatchScore;
 import org.springframework.data.domain.Page;

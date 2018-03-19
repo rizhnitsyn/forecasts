@@ -1,17 +1,6 @@
-package by.forecasts.repository;
+package by.forecasts.repositories;
 
 import by.forecasts.config.TestDatabaseConfig;
-import by.forecasts.repositories.ForecastRepository;
-import by.forecasts.repositories.GroupRepository;
-import by.forecasts.repositories.MatchRepository;
-import by.forecasts.repositories.MatchStateRepository;
-import by.forecasts.repositories.PlayoffGroupRepository;
-import by.forecasts.repositories.RegularGroupRepository;
-import by.forecasts.repositories.TeamRepository;
-import by.forecasts.repositories.TournamentRepository;
-import by.forecasts.repositories.TournamentStateRepository;
-import by.forecasts.repositories.UserRepository;
-import by.forecasts.repositories.UserStateRepository;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;

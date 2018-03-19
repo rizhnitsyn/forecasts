@@ -1,6 +1,6 @@
 package by.forecasts.service.implementation;
 
-import by.forecasts.dto.ForecastFilter;
+import by.forecasts.utils.ForecastFilter;
 import by.forecasts.entities.Forecast;
 import by.forecasts.entities.Match;
 import by.forecasts.entities.MatchScore;

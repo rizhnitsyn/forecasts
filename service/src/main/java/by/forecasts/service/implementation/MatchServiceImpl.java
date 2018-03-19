@@ -40,6 +40,7 @@ public class MatchServiceImpl implements MatchService {
     private final int sixPoints = 6;
     private final int fourPoints = 4;
     private final int threePoint = 3;
+    private final int twoPoint = 2;
     private final int onePoint = 1;
     private final int zeroPoint = 0;
 
@@ -161,18 +162,11 @@ public class MatchServiceImpl implements MatchService {
         dto.setSecondTeam(match.getSecondTeam());
         dto.setMatchScore(match.getMatchFinalResult());
         dto.setMatchDateTimeString(match.getMatchDateTime().format(dateTimeFormatterOut));
+        dto.setGroupName(match.getGroup().getGroupName());
 
         Forecast userForecast = match.getForecasts().stream()
                 .filter(forecast -> Objects.equals(forecast.getUser().getId(), userId))
                 .findFirst().orElse(null);
-
-//        List<Long> ids = Arrays.asList(match.getFirstTeam().getId(), match.getSecondTeam().getId());
-//        Group group = groupRepository.findOneByTournamentIdAndTeamsInGroupIdIn(match.getTournament().getId(), ids);
-////        Group teamGroup = match.getFirstTeam().getGroups().stream()
-////                .filter(group -> group.getTournament() == match.getTournament())
-////                .findFirst().orElse(null);
-//
-//        dto.setGroupName(group == null ? "" : group.getGroupName());
 
         dto.setCurrentUserForecast(userForecast);
         dto.setUserPoints(calculateUserPoints(match, userId));
@@ -313,7 +307,7 @@ public class MatchServiceImpl implements MatchService {
     @Override
     public List<MatchShortViewDto> findMatchesOfSelectedTeam(Long teamId, Long tournamentId) {
         List<Match> matches =
-                matchRepository.findAllByTournamentIdAndFirstTeamIdOrTournamentIdAndSecondTeamId(tournamentId, teamId,tournamentId, teamId);
+                matchRepository.findAllByTournamentIdAndFirstTeamIdOrTournamentIdAndSecondTeamId(tournamentId, teamId, tournamentId, teamId);
         return matches.stream()
                 .map(match -> {
                     MatchShortViewDto dto = new MatchShortViewDto();
@@ -331,27 +325,27 @@ public class MatchServiceImpl implements MatchService {
 
     private int getGroupName(Match match, Long teamId) {
         if (match.getMatchFinalResult() == null) {
-            return 0;
+            return zeroPoint;
         }
         if (match.getFirstTeam().getId().equals(teamId)) {
             if (match.getMatchFinalResult().getFirstResult() > match.getMatchFinalResult().getSecondResult()) {
-                return 1;
+                return onePoint;
             } else if (match.getMatchFinalResult().getFirstResult().intValue() == match.getMatchFinalResult().getSecondResult().intValue()) {
-                return 2;
+                return twoPoint;
             } else {
-                return 3;
+                return threePoint;
             }
         }
         if (!match.getFirstTeam().getId().equals(teamId)) {
             if (match.getMatchFinalResult().getFirstResult() < match.getMatchFinalResult().getSecondResult()) {
-                return 1;
+                return onePoint;
             } else if (match.getMatchFinalResult().getFirstResult().intValue() == match.getMatchFinalResult().getSecondResult().intValue()) {
-                return 2;
+                return twoPoint;
             } else {
-                return 3;
+                return threePoint;
             }
         }
-        return 0;
+        return zeroPoint;
     }
 }
 

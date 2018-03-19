@@ -9,7 +9,7 @@ import by.forecasts.service.ForecastService;
 import by.forecasts.service.MatchService;
 import by.forecasts.service.TournamentService;
 import by.forecasts.service.UserService;
-import by.forecasts.dto.ForecastFilter;
+import by.forecasts.utils.ForecastFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -58,7 +59,7 @@ public class UserForecastsController {
 
     @PostMapping("/allUserForecasts")
     public String showUserListPageablePost(Long userId, Long pageId) {
-        return "redirect: /allUserForecasts?userId=" + userId + "&pageId=" +pageId;
+        return "redirect: /allUserForecasts?userId=" + userId + "&pageId=" + pageId;
     }
 
     @ModelAttribute("forecastFilter")
@@ -85,7 +86,9 @@ public class UserForecastsController {
 
             forecastFilter.setPagesCount(totalPages == 0 ? 0 : totalPages - 1);
             model.addAttribute("forecasts", forecastPage.getContent());
+            return "show_user_forecasts";
         }
+        model.addAttribute("forecasts", new ArrayList<Forecast>());
         return "show_user_forecasts";
     }
 

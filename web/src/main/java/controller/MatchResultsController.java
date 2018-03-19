@@ -1,11 +1,9 @@
 package controller;
 
 import by.forecasts.dto.MatchShortViewDto;
-import by.forecasts.dto.UserDetailDto;
-import by.forecasts.entities.Match;
+import by.forecasts.utils.UserDetailDto;
 import by.forecasts.service.MatchService;
 import by.forecasts.service.TournamentService;
-import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,6 +47,6 @@ public class MatchResultsController {
 
     @PostMapping("/tournament/allMatches")
     public String showUserListPageablePost(Long tournamentId, Long pageId) {
-        return "redirect: /tournament/allMatches?tournamentId=" + tournamentId + "&pageId=" +pageId;
+        return "redirect: /tournament/allMatches?tournamentId=" + tournamentId + "&pageId=" + pageId;
     }
 }

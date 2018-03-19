@@ -62,8 +62,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                     .antMatchers("/home", "/saveUser", "/login").permitAll()
-                    .antMatchers("/tournamentList/**", "/forecastTournaments/**","/tournaments/**").access("hasAnyAuthority('ADMIN', 'POWER_USER')")
-                    .antMatchers("/userList/**","/group/**", "/tournamentList/**").access("hasAuthority('ADMIN')")
+                    .antMatchers("/tournamentList/**", "/forecastTournaments/**", "/tournaments/**").access("hasAnyAuthority('ADMIN', 'POWER_USER')")
+                    .antMatchers("/userList/**", "/group/**" , "/tournamentList/**").access("hasAuthority('ADMIN')")
                     .antMatchers("/team/**").access("hasAnyAuthority('ADMIN', 'USER', 'POWER_USER')")
                 .anyRequest().authenticated()
                 .and()

@@ -1,5 +1,6 @@
-package by.forecasts.repository;
+package by.forecasts.repositories;
 
+import by.forecasts.dto.TournamentShortViewDto;
 import by.forecasts.entities.Team;
 import by.forecasts.entities.Tournament;
 import by.forecasts.entities.TournamentState;
@@ -35,9 +36,14 @@ public class TournamentTest extends BaseTest {
         User user2 = new User("Andrei2", "Rizhnitsyn2", "ra2@bsb.by", userState, "log2", "pass");
         userRepository.save(user);
         userRepository.save(user2);
-        tournament1.getUsers().add(user);
+//        tournament1.getUsers().add(user);
+        tournament1.registerOnTournament(user);
         tournament2.getUsers().add(user);
         tournament2.getUsers().add(user2);
+
+        TournamentShortViewDto tournamentShortViewDto = new TournamentShortViewDto(tournament1, true);
+        TournamentShortViewDto dto2 = new TournamentShortViewDto(1L, "name", LocalDate.now(), team1, tournamentState, true);
+        TournamentShortViewDto dto3 = new TournamentShortViewDto(3L, "name", LocalDate.now());
 
         List<Tournament> tournaments = tournamentRepository.getAllByUsersId(user.getId());
 

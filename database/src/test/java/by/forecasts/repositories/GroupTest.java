@@ -1,6 +1,5 @@
-package by.forecasts.repository;
+package by.forecasts.repositories;
 
-import by.forecasts.entities.Group;
 import by.forecasts.entities.PlayoffGroup;
 import by.forecasts.entities.RegularGroup;
 import by.forecasts.entities.Team;
@@ -29,13 +28,15 @@ public class GroupTest extends BaseTest {
 
         RegularGroup regularGroup = new RegularGroup(4, 2, 2, "B", tournament1);
         PlayoffGroup playoffGroup = new PlayoffGroup(4, "A", tournament1,  true);
+
+        regularGroup.addTeam(team1);
         regularGroupRepository.save(regularGroup);
         playoffGroupRepository.save(playoffGroup);
         List<RegularGroup> regularGroups = regularGroupRepository.findAllByTournamentId(tournament1.getId());
         List<PlayoffGroup> playoffGroups = playoffGroupRepository.findAllByTournamentId(tournament1.getId());
-//        List<Group> groupsOfTournament = groupRepository.getAllByTournamentId(1L);
+        regularGroup.delTeam(team1);
 
-//        assertThat(groupsOfTournament, hasSize(2));
+        assertEquals(regularGroup.getGroupName(), "B");
         assertThat(regularGroups, hasSize(1));
         assertThat(playoffGroups, hasSize(1));
     }

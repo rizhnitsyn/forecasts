@@ -1,72 +1,89 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>User forecasts</title>
+    <title>Tournament list</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" href="/resources/css/style.css">
 </head>
 <body>
+<div class="wrapper">
+    <div th:replace="header::header"></div>
 
-    <p>Список прогнозов пользователя на выбранный турнир</p>
-    <form th:action="@{/listOfForecasts}" method="post" th:object="${forecastFilter}">
-        <p>Выберите турнир для просмотра:</p>
-        <select class="form-field" id="tournamentId" th:field="*{tournamentId}">
-            <option th:each="tournament:${tournaments}"
-                    th:text="${tournament.name}"
-                    th:value="${tournament.id}">
-            </option>
-        </select>
+    <div class="middle">
+        <div class="container">
+            <main class="content">
 
-        <p>Выберите пользователя:</p>
-        <select class="form-field" id="userId" th:field="*{userId}">
-            <option th:each="user:${users}"
-                    th:text="${user.firstName+' '+user.secondName}"
-                    th:value="${user.id}">
-            </option>
-        </select>
+                <p>Список прогнозов пользователя на выбранный турнир</p>
+                <form th:action="@{/listOfForecasts}" method="post" th:object="${forecastFilter}">
+                    <p>Выберите турнир для просмотра:</p>
+                    <select class="form-field" id="tournamentId" th:field="*{tournamentId}">
+                        <option th:each="tournament:${tournaments}"
+                                th:text="${tournament.name}"
+                                th:value="${tournament.id}">
+                        </option>
+                    </select>
 
-        <p>Завершенные матчи?
-            <label for="finished">
-                <input type="radio" id="finished" th:field="*{matchStateId}" th:value="2">
-                <span>Да</span>
-            </label>
-            <label for="notFinished">
-                <input type="radio" id="notFinished" th:field="*{matchStateId}" th:value="1">
-                <span>Нет</span>
-            </label>
-        </p>
+                    <p>Выберите пользователя:</p>
+                    <select class="form-field" id="userId" th:field="*{userId}">
+                        <option th:each="user:${users}"
+                                th:text="${user.firstName+' '+user.secondName}"
+                                th:value="${user.id}">
+                        </option>
+                    </select>
 
-        <p>Количество записей на странице<p>
-        <select class="form-field" id="recordsCnt" th:field="*{recordsOnPage}">
-            <option th:value="5">5</option>
-            <option th:value="10">10</option>
-            <option th:value="20">20</option>
-        </select>
+                    <p>Завершенные матчи?
+                        <label for="finished">
+                            <input type="radio" id="finished" th:field="*{matchStateId}" th:value="2">
+                            <span>Да</span>
+                        </label>
+                        <label for="notFinished">
+                            <input type="radio" id="notFinished" th:field="*{matchStateId}" th:value="1">
+                            <span>Нет</span>
+                        </label>
+                    </p>
 
-        <p><button class="btn-class" type="submit">Применить фильтр</button></p>
-    </form>
+                    <p>Количество записей на странице<p>
+                    <select class="form-field" id="recordsCnt" th:field="*{recordsOnPage}">
+                        <option th:value="5">5</option>
+                        <option th:value="10">10</option>
+                        <option th:value="20">20</option>
+                    </select>
 
-    <div th:if="${!forecasts.isEmpty()}">
-        <span th:each="page:${#numbers.sequence(0,forecastFilter.pagesCount)}">
-            <a th:href="@{/listOfForecasts(pageId=${page})}"
-               th:text="${page+1}">page</a>
-        </span>
-    </div>
+                    <span><button class="btn-class" type="submit">Применить фильтр</button></span>
+                </form>
 
-    <div th:if="${!forecasts.isEmpty()}">
-    <table class="simple-little-table">
-        <tr>
-            <th>Команда 1</th>
-            <th>Команда 2</th>
-            <th>Прогноз 1</th>
-            <th>Прогноз 2</th>
-        </tr>
-            <tr class="widget-list3" th:each="forecast:${forecasts}">
-                <td th:text="${forecast.match.firstTeam.teamName}"></td>
-                <td th:text="${forecast.match.secondTeam.teamName}"></td>
-                <td th:text="${forecast.matchForecast.firstResult}"></td>
-                <td th:text="${forecast.matchForecast.secondResult}"></td>
-            </tr>
-    </table>
-    </div>
+                <div th:if="${!forecasts.isEmpty()}">
+                    <span th:each="page:${#numbers.sequence(0,forecastFilter.pagesCount)}">
+                        <a th:href="@{/listOfForecasts(pageId=${page})}"
+                           th:text="${page+1}">page</a>
+                    </span>
+                </div>
+
+                <div th:if="${!forecasts.isEmpty()}">
+                <table class="simple-little-table">
+                    <tr>
+                        <th>Команда 1</th>
+                        <th>Команда 2</th>
+                        <th>Прогноз 1</th>
+                        <th>Прогноз 2</th>
+                    </tr>
+                        <tr class="widget-list3" th:each="forecast:${forecasts}">
+                            <td th:text="${forecast.match.firstTeam.teamName}"></td>
+                            <td th:text="${forecast.match.secondTeam.teamName}"></td>
+                            <td th:text="${forecast.matchForecast.firstResult}"></td>
+                            <td th:text="${forecast.matchForecast.secondResult}"></td>
+                        </tr>
+                </table>
+                </div>
+            </main><!-- .content -->
+        </div><!-- .container-->
+
+        <div th:replace="side_menu::menu"></div>
+    </div><!-- .middle-->
+</div><!-- .wrapper -->
+
+<div th:replace="footer::footer"></div>
+
 </body>
 </html>

@@ -1,7 +1,7 @@
 package by.forecasts.service.implementation;
 
 import by.forecasts.aspects.Loggable;
-import by.forecasts.dto.UserDetailDto;
+import by.forecasts.utils.UserDetailDto;
 import by.forecasts.dto.UserWithResultsDto;
 import by.forecasts.entities.Forecast;
 import by.forecasts.entities.User;

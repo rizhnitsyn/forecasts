@@ -16,7 +16,7 @@
 
                 <div th:object="${match}">
                     <h3 class="form-title" th:text="'Турнир:'+ *{tournamentName}"></h3>
-                    <p>Начало матча: <span class="span-class" th:text="*{strMatchDateTime+', '+matchState.matchState}"></span></p>
+                    <p>Начало матча: <span class="span-class" th:text="*{strMatchDateTime}"></span></p>
                     <!--<p>Тип матча: <span class="span-class">${requestScope.match.matchType}</span></p>-->
                     <p>Команды: <span class="span-class" th:text="*{firstTeam+' - '+secondTeam}"></span></p>
                     <p>Счет матча:
@@ -51,7 +51,7 @@
                 </form>
 
                 <ul class="widget-list3">
-                    <li><a th:href="@{/tournament/allMatches(tournamentId=${match.tournamentId})}">Вернуться к списку групп</a></li>
+                    <li><a th:href="@{/tournament/allMatches(tournamentId=${match.tournamentId})}">Вернуться к списку матчей</a></li>
                 </ul>
 
             </main><!-- .content -->

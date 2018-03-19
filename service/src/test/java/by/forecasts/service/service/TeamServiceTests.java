@@ -1,4 +1,4 @@
-package by.forecasts.service;
+package by.forecasts.service.service;
 
 import by.forecasts.entities.Team;
 import org.junit.Test;

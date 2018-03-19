@@ -1,7 +1,7 @@
-package by.forecasts.service.config;
+package by.forecasts.service.service;
 
 import by.forecasts.entities.Match;
-import by.forecasts.service.BaseServiceTest;
+import by.forecasts.service.service.BaseServiceTest;
 import org.junit.Test;
 
 import java.util.List;

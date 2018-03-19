@@ -1,4 +1,4 @@
-package by.forecasts.repository;
+package by.forecasts.repositories;
 
 
 import by.forecasts.entities.Forecast;
@@ -68,7 +68,12 @@ public class CrudOperationsTest extends BaseTest {
         MatchScore matchScore = new MatchScore(1, 2);
         MatchState matchState = new MatchState("active match");
         matchStateRepository.save(matchState);
+        RegularGroup regularGroup = new RegularGroup(4, 2, 2,
+                "group 2", tournament);
+        regularGroupRepository.save(regularGroup);
+
         Match match1 = new Match(matchScore, LocalDateTime.now(), matchState, team1, team2, tournament);
+        match1.setGroup(regularGroup);
         matchRepository.save(match1);
 
         List<Match> matches = matchRepository.findAll();
@@ -108,7 +113,11 @@ public class CrudOperationsTest extends BaseTest {
         MatchScore matchScore = new MatchScore(1, 2);
         MatchState matchState = new MatchState("active match");
         matchStateRepository.save(matchState);
+        RegularGroup regularGroup = new RegularGroup(4, 2, 2,
+                "group 2", tournament);
+        regularGroupRepository.save(regularGroup);
         Match match = new Match(matchScore, LocalDateTime.now(), matchState, team1, team2, tournament);
+        match.setGroup(regularGroup);
         matchRepository.save(match);
         UserState userState = new UserState("active user");
         userStateRepository.save(userState);
@@ -141,8 +150,8 @@ public class CrudOperationsTest extends BaseTest {
         RegularGroup regularGroup = new RegularGroup(4, 2, 2,
                 "group 2", tournament);
         PlayoffGroup playoffGroup = new PlayoffGroup(2, "group 3", tournament, true);
-        groupRepository.save(playoffGroup);
-        groupRepository.save(regularGroup);
+        PlayoffGroup pGroup = groupRepository.save(playoffGroup);
+        RegularGroup rGroup = groupRepository.save(regularGroup);
 
         Team team1 = new Team("Германия");
         Team team2 = new Team("Испания");
@@ -159,8 +168,8 @@ public class CrudOperationsTest extends BaseTest {
         playoffGroup.getTeamsInGroup().add(team1);
         playoffGroup.getTeamsInGroup().add(team2);
 
-        RegularGroup regularGroup1 = (RegularGroup) groupRepository.findOne(2L);
-        PlayoffGroup playoffGroup1 = (PlayoffGroup) groupRepository.findOne(1L);
+        RegularGroup regularGroup1 = (RegularGroup) groupRepository.findOne(rGroup.getId());
+        PlayoffGroup playoffGroup1 = (PlayoffGroup) groupRepository.findOne(pGroup.getId());
 
         assertThat(regularGroup1.getTeamsCountInGroup(), Matchers.equalTo(4));
         assertThat(regularGroup1.getTournament().getName(), Matchers.equalTo("ЧМ 2018"));
