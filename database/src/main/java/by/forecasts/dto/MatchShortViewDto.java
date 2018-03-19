@@ -38,4 +38,5 @@ public class MatchShortViewDto {
     private MatchScore matchScore;
     private int PageCount;
     private String groupName;
+    private int matchResultInt;
 }

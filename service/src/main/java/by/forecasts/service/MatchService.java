@@ -29,4 +29,6 @@ public interface MatchService {
     List<MatchShortViewDto> findAllByTournamentIdUserIdPageable(Long tournamentId, Long userId, Long pageId);
 
     int calculateUserPointsPerMatch(MatchScore matchScore, MatchScore userForecast);
+
+    List<MatchShortViewDto> findMatchesOfSelectedTeam(Long teamId, Long tournamentId);
 }

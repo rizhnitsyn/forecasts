@@ -79,6 +79,10 @@ public class Match extends BaseEntity {
     @JoinColumn(name = "tournament_id", nullable = false)
     private Tournament tournament;
 
+    @ManyToOne
+    @JoinColumn(name = "group_id", nullable = false)
+    private Group group;
+
     @OneToMany(mappedBy = "match")
     private Set<Forecast> forecasts  = new HashSet<>();
 

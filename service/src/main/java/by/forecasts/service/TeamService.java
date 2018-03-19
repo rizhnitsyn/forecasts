@@ -15,4 +15,5 @@ public interface TeamService {
 
     List<Team> findAllTeamsByGroupId(Long groupId);
 
+    Team findOne(Long id);
 }

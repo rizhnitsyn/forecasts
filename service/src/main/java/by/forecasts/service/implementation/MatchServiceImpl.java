@@ -78,6 +78,7 @@ public class MatchServiceImpl implements MatchService {
             MatchState state = matchStateRepository.findOne(2L);
             match.setMatchState(state);
             Match newMatch = new Match(match);
+            newMatch.setGroup(group);
             matchRepository.save(newMatch);
             match.setError("");
         }
@@ -308,4 +309,66 @@ public class MatchServiceImpl implements MatchService {
             return zeroPoint;
         }
     }
+
+    @Override
+    public List<MatchShortViewDto> findMatchesOfSelectedTeam(Long teamId, Long tournamentId) {
+        List<Match> matches = matchRepository.findAllByTournamentIdAndFirstTeamIdOrSecondTeamId(tournamentId, teamId, teamId);
+        return matches.stream()
+                .map(match -> {
+                    MatchShortViewDto dto = new MatchShortViewDto();
+                    dto.setId(match.getId());
+                    dto.setMatchDateTime(match.getMatchDateTime());
+                    dto.setFirstTeam(match.getFirstTeam());
+                    dto.setSecondTeam(match.getSecondTeam());
+                    dto.setMatchScore(match.getMatchFinalResult());
+                    dto.setGroupName(match.getGroup().getGroupName());
+                    dto.setMatchResultInt(getGroupName(match, teamId));
+                    return dto;
+                })
+                .collect(Collectors.toList());
+    }
+
+    private int getGroupName(Match match, Long teamId) {
+        if (match.getMatchFinalResult() == null) {
+            return 0;
+        }
+        if (match.getFirstTeam().getId().equals(teamId)) {
+            if (match.getMatchFinalResult().getFirstResult() > match.getMatchFinalResult().getSecondResult()) {
+                return 1;
+            } else if (match.getMatchFinalResult().getFirstResult().intValue() == match.getMatchFinalResult().getSecondResult().intValue()) {
+                return 2;
+            } else {
+                return 3;
+            }
+        }
+        if (!match.getFirstTeam().getId().equals(teamId)) {
+            if (match.getMatchFinalResult().getFirstResult() < match.getMatchFinalResult().getSecondResult()) {
+                return 1;
+            } else if (match.getMatchFinalResult().getFirstResult() == match.getMatchFinalResult().getSecondResult()) {
+                return 2;
+            } else {
+                return 3;
+            }
+        }
+        return 0;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
