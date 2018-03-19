@@ -36,7 +36,6 @@ public class MatchServiceImpl implements MatchService {
     private final DateTimeFormatter dateTimeFormatterOut = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm", Locale.UK);
     private final int recordsOnPage = 10;
 
-
     private final int sixPoints = 6;
     private final int fourPoints = 4;
     private final int threePoint = 3;
@@ -51,9 +50,14 @@ public class MatchServiceImpl implements MatchService {
         this.groupRepository = groupRepository;
     }
 
+//    @Override
+//    public List<Match> findAllByGroupId(Long groupId) {
+//        return matchRepository.findAllByTournamentGroupsId(groupId);
+//    }
+
     @Override
-    public List<Match> findAllByGroupId(Long groupId) {
-        return matchRepository.findAllByTournamentGroupsId(groupId);
+    public Match findOne(Long id) {
+        return matchRepository.findOne(id);
     }
 
     @Override

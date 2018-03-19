@@ -6,6 +6,7 @@ import by.forecasts.entities.Team;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.List;
 import java.util.Set;
 
 public class TeamTest extends BaseTest {
@@ -21,7 +22,6 @@ public class TeamTest extends BaseTest {
         Assert.assertEquals(groups.size(), 0);
         Assert.assertEquals(homeMatches.size(), 0);
         Assert.assertEquals(visitorMatches.size(), 0);
-
     }
 
 

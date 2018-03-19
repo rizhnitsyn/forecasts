@@ -11,6 +11,8 @@ public interface TournamentService {
 
     TournamentShortViewDto findOne(Long id);
 
+    Tournament findById(Long id);
+
     List<Tournament> findAll();
 
     Tournament save(Tournament tournament);

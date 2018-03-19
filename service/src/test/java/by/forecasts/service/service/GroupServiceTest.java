@@ -1,4 +1,11 @@
 package by.forecasts.service.service;
 
-public class GroupServiceTest {
+import org.junit.Test;
+
+public class GroupServiceTest extends BaseServiceTest {
+
+    @Test
+    public void groupServiceTest() {
+
+    }
 }

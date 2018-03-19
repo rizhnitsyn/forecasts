@@ -55,6 +55,11 @@ public class TournamentServiceImpl implements TournamentService {
     }
 
     @Override
+    public Tournament findById(Long id) {
+        return tournamentRepository.findOne(id);
+    }
+
+    @Override
     public List<Tournament> findAll() {
         return tournamentRepository.findAll();
     }

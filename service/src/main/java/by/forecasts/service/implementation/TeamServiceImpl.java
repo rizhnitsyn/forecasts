@@ -3,7 +3,6 @@ package by.forecasts.service.implementation;
 import by.forecasts.entities.BaseEntity;
 import by.forecasts.entities.RegularGroup;
 import by.forecasts.entities.Team;
-import by.forecasts.repositories.PlayoffGroupRepository;
 import by.forecasts.repositories.RegularGroupRepository;
 import by.forecasts.repositories.TeamRepository;
 import by.forecasts.service.TeamService;
@@ -24,13 +23,11 @@ public class TeamServiceImpl implements TeamService {
 
     private final TeamRepository teamRepository;
     private final RegularGroupRepository regularGroupRepository;
-    private final PlayoffGroupRepository playoffGroupRepository;
 
     @Autowired
-    public TeamServiceImpl(TeamRepository teamRepository, RegularGroupRepository regularGroupRepository, PlayoffGroupRepository playoffGroupRepository) {
+    public TeamServiceImpl(TeamRepository teamRepository, RegularGroupRepository regularGroupRepository) {
         this.teamRepository = teamRepository;
         this.regularGroupRepository = regularGroupRepository;
-        this.playoffGroupRepository = playoffGroupRepository;
     }
 
     @Override
