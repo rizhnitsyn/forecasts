@@ -49,6 +49,11 @@
                 <form th:action="@{/match/addScore(matchId=${match.id})}" th:method="post" sec:authorize="hasAuthority('ADMIN')">
                     <button class="btn-class" type="submit">Внести счет матча</button>
                 </form>
+
+                <ul class="widget-list3">
+                    <li><a th:href="@{/tournament/allMatches(tournamentId=${match.tournamentId})}">Вернуться к списку групп</a></li>
+                </ul>
+
             </main><!-- .content -->
         </div><!-- .container-->
 

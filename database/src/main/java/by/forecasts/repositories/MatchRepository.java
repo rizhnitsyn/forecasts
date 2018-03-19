@@ -28,7 +28,8 @@ public interface MatchRepository extends JpaRepository<Match, Long> {
 
     List<Match> findAllByTournamentGroupsId(Long groupId);
 
-    List<Match> findAllByTournamentIdAndFirstTeamGroupsIdAndSecondTeamGroupsIdOrderByMatchDateTime(Long tournamentId, Long firstGroupId, Long secondGroupId);
+//    List<Match> findAllByTournamentIdAndFirstTeamGroupsIdAndSecondTeamGroupsIdOrderByMatchDateTime(Long tournamentId, Long firstGroupId, Long secondGroupId);
+    List<Match> findAllByTournamentIdAndGroupIdOrderByMatchDateTime(Long tournamentId, Long firstGroupId);
 
-    Long countAllByTournamentIdAndFirstTeamGroupsIdAndFirstTeamIdInAndSecondTeamIdIn(Long tournamentId, Long groupId, List<Long> firstTeamId, List<Long> secondTeamId);
+    Long countAllByTournamentIdAndGroupIdAndFirstTeamIdInAndSecondTeamIdIn(Long tournamentId, Long groupId, List<Long> firstTeamId, List<Long> secondTeamId);
 }

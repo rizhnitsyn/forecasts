@@ -63,7 +63,7 @@ public class MatchServiceImpl implements MatchService {
     @Override
     public List<Match> findAllByTournamentIdAndGroupId(Long tournamentId, Long groupId) {
         return matchRepository
-                .findAllByTournamentIdAndFirstTeamGroupsIdAndSecondTeamGroupsIdOrderByMatchDateTime(tournamentId, groupId, groupId);
+                .findAllByTournamentIdAndGroupIdOrderByMatchDateTime(tournamentId, groupId);
     }
 
     @Override
@@ -87,7 +87,7 @@ public class MatchServiceImpl implements MatchService {
 
     private Long getMatchesCountInCalendar(MatchShortViewDto match) {
         List<Long> teamList = Arrays.asList(match.getFirstTeam().getId(), match.getSecondTeam().getId());
-        return matchRepository.countAllByTournamentIdAndFirstTeamGroupsIdAndFirstTeamIdInAndSecondTeamIdIn(
+        return matchRepository.countAllByTournamentIdAndGroupIdAndFirstTeamIdInAndSecondTeamIdIn(
                 match.getTournament().getId(),
                 match.getGroupId(),
                 teamList,

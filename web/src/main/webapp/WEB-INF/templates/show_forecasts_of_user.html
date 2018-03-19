@@ -19,7 +19,7 @@
                 <table class="simple-little-table" th:if="${!matches.isEmpty()}">
                     <tr>
                         <th>Матч</th>
-                        <!--<th>Группа</th>-->
+                        <th>Группа</th>
                         <th>Счет</th>
                         <th>Прогноз</th>
                         <th>Очки за матч</th>
@@ -27,7 +27,7 @@
                     </tr>
                     <tr class="widget-list3" th:each="match: ${matches}">
                         <td><a th:href="@{/match(matchId=${match.id})}" th:text="${match.firstTeam.teamName+' - '+match.secondTeam.teamName}"></a></td>
-                        <!--<td th:text="${match.groupName}"></td>-->
+                        <td th:text="${match.groupName}"></td>
                         <td>
                             <span th:if="${match.matchScore!=null}" th:text="${match.matchScore.firstResult+' - '+match.matchScore.secondResult}"></span>
                             <span class="span-class_red" th:if="${match.matchScore==null}" th:text="'ожидается'"></span>
@@ -42,7 +42,7 @@
                     </tr>
                 </table>
                 <div th:if="${!matches.isEmpty()}">
-                   <span th:each="page:${#numbers.sequence(0, totalPages)}">
+                   <span th:each="page:${#numbers.sequence(0, totalPages)}" th:if="${totalPages>1}">
                    <a th:href="@{/allUserForecasts(userId=${user.id},pageId=${page})}"
                       th:text="${page+1}">page</a>
                    </span>
