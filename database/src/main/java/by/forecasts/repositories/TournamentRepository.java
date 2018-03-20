@@ -1,5 +1,6 @@
 package by.forecasts.repositories;
 
+import by.forecasts.entities.Team;
 import by.forecasts.entities.Tournament;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -12,5 +13,4 @@ public interface TournamentRepository extends JpaRepository<Tournament, Long> {
     List<Tournament> getAllByUsersIdAndTournamentStateId(Long userId, Long stateId);
 
     List<Tournament> getAllByTournamentStateId(Long tournamentStateId);
-
 }

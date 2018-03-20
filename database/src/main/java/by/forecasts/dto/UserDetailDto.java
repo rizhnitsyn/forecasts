@@ -1,4 +1,4 @@
-package by.forecasts.utils;
+package by.forecasts.dto;
 
 import lombok.Getter;
 import lombok.Setter;

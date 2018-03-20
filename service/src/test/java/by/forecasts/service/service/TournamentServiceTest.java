@@ -1,18 +1,15 @@
 package by.forecasts.service.service;
 
 import by.forecasts.dto.TournamentShortViewDto;
-import by.forecasts.entities.Team;
 import by.forecasts.entities.Tournament;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;

@@ -1,7 +1,7 @@
 package controller;
 
 import by.forecasts.dto.TournamentShortViewDto;
-import by.forecasts.utils.UserDetailDto;
+import by.forecasts.dto.UserDetailDto;
 import by.forecasts.service.MatchService;
 import by.forecasts.service.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;

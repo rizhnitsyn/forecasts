@@ -36,7 +36,7 @@ public class TournamentTest extends BaseTest {
         User user2 = new User("Andrei2", "Rizhnitsyn2", "ra2@bsb.by", userState, "log2", "pass");
         userRepository.save(user);
         userRepository.save(user2);
-//        tournament1.getUsers().add(user);
+
         tournament1.registerOnTournament(user);
         tournament2.getUsers().add(user);
         tournament2.getUsers().add(user2);

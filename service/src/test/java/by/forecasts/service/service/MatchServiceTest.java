@@ -68,11 +68,4 @@ public class MatchServiceTest extends BaseServiceTest {
         List<MatchShortViewDto> matches = matchService.findMatchesOfSelectedTeam(1L, 1L);
         assertThat(matches, Matchers.hasSize(7));
     }
-
-//        assertThat(List<>(), hasItems("Россия", "Франция"));
-    // assertThat(teams.size(), Matchers.greaterThan(30));
-//        assertThat(tournaments, hasSize(2));
-//        assertThat(foundMatch.getFirstTeam().getTeamName(), equalTo("Ямайка"));
-//        assertEquals(matchesForForecast.iterator().next().getFirstTeam().getTeamName(), "Spain12");
-
 }

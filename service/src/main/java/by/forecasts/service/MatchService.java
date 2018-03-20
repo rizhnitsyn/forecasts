@@ -9,8 +9,6 @@ import java.util.List;
 
 public interface MatchService {
 
-//    List<Match> findAllByGroupId(Long groupId);
-
     Match findOne(Long id);
 
     Long findCountOfMatchesAvailableForForecasts(Long tournamentId, Long userId);

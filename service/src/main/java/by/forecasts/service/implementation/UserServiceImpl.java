@@ -1,7 +1,7 @@
 package by.forecasts.service.implementation;
 
 import by.forecasts.aspects.Loggable;
-import by.forecasts.utils.UserDetailDto;
+import by.forecasts.dto.UserDetailDto;
 import by.forecasts.dto.UserWithResultsDto;
 import by.forecasts.entities.Forecast;
 import by.forecasts.entities.User;
@@ -35,11 +35,6 @@ public class UserServiceImpl implements UserService {
     private final ForecastRepository forecastRepository;
     private final MatchService matchService;
     private static final int RECORDS_ON_PAGE = 20;
-//    private final int sixPoints = 6;
-//    private final int fourPoints = 4;
-//    private final int threePoint = 3;
-//    private final int onePoint = 1;
-//    private final int zeroPoint = 0;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, UserStateRepository userStateRepository, ForecastRepository forecastRepository, MatchService matchService) {

@@ -50,11 +50,6 @@ public class MatchServiceImpl implements MatchService {
         this.groupRepository = groupRepository;
     }
 
-//    @Override
-//    public List<Match> findAllByGroupId(Long groupId) {
-//        return matchRepository.findAllByTournamentGroupsId(groupId);
-//    }
-
     @Override
     public Match findOne(Long id) {
         return matchRepository.findOne(id);

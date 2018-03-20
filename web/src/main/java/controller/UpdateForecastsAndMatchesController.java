@@ -2,7 +2,7 @@ package controller;
 
 import by.forecasts.dto.MatchHardViewDto;
 import by.forecasts.dto.TournamentShortViewDto;
-import by.forecasts.utils.UserDetailDto;
+import by.forecasts.dto.UserDetailDto;
 import by.forecasts.entities.MatchScore;
 import by.forecasts.service.ForecastService;
 import by.forecasts.service.MatchService;
