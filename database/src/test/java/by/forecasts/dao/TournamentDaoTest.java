@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 public class TournamentDaoTest extends BaseTest {
@@ -40,5 +41,10 @@ public class TournamentDaoTest extends BaseTest {
                 .map(Tournament::getName)
                 .collect(Collectors.toList());
         assertThat(names, containsInAnyOrder("Tournament 1", "Tournament 2"));
+    }
+
+    @Test
+    public void findOneTest() {
+        List<Tournament> tournaments = TOURNAMENT_DAO.findList("Чемпионат Европы 2016");
     }
 }
