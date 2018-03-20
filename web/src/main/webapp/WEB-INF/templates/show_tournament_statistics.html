@@ -17,28 +17,46 @@
                 <p>Дата начала игр турнира: <span class="span-class" th:text="${tournament.startDate}"> </span></p>
                 <p>Страна организатор турнира: <span class="span-class" th:text="${tournament.organizer.teamName}">  </span></p>
 
+                <div th:each="offGroup: ${offGroups}">
+                    <table class="simple-little-table" th:if="${!offGroup.matches.isEmpty()}">
+                        <tr>
+                            <th>Команда 1</th>
+                            <th>Счет</th>
+                            <th>Команда 2</th>
+                        </tr>
+                        <tr class="widget-list3" th:each="match: ${offGroup.matches}">
+                            <td th:if="${match.firstTeam}"></td>
+                            <td th:if="${match.matchFinalResult.firstResult+' '+match.matchFinalResult.secondResult}"></td>
+                            <td th:if="${match.secondTeam}"></td>
+                        </tr>
+                    </table>
+                </div>
 
-                <!--<table class="simple-little-table" th:if="${!offGroup.teamsInGroup.isEmpty()}">-->
-                    <!--<tr>-->
-                        <!--<th>Команда 1</th>-->
-                        <!--<th> vs </th>-->
-                        <!--<th>Команда 2</th>-->
-                    <!--</tr>-->
-                    <!--<tr class="widget-list3" >-->
-                        <!--<td th:if="${playoffTeams.size() > 0}" th:text="${playoffTeams.get(0)}"></td>-->
-                        <!--<td> - </td>-->
-                        <!--<td th:if="${playoffTeams.size() > 1}" th:text="${playoffTeams.get(1)}"></td>-->
-                    <!--</tr>-->
-                <!--</table>-->
+                <div th:each="regGroup: ${regGroups}">
+                    <table class="simple-little-table" th:if="${!regGroup.teamsInGroup.isEmpty()}">
+                        <tr>
+                            <th th:text="${regGroup.groupName}" colspan="6"></th>
+                        </tr>
+                        <tr>
+                            <th>Команда</th>
+                            <th>Победа</th>
+                            <th>Ничья</th>
+                            <th>Поражение</th>
+                            <th>Разница голов</th>
+                            <th>Очки</th>
+                        </tr>
+                        <tr class="widget-list3" th:each="team:${regGroup.teams}">
+                            <td th:text="${team.teamName}"></td>
+                            <td th:text="${team.win}"></td>
+                            <td th:text="${team.draw}"></td>
+                            <td th:text="${team.lose}"></td>
+                            <td th:text="${team.diff}"></td>
+                            <td th:text="${team.points}"></td>
+                            </tr>
+                    </table>
+                    <br>
+                </div>
 
-                <table class="simple-little-table" th:if="${!regGroup.teamsInGroup.isEmpty()}">
-                    <tr>
-                        <th>Команда</th>
-                    </tr>
-                    <tr class="widget-list3" th:each="team:${regGroup.teamsInGroup}">
-                        <td th:text="${team.teamName}"></td>
-                    </tr>
-                </table>
 
             </main><!-- .content -->
         </div><!-- .container-->
