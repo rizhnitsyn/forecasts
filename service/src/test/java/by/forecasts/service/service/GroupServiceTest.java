@@ -20,7 +20,7 @@ public class GroupServiceTest extends BaseServiceTest {
     @Test
     public void findOneTest() {
         Group group = groupService.findOne(29L);
-        Assert.assertEquals(group.getGroupName(), "Группа А");
+        Assert.assertEquals(group.getGroupName(), "Группа D");
     }
 
     @Test

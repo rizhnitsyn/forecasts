@@ -16,21 +16,21 @@
                 <h2 class="form-title" th:text="${tournament.name}" >Турнир: </h2>
                 <p>Дата начала игр турнира: <span class="span-class" th:text="${tournament.startDate}"> </span></p>
                 <p>Страна организатор турнира: <span class="span-class" th:text="${tournament.organizer.teamName}">  </span></p>
-
+                <br>
                 <div th:each="offGroup: ${offGroups}">
                     <div class="simple-little-table" th:if="${!offGroup.matches.isEmpty()}">
-                        <h2 th:text="${offGroup.groupName}" ></h2>
+                        <h4><span class="span-class" th:text="${offGroup.groupName}"></span></h4>
                         <h2>
                             <span class="span-class" th:each="match: ${offGroup.matches}">
-                                <span th:text="${match.firstTeam}"></span>
+                                <span th:text="${match.firstTeam+'  '}"></span>
                                 <span th:if="${match.matchFinalResult==null}"> - </span>
                                 <span th:if="${match.matchFinalResult!=null}" th:text="${match.matchFinalResult.firstResult+' - '+match.matchFinalResult.secondResult}"></span>
-                                <span th:text="${match.secondTeam}"></span>
+                                <span th:text="${'  '+match.secondTeam}"></span>
                             </span>
                         </h2>
                     </div>
-                    <br>
                 </div>
+                <br>
 
                 <!--<div th:each="offGroup: ${offGroups}">-->
                     <!--<table class="simple-little-table" th:if="${!offGroup.matches.isEmpty()}">-->

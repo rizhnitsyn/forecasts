@@ -2,9 +2,7 @@ package by.forecasts.service.implementation;
 
 import by.forecasts.dto.GroupDto;
 import by.forecasts.dto.TeamStatDto;
-import by.forecasts.entities.Group;
 import by.forecasts.entities.Match;
-import by.forecasts.entities.MatchScore;
 import by.forecasts.entities.RegularGroup;
 import by.forecasts.entities.Team;
 import by.forecasts.entities.Tournament;

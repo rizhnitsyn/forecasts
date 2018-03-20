@@ -49,7 +49,7 @@ public class PlayoffGroupServiceImpl implements PlayoffGroupService {
                 .collect(Collectors.toList());
     }
 
-    private PlayoffGroupDto setMatches (PlayoffGroupDto dto) {
+    private PlayoffGroupDto setMatches(PlayoffGroupDto dto) {
         List<Match> matches = matchRepository.findAllByGroupId(dto.getId());
         dto.setMatches(matches);
         return dto;

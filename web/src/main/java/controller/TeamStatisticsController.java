@@ -2,7 +2,6 @@ package controller;
 
 import by.forecasts.dto.MatchShortViewDto;
 import by.forecasts.dto.TournamentShortViewDto;
-import by.forecasts.entities.Team;
 import by.forecasts.service.MatchService;
 import by.forecasts.service.TeamService;
 import by.forecasts.service.TournamentService;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 

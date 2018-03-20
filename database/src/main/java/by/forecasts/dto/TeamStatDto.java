@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class TeamStatDto{
+public class TeamStatDto {
 
     private Long id;
     private String teamName;
