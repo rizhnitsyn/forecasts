@@ -17,7 +17,7 @@
 
                 <ul class="widget-list2" th:if="${!tournaments.isEmpty()}">
                     <li th:each="tournament: ${tournaments}">
-                       <a th:href="@{/team/teamStatistics(tournamentId=${tournament.id})}"
+                       <a th:href="@{/team/teamStatistics(tournamentId=${tournament.id}, teamId=(${sessionTeam.id}))}"
                           th:text="${tournament.name}"></a>
                        <p> Старт турнира: [[${tournament.startDate}]]</p>
                     </li>

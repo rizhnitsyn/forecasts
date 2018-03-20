@@ -55,8 +55,10 @@ public class TeamStatisticsController {
     }
 
     @GetMapping("/team/teamStatistics")
-    public String showTeamStatistics(Long tournamentId, Model model, @ModelAttribute("sessionTeam") Team sessionTeam) {
-        List<MatchShortViewDto> matches = matchService.findMatchesOfSelectedTeam(sessionTeam.getId(), tournamentId);
+    public String showTeamStatistics(Long tournamentId, Long teamId, Model model/*, @ModelAttribute("sessionTeam") Team sessionTeam*/) {
+//        List<MatchShortViewDto> matches = matchService.findMatchesOfSelectedTeam(sessionTeam.getId(), tournamentId);
+        List<MatchShortViewDto> matches = matchService.findMatchesOfSelectedTeam(teamId, tournamentId);
+        model.addAttribute("sessionTeam", teamService.findOne(teamId));
         model.addAttribute("matches", matches);
         model.addAttribute("tournament", tournamentService.findOne(tournamentId));
         return "show_team_statistics";

@@ -20,16 +20,21 @@
                 <div th:each="offGroup: ${offGroups}">
                     <table class="simple-little-table" th:if="${!offGroup.matches.isEmpty()}">
                         <tr>
+                            <th th:text="${offGroup.groupName}" colspan="3"></th>
+                        </tr>
+                        <tr>
                             <th>Команда 1</th>
                             <th>Счет</th>
                             <th>Команда 2</th>
                         </tr>
                         <tr class="widget-list3" th:each="match: ${offGroup.matches}">
-                            <td th:if="${match.firstTeam}"></td>
-                            <td th:if="${match.matchFinalResult.firstResult+' '+match.matchFinalResult.secondResult}"></td>
-                            <td th:if="${match.secondTeam}"></td>
+                            <td th:text="${match.firstTeam}"></td>
+                            <td th:if="${match.matchFinalResult==null}">ожидается</td>
+                            <td th:if="${match.matchFinalResult!=null}" th:text="${match.matchFinalResult.firstResult+' '+match.matchFinalResult.secondResult}"></td>
+                            <td th:text="${match.secondTeam}"></td>
                         </tr>
                     </table>
+                    <br>
                 </div>
 
                 <div th:each="regGroup: ${regGroups}">
@@ -46,7 +51,10 @@
                             <th>Очки</th>
                         </tr>
                         <tr class="widget-list3" th:each="team:${regGroup.teams}">
-                            <td th:text="${team.teamName}"></td>
+                            <td>
+                                <a th:href="@{/team/teamStatistics(tournamentId=${tournament.id}, teamId=${team.id})}"
+                                   th:text="${team.teamName}"></a>
+                            </td>
                             <td th:text="${team.win}"></td>
                             <td th:text="${team.draw}"></td>
                             <td th:text="${team.lose}"></td>
@@ -56,8 +64,6 @@
                     </table>
                     <br>
                 </div>
-
-
             </main><!-- .content -->
         </div><!-- .container-->
 
