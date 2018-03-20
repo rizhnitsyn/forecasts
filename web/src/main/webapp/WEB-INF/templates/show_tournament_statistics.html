@@ -18,24 +18,39 @@
                 <p>Страна организатор турнира: <span class="span-class" th:text="${tournament.organizer.teamName}">  </span></p>
 
                 <div th:each="offGroup: ${offGroups}">
-                    <table class="simple-little-table" th:if="${!offGroup.matches.isEmpty()}">
-                        <tr>
-                            <th th:text="${offGroup.groupName}" colspan="3"></th>
-                        </tr>
-                        <tr>
-                            <th>Команда 1</th>
-                            <th>Счет</th>
-                            <th>Команда 2</th>
-                        </tr>
-                        <tr class="widget-list3" th:each="match: ${offGroup.matches}">
-                            <td th:text="${match.firstTeam}"></td>
-                            <td th:if="${match.matchFinalResult==null}">ожидается</td>
-                            <td th:if="${match.matchFinalResult!=null}" th:text="${match.matchFinalResult.firstResult+' '+match.matchFinalResult.secondResult}"></td>
-                            <td th:text="${match.secondTeam}"></td>
-                        </tr>
-                    </table>
+                    <div class="simple-little-table" th:if="${!offGroup.matches.isEmpty()}">
+                        <h2 th:text="${offGroup.groupName}" ></h2>
+                        <h2>
+                            <span class="span-class" th:each="match: ${offGroup.matches}">
+                                <span th:text="${match.firstTeam}"></span>
+                                <span th:if="${match.matchFinalResult==null}"> - </span>
+                                <span th:if="${match.matchFinalResult!=null}" th:text="${match.matchFinalResult.firstResult+' - '+match.matchFinalResult.secondResult}"></span>
+                                <span th:text="${match.secondTeam}"></span>
+                            </span>
+                        </h2>
+                    </div>
                     <br>
                 </div>
+
+                <!--<div th:each="offGroup: ${offGroups}">-->
+                    <!--<table class="simple-little-table" th:if="${!offGroup.matches.isEmpty()}">-->
+                        <!--<tr>-->
+                            <!--<th th:text="${offGroup.groupName}" colspan="3"></th>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                            <!--<th>Команда 1</th>-->
+                            <!--<th>Счет</th>-->
+                            <!--<th>Команда 2</th>-->
+                        <!--</tr>-->
+                        <!--<tr class="widget-list3" th:each="match: ${offGroup.matches}">-->
+                            <!--<td th:text="${match.firstTeam}"></td>-->
+                            <!--<td th:if="${match.matchFinalResult==null}">ожидается</td>-->
+                            <!--<td th:if="${match.matchFinalResult!=null}" th:text="${match.matchFinalResult.firstResult+' - '+match.matchFinalResult.secondResult}"></td>-->
+                            <!--<td th:text="${match.secondTeam}"></td>-->
+                        <!--</tr>-->
+                    <!--</table>-->
+                    <!--<br>-->
+                <!--</div>-->
 
                 <div th:each="regGroup: ${regGroups}">
                     <table class="simple-little-table" th:if="${!regGroup.teamsInGroup.isEmpty()}">
