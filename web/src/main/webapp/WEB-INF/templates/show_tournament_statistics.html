@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Tournament list</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" href="/resources/css/style.css">
+</head>
+<body>
+<div class="wrapper">
+    <div th:replace="header::header"></div>
+
+    <div class="middle">
+        <div class="container">
+            <main class="content">
+                <h2 class="form-title" th:text="${tournament.name}" >Турнир: </h2>
+                <p>Дата начала игр турнира: <span class="span-class" th:text="${tournament.startDate}"> </span></p>
+                <p>Страна организатор турнира: <span class="span-class" th:text="${tournament.organizer.teamName}">  </span></p>
+
+
+                <!--<table class="simple-little-table" th:if="${!offGroup.teamsInGroup.isEmpty()}">-->
+                    <!--<tr>-->
+                        <!--<th>Команда 1</th>-->
+                        <!--<th> vs </th>-->
+                        <!--<th>Команда 2</th>-->
+                    <!--</tr>-->
+                    <!--<tr class="widget-list3" >-->
+                        <!--<td th:if="${playoffTeams.size() > 0}" th:text="${playoffTeams.get(0)}"></td>-->
+                        <!--<td> - </td>-->
+                        <!--<td th:if="${playoffTeams.size() > 1}" th:text="${playoffTeams.get(1)}"></td>-->
+                    <!--</tr>-->
+                <!--</table>-->
+
+                <table class="simple-little-table" th:if="${!regGroup.teamsInGroup.isEmpty()}">
+                    <tr>
+                        <th>Команда</th>
+                    </tr>
+                    <tr class="widget-list3" th:each="team:${regGroup.teamsInGroup}">
+                        <td th:text="${team.teamName}"></td>
+                    </tr>
+                </table>
+
+            </main><!-- .content -->
+        </div><!-- .container-->
+
+        <div th:replace="side_menu::menu"></div>
+    </div><!-- .middle-->
+</div><!-- .wrapper -->
+
+<!--<div sec:authorize="hasAuthority('ADMIN')">-->
+    <!--This content is only shown to administrators. РАБОТАЕТ!!!!-->
+<!--</div>-->
+
+<!--<sec:authorize access="hasRole('ROLE_ADMIN')">-->
+    <!--тут то что видит только ROLE_ADMIN. РАБОТАЕТ!!!!-->
+<!--</sec:authorize>-->
+
+<div th:replace="footer::footer"></div>
+</body>
+</html>

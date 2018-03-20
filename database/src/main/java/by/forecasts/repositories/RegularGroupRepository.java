@@ -7,9 +7,8 @@ import java.util.List;
 
 public interface RegularGroupRepository extends JpaRepository<RegularGroup, Long> {
 
-    RegularGroup getByTournament(Long id);
+//    RegularGroup getByTournament(Long id);
 
     List<RegularGroup> findAllByTournamentId(Long id);
-
 
 }

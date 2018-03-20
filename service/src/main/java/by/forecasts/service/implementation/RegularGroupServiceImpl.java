@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class RegularGroupServiceImpl implements RegularGroupService {
@@ -27,5 +29,10 @@ public class RegularGroupServiceImpl implements RegularGroupService {
         Tournament tournament = tournamentRepository.findOne(tournamentId);
         regularGroup.setTournament(tournament);
         regularGroupRepository.save(regularGroup);
+    }
+
+    @Override
+    public List<RegularGroup> findAllByTournamentId(Long tournamentId) {
+        return regularGroupRepository.findAllByTournamentId(tournamentId);
     }
 }
