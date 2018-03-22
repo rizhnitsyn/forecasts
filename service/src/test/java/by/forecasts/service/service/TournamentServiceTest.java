@@ -58,8 +58,8 @@ public class TournamentServiceTest extends BaseServiceTest {
 
     @Test
     public void closeTournamentTest() {
-        tournamentService.closeTournament(9L);
-        Tournament one = tournamentService.findById(9L);
+        tournamentService.closeTournament(23L);
+        Tournament one = tournamentService.findById(23L);
         assertThat(one.getTournamentState().getId(), equalTo(2L));
     }
 }
