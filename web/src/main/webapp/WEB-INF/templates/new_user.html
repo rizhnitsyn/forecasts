@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Tournament list</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" href="/resources/css/style.css">
+</head>
+<body>
+<div class="wrapper">
+    <div th:replace="header::header"></div>
+
+    <div class="middle">
+        <div class="container">
+            <main class="content">
+
+                <form th:action="@{/saveUser}" method="post" th:object="${newUser}">
+                    <h2 class="form-title">Регистрация</h2>
+                    <p>Имя</p>
+                    <input class="form-field" id="firstName" name="firstName" th:field="*{firstName}">
+                    <span class="span-class_red" th:each="err : ${#fields.errors('firstName')}" th:text="#{${err}}"></span>
+                    <p>Фамилия</p>
+                    <input class="form-field" id="secondName" name="secondName" th:field="*{secondName}">
+                    <span class="span-class_red" th:each="err : ${#fields.errors('secondName')}" th:text="#{${err}}"></span>
+                    <p>Логин для входа</p>
+                    <input class="form-field" id="login" name="login" th:field="*{login}">
+                    <span class="span-class_red" th:each="err : ${#fields.errors('login')}" th:text="#{${err}}"></span>
+                    <p>Пароль для входа</p>
+                    <input class="form-field" id="pass" type="password" name="pass" th:field="*{password}">
+                    <span class="span-class_red" th:each="err : ${#fields.errors('password')}" th:text="#{${err}}"></span>
+                    <p>E-mail</p>
+                    <input class="form-field" id="email" name="email" th:field="*{email}">
+                    <span class="span-class_red" th:each="err : ${#fields.errors('email')}" th:text="#{${err}}"></span>
+                    <br>
+                    <button class="btn-class" type="submit">Зарегистрироваться</button>
+                    <!--<button class="btn-class" type="submit" onclick="regUser()">Зарегистрироваться</button>-->
+                    <p id="displayed-data"></p>
+                </form>
+            </main><!-- .content -->
+        </div><!-- .container-->
+
+        <div th:replace="side_menu::menu"></div>
+    </div><!-- .middle-->
+</div><!-- .wrapper -->
+
+<div th:replace="footer::footer"></div>
+</body>
+</html>

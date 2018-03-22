@@ -5,9 +5,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface ForecastRepository extends JpaRepository<Forecast, Long> {
 
-    Page<Forecast> findAllByUserIdAndMatchTournamentIdAndMatchMatchState(Long userId, Long tournamentId, Long matchStateId, Pageable pageable);
+    Page<Forecast> findAllByUserIdAndMatchTournamentIdAndMatchMatchStateId(Long userId, Long tournamentId, Long matchStateId, Pageable pageable);
 
-    Long countAllByUserIdAndMatchTournamentIdAndMatchMatchState(Long userId, Long tournamentId, Long matchStateId);
+    Long countAllByUserIdAndMatchTournamentIdAndMatchMatchStateId(Long userId, Long tournamentId, Long matchStateId);
+
+    Forecast findOneByUserIdAndMatchId(Long userId, Long matchId);
+
+    List<Forecast> findAllByUserIdAndMatchTournamentId(Long userId, Long tournamentId);
 }

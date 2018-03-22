@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Tournament list</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" href="/resources/css/style.css">
+</head>
+<body>
+<div class="wrapper">
+    <div th:replace="header::header"></div>
+
+    <div class="middle">
+        <div class="container">
+            <main class="content">
+                <h2 class="form-title">Выберите турнир для просмотра итогов конкурса прогнозов:</h2>
+                <ul class="widget-list2">
+                    <li th:each="tournament: ${tournaments}">
+                        <a th:href="@{/tournament/resultTable(tournamentId=${tournament.id})}"
+                           th:text="${tournament.name}"></a>
+                        <p> Старт турнира: [[${tournament.startDate}]],
+                            <span class="span-class_green"
+                                  th:if="${tournament.tournamentState.id==1}"
+                                  th:text="${tournament.tournamentState.tournamentState}"></span>
+                            <span class="span-class_red"
+                                  th:if="${tournament.tournamentState.id==2}"
+                                  th:text="${tournament.tournamentState.tournamentState}"></span>
+                        </p>
+                    </li>
+                </ul>
+            </main><!-- .content -->
+        </div><!-- .container-->
+
+        <div th:replace="side_menu::menu"></div>
+    </div><!-- .middle-->
+</div><!-- .wrapper -->
+
+<div th:replace="footer::footer"></div>
+</body>
+</html>

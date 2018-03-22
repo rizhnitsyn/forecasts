@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Tournament list</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" href="/resources/css/style.css">
+</head>
+<body>
+<div class="wrapper">
+    <div th:replace="header::header"></div>
+
+    <div class="middle">
+        <div class="container">
+            <main class="content">
+                <h2 class="form-title" th:text="${tournament.name}" >Турнир: </h2>
+                <p>Дата начала игр турнира: <span class="span-class" th:text="${tournament.startDate}"> </span></p>
+                <p>Страна организатор турнира: <span class="span-class" th:text="${tournament.organizer.teamName}">  </span></p>
+                <br>
+                <div th:each="offGroup: ${offGroups}">
+                    <div class="simple-little-table" th:if="${!offGroup.matches.isEmpty()}">
+                        <h4><span class="span-class" th:text="${offGroup.groupName}"></span></h4>
+                        <h2>
+                            <span class="span-class" th:each="match: ${offGroup.matches}">
+                                <span th:text="${match.firstTeam+'  '}"></span>
+                                <span th:if="${match.matchFinalResult==null}"> - </span>
+                                <span th:if="${match.matchFinalResult!=null}" th:text="${match.matchFinalResult.firstResult+' - '+match.matchFinalResult.secondResult}"></span>
+                                <span th:text="${'  '+match.secondTeam}"></span>
+                            </span>
+                        </h2>
+                    </div>
+                </div>
+                <br>
+
+                <!--<div th:each="offGroup: ${offGroups}">-->
+                    <!--<table class="simple-little-table" th:if="${!offGroup.matches.isEmpty()}">-->
+                        <!--<tr>-->
+                            <!--<th th:text="${offGroup.groupName}" colspan="3"></th>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                            <!--<th>Команда 1</th>-->
+                            <!--<th>Счет</th>-->
+                            <!--<th>Команда 2</th>-->
+                        <!--</tr>-->
+                        <!--<tr class="widget-list3" th:each="match: ${offGroup.matches}">-->
+                            <!--<td th:text="${match.firstTeam}"></td>-->
+                            <!--<td th:if="${match.matchFinalResult==null}">ожидается</td>-->
+                            <!--<td th:if="${match.matchFinalResult!=null}" th:text="${match.matchFinalResult.firstResult+' - '+match.matchFinalResult.secondResult}"></td>-->
+                            <!--<td th:text="${match.secondTeam}"></td>-->
+                        <!--</tr>-->
+                    <!--</table>-->
+                    <!--<br>-->
+                <!--</div>-->
+
+                <div th:each="regGroup: ${regGroups}">
+                    <table class="simple-little-table" th:if="${!regGroup.teamsInGroup.isEmpty()}">
+                        <tr>
+                            <th th:text="${regGroup.groupName}" colspan="6"></th>
+                        </tr>
+                        <tr>
+                            <th>Команда</th>
+                            <th>Победа</th>
+                            <th>Ничья</th>
+                            <th>Поражение</th>
+                            <th>Разница голов</th>
+                            <th>Очки</th>
+                        </tr>
+                        <tr class="widget-list3" th:each="team:${regGroup.teams}">
+                            <td>
+                                <a th:href="@{/team/teamStatistics(tournamentId=${tournament.id}, teamId=${team.id})}"
+                                   th:text="${team.teamName}"></a>
+                            </td>
+                            <td th:text="${team.win}"></td>
+                            <td th:text="${team.draw}"></td>
+                            <td th:text="${team.lose}"></td>
+                            <td th:text="${team.diff}"></td>
+                            <td th:text="${team.points}"></td>
+                            </tr>
+                    </table>
+                    <br>
+                </div>
+            </main><!-- .content -->
+        </div><!-- .container-->
+
+        <div th:replace="side_menu::menu"></div>
+    </div><!-- .middle-->
+</div><!-- .wrapper -->
+
+<!--<div sec:authorize="hasAuthority('ADMIN')">-->
+    <!--This content is only shown to administrators. РАБОТАЕТ!!!!-->
+<!--</div>-->
+
+<!--<sec:authorize access="hasRole('ROLE_ADMIN')">-->
+    <!--тут то что видит только ROLE_ADMIN. РАБОТАЕТ!!!!-->
+<!--</sec:authorize>-->
+
+<div th:replace="footer::footer"></div>
+</body>
+</html>

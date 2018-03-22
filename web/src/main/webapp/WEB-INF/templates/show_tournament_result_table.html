@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Tournament list</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" href="/resources/css/style.css">
+</head>
+<body>
+<div class="wrapper">
+    <div th:replace="header::header"></div>
+
+    <div class="middle">
+        <div class="container">
+            <main class="content">
+                <h2 class="form-title" th:text="'Результаты турнира: '+${tournament.name}"></h2>
+                    <table class="simple-little-table" th:if="${!users.isEmpty()}">
+                        <caption>Общий итог</caption>
+                        <tr>
+                            <th>ФИО</th>
+                            <th>6 очков</th>
+                            <th>4 очка</th>
+                            <th>3 очка</th>
+                            <th>1 очко</th>
+                            <th>БАЛЛЫ</th>
+                        </tr>
+                        <tr class="widget-list3" th:each="user: ${users}">
+                            <td><a th:href="@{/allUserForecasts(userId=${user.userId},tournamentId=${tournament.id})}"
+                                   th:text="${user.firstName+' '+user.secondName}"></a></td>
+                            <td th:text="${user.guessedResultCount}"></td>
+                            <td th:text="${user.guessedDiffInResultsCount}"></td>
+                            <td th:text="${user.guessedDrawCount}"></td>
+                            <td th:text="${user.guessedWinnersCount}"></td>
+                            <td th:text="${user.totalPoints}"></td>
+                        </tr>
+                    </table>
+                </c:if>
+                <!--<form action="${pageContext.request.contextPath}/resultTable" method="post">-->
+                <!--<button class="btn-class" type="submit" id="idTournament" name="idTournament" value="${requestScope.tournament.id}" onclick="sendToServer()">Выгрузить в файл</button>-->
+                <!--<div class="form-title" id="displayed-data"></div>-->
+                <!--</form>-->
+            </main><!-- .content -->
+        </div><!-- .container-->
+
+        <div th:replace="side_menu::menu"></div>
+    </div><!-- .middle-->
+</div><!-- .wrapper -->
+
+<div th:replace="footer::footer"></div>
+</body>
+</html>

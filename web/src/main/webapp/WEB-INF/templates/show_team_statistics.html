@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Tournament list</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" href="/resources/css/style.css">
+</head>
+<body>
+<div class="wrapper">
+    <div th:replace="header::header"></div>
+
+    <div class="middle">
+        <div class="container">
+            <main class="content">
+                <h2 class="form-title">Статистика команды [[${sessionTeam.teamName}]] в чемпионате [[${tournament.name}]]</h2>
+
+                <table class="simple-little-table" th:if="${!matches.isEmpty()}">
+                    <tr>
+                        <th>Матч</th>
+                        <th>Группа</th>
+                        <th>Дата матча</th>
+                        <th>Счет</th>
+                        <th>Итог</th>
+                    </tr>
+                    <tr class="widget-list3" th:each="match: ${matches}">
+                        <td th:text="${match.firstTeam.teamName+' - '+match.secondTeam.teamName}"></td>
+                        <td th:text="${match.groupName}"></td>
+                        <td th:text="${#temporals.format(match.matchDateTime,'dd.MM.yyyy HH:mm')}"></td>
+                        <td>
+                            <span class="span-class_red" th:if="${match.matchScore==null}" th:text="'ожидается'"></span>
+                            <span th:if="${match.matchScore!=null}" th:text="${match.matchScore.firstResult+' - '+match.matchScore.secondResult}"></span>
+                        </td>
+                        <td>
+                            <span class="span-class_green" th:if="${match.matchResultInt==1}" th:text="'победа'"></span>
+                            <span class="span-class_red" th:if="${match.matchResultInt==3}" th:text="'поражение'"></span>
+                            <span class="span-class_yellow" th:if="${match.matchResultInt==2}" th:text="'ничья'"></span>
+                            <span th:if="${match.matchResultInt==0}" th:text="''"></span>
+                        </td>
+                    </tr>
+                </table>
+
+            </main><!-- .content -->
+        </div><!-- .container-->
+
+        <div th:replace="side_menu::menu"></div>
+    </div><!-- .middle-->
+</div><!-- .wrapper -->
+<div th:replace="footer::footer"></div>
+</body>
+</html>

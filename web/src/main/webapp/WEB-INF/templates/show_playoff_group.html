@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Group</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" href="/resources/css/style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div th:replace="header::header"></div>
+
+        <div class="middle">
+            <div class="container">
+                <main class="content">
+                    <h2 class="form-title">[[${offGroup.groupName}]] турнира [[${tournament.name}]]:</h2>
+                    <p>Количество матчей между командами: <span class="span-class" th:text="${offGroup.matchesCountBetweenTeams}"></span></p>
+                    <p>Дополнительное время:
+                        <span class="span-class" th:if="${offGroup.extraTimeAllowed}" >разрешено</span>
+                        <span class="span-class" th:if="${!offGroup.extraTimeAllowed}" >запрещено</span>
+                    </p>
+
+                    <table class="simple-little-table" th:if="${!offGroup.teamsInGroup.isEmpty()}">
+                        <tr>
+                            <th>Команда 1</th>
+                            <th> vs </th>
+                            <th>Команда 2</th>
+                        </tr>
+                        <tr class="widget-list3" >
+                            <td th:if="${playoffTeams.size() > 0}" th:text="${playoffTeams.get(0)}"></td>
+                            <td> - </td>
+                            <td th:if="${playoffTeams.size() > 1}" th:text="${playoffTeams.get(1)}"></td>
+                        </tr>
+                    </table>
+                    <br>
+
+                    <form th:action="@{/group/add(grId=${offGroup.id})}"
+                          th:if="${offGroup.teamsInGroup.size() < 2}"
+                          th:method="post"
+                          sec:authorize="hasAuthority('ADMIN')">
+                        <p>Добавить команду: </p>
+                        <select class="form-field" id="newTeam" name="newTeam">
+                            <option th:each="team:${teams}"
+                                    th:text="${team.teamName}"
+                                    th:value="${team.id}"></option>
+                        </select>
+                        <button class="btn-class" type="submit">Добавить</button>
+                    </form>
+
+                    <form th:action="@{/group/del(grId=${offGroup.id})}" th:method="post" sec:authorize="hasAuthority('ADMIN')">
+                        <p>Удалить команду: </p>
+                        <select class="form-field" id="delTeam" name="delTeam">
+                            <option th:each="team:${offGroup.teamsInGroup}"
+                                    th:text="${team.teamName}"
+                                    th:value="${team.id}"></option>
+                        </select>
+                        <button class="btn-class" type="submit">Удалить</button>
+                    </form>
+
+                    <ul class="widget-list3">
+                        <li><a th:href="@{/matches/calendar(grId=${offGroup.id})}">График игр</a></li>
+                        <br>
+                        <li><a th:href="@{/tournament/groups(trId=${tournament.id})}">Вернуться к списку групп</a></li>
+                    </ul>
+
+                </main><!-- .content -->
+            </div><!-- .container-->
+
+            <div th:replace="side_menu::menu"></div>
+        </div><!-- .middle-->
+    </div><!-- .wrapper -->
+    <div th:replace="footer::footer"></div>
+
+</body>
+</html>

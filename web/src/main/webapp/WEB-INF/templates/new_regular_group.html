@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Group</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" href="/resources/css/style.css">
+</head>
+<body>
+<div class="wrapper">
+    <div th:replace="header::header"></div>
+
+    <div class="middle">
+        <div class="container">
+            <main class="content">
+
+                <form th:action="@{/tournament/groups/createRegularGroup}" th:method="post" th:object="${regularGroup}">
+                    <h2 class="form-title">Создаем новую группу</h2>
+                    <p>Наименование группы</p>
+                    <input class="form-field" id="name" name="name" th:field="*{groupName}">
+                    <span class="span-class_red" th:each="err : ${#fields.errors('groupName')}" th:text="#{${err}}"></span>
+                    <p>Количество матчей между командами</p>
+                    <input class="form-field" id="matchCount" name="matchCount" th:field="*{matchesCountBetweenTeams}">
+                    <span class="span-class_red" th:each="err : ${#fields.errors('matchesCountBetweenTeams')}" th:text="#{${err}}"></span>
+                    <p>Количество команд в группе</p>
+                    <input class="form-field" id="teamCount" name="teamCount" th:field="*{teamsCountInGroup}">
+                    <span class="span-class_red" th:each="err : ${#fields.errors('teamsCountInGroup')}" th:text="#{${err}}"></span>
+                    <p>Количество команд выходяйщих в плейофф</p>
+                    <input class="form-field" id="playoffCount" name="playoffCount" th:field="*{groupOutCount}">
+                    <span class="span-class_red" th:each="err : ${#fields.errors('groupOutCount')}" th:text="#{${err}}"></span>
+                    <br>
+                    <button class="btn-class" type="submit">Создать группу</button>
+                </form>
+
+            </main><!-- .content -->
+        </div><!-- .container-->
+
+        <div th:replace="side_menu::menu"></div>
+    </div><!-- .middle-->
+</div><!-- .wrapper -->
+
+<div th:replace="footer::footer"></div>
+
+</body>
+</html>

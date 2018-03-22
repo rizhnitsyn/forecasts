@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Tournament info</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" href="/resources/css/style.css">
+</head>
+<body>
+<div class="wrapper">
+    <div th:replace="header::header"></div>
+
+    <div class="middle">
+        <div class="container">
+            <main class="content">
+
+                <h2 class="form-title">Список групп турнира [[${tournament.name}]]:</h2>
+                <p>Для добавлния команд в группу кликните по группе или создайте новую группу.</p>
+
+                <ul class="widget-list2">
+                    <li th:each="group:${groups}">
+                        <a th:href="@{/group(grId=${group.id})}"
+                           th:text="${group.groupName}"></a>
+                        <span class="span-class-list" th:if="${group.teamsInGroup.size()<5}"
+                              th:text="${group.teamsInGroup}"></span>
+                    </li>
+                </ul>
+                <br>
+                <br>
+                <form th:action="@{/tournament/groups}" th:method="post">
+                    <p>Для создания новой группы выберите тип группы и нажмите "Создать"</p>
+                    <br>
+                    <p>Тип новой группы:
+                        <label for="regular">
+                            <input type="radio" name="groupTypeId" id="regular" th:value="1" th:checked="true">
+                            <span>Регулярная</span>
+                        </label>
+                        <label for="playoff">
+                            <input type="radio" name="groupTypeId" id="playoff" th:value="2">
+                            <span>Плейофф</span>
+                        </label>
+                    </p>
+                    <button class="btn-class" type="submit">Создать новую группу</button>
+                </form>
+
+            </main><!-- .content -->
+        </div><!-- .container-->
+
+        <!--th:text="(${group.teamsInGroup.size()}<=4)-->
+        <!--? ${group.groupName}-->
+        <!--: ${group.groupName+' '+group.teamsInGroup}"></a>-->
+
+        <div th:replace="side_menu::menu"></div>
+    </div><!-- .middle-->
+</div><!-- .wrapper -->
+
+<div th:replace="footer::footer"></div>
+
+</body>
+</html>

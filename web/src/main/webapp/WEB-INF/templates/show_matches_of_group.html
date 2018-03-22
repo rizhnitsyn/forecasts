@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Tournament list</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" href="/resources/css/style.css">
+</head>
+<body>
+<div class="wrapper">
+    <div th:replace="header::header"></div>
+
+    <div class="middle">
+        <div class="container">
+            <main class="content">
+
+                <h3 class="form-title">График игр в турнире [[${tournament.name}]], [[${group.groupName}]]</h3>
+                <table class="simple-little-table" th:if="${!matches.isEmpty()}">
+                    <tr>
+                        <th>Матч</th>
+                        <th>Дата матча</th>
+                    </tr>
+                    <tr class="widget-list3" th:each="match: ${matches}">
+                        <td th:text="${match.firstTeam.teamName+' - '+match.secondTeam.teamName}"></td>
+                        <td th:text="${#temporals.format(match.matchDateTime,'dd.MM.yyyy HH:mm')}"></td>
+                    </tr>
+                </table>
+
+                <br>
+                <div class="form-title" id="displayed-data" th:text="${errorMsg}"></div>
+
+                <br/>
+                <form th:action="@{/matches/calendar(grId=${group.id})}" th:method="post">
+                    <button class="btn-class" type="submit">Добавить новый матч </button>
+                </form>
+
+                <ul class="widget-list3">
+                    <li><a th:href="@{/tournament/groups(trId=${tournament.id})}">Вернуться к списку групп</a></li>
+                </ul>
+
+            </main><!-- .content -->
+        </div><!-- .container-->
+
+        <div th:replace="side_menu::menu"></div>
+    </div><!-- .middle-->
+</div><!-- .wrapper -->
+
+<div th:replace="footer::footer"></div>
+
+</body>
+</html>

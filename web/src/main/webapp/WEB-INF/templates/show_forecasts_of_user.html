@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Tournament list</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" href="/resources/css/style.css">
+</head>
+<body>
+<div class="wrapper">
+    <div th:replace="header::header"></div>
+
+    <div class="middle">
+        <div class="container">
+            <main class="content">
+                <h3 class="form-title">Результаты матчей и прогнозы пользователя</h3>
+                <h3 class="form-title2" th:text="${user.firstName+' '+user.secondName}"></h3>
+                <h3 class="form-title">на турнир: [[${tournament.name}]]</h3>
+                <table class="simple-little-table" th:if="${!matches.isEmpty()}">
+                    <tr>
+                        <th>Матч</th>
+                        <th>Группа</th>
+                        <th>Счет</th>
+                        <th>Прогноз</th>
+                        <th>Очки за матч</th>
+                        <th>Дата матча</th>
+                    </tr>
+                    <tr class="widget-list3" th:each="match: ${matches}">
+                        <td><a th:href="@{/match(matchId=${match.id})}" th:text="${match.firstTeam.teamName+' - '+match.secondTeam.teamName}"></a></td>
+                        <td th:text="${match.groupName}"></td>
+                        <td>
+                            <span th:if="${match.matchScore!=null}" th:text="${match.matchScore.firstResult+' - '+match.matchScore.secondResult}"></span>
+                            <span class="span-class_red" th:if="${match.matchScore==null}" th:text="'ожидается'"></span>
+                        </td>
+                        <td>
+                            <span th:if="${match.currentUserForecast!=null}"
+                                  th:text="${match.currentUserForecast.matchForecast.firstResult+' - '+match.currentUserForecast.matchForecast.secondResult}"></span>
+                            <span class="span-class_red" th:if="${match.currentUserForecast==null}" th:text="'нет прогноза'"></span>
+                        </td>
+                        <td th:text="${match.userPoints}"></td>
+                        <td th:text="${match.matchDateTimeString}"></td>
+                    </tr>
+                </table>
+                <div th:if="${!matches.isEmpty()}">
+                   <span th:each="page:${#numbers.sequence(0, totalPages)}" th:if="${totalPages>1}">
+                   <a th:href="@{/allUserForecasts(userId=${user.id},pageId=${page})}"
+                      th:text="${page+1}">page</a>
+                   </span>
+                </div>
+            </main><!-- .content -->
+        </div><!-- .container-->
+
+        <div th:replace="side_menu::menu"></div>
+    </div><!-- .middle-->
+</div><!-- .wrapper -->
+
+<div th:replace="footer::footer"></div>
+
+</body>
+</html>
