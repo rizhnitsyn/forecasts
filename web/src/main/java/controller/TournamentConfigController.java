@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -76,9 +77,10 @@ public class TournamentConfigController {
     }
 
     @PostMapping("/tournament/close")
-    public String closeTournamentBtn(@ModelAttribute("tournament") TournamentShortViewDto tournament) {
+    public RedirectView closeTournamentBtn(@ModelAttribute("tournament") TournamentShortViewDto tournament) {
         tournamentService.closeTournament(tournament.getId());
-        return "redirect: /tournamentList";
+        return new RedirectView("/tournamentList");
+//        return "redirect: /tournamentList";
     }
 
     @PostMapping("/tournament/config")
